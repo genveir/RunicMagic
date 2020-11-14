@@ -13,6 +13,11 @@ namespace RunicMagic.World
             }
         }
 
+        public static void DestroyInstance()
+        {
+            _instance = null;
+        }
+
         private TheWorld() {}
 
         public HashSet<IRoom> Rooms { get; }
