@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace RunicMagic.Spells
 {
-    public class Spell 
+    public class Spell : ISpell
     {
         public Spell() 
         {

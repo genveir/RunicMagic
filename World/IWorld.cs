@@ -26,9 +26,4 @@ namespace RunicMagic.World {
 
         int Hitpoints { get; set; }
     }
-
-    public interface ISpell
-    {
-        void Execute(IPlayer caster, object executor);
-    }
 }
