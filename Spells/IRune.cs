@@ -8,6 +8,7 @@ namespace RunicMagic.Spells
         string Name { get; }
         List<string> Types {get;}
         void Parse(Stack<IRune> stack);
+        string Debug();
     }
 
 }
