@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace RunicMagic.World
 {
-    public class TheWorld
+    public class TheWorld : IWorld
     {
         private static TheWorld _instance;
 

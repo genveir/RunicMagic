@@ -2,6 +2,11 @@ using System;
 using System.Collections.Generic;
 
 namespace RunicMagic.World {
+    public interface IWorld
+    {
+        HashSet<IRoom> Rooms { get; }
+    }
+
     public interface IRoom 
     {
         string Name { get; }
