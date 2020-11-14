@@ -13,7 +13,7 @@ namespace RunicMagic.Spells
 
         public void Execute(IPlayer caster, object executor)
         {
-            World.World.Instance.GetTheOnlyRoom().Entities.Where(e => e.Name == "Orc").Single().Hitpoints = 0;
+            TheWorld.Instance.GetTheOnlyRoom().Entities.Where(e => e.Name == "Orc").Single().Hitpoints = 0;
         }
     }
 }

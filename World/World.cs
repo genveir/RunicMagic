@@ -1,17 +1,17 @@
-namespace RunicMagic.World 
+namespace RunicMagic.World
 {
-    public class World
+    public class TheWorld
     {
-        private static World _instance;
+        private static TheWorld _instance;
 
-        public static World Instance {
+        public static TheWorld Instance {
             get {
-                if (_instance == null) _instance = new World();
+                if (_instance == null) _instance = new TheWorld();
                 return _instance;
             }
         }
 
-        private World() {}
+        private TheWorld() {}
 
         public IRoom GetTheOnlyRoom()
         {

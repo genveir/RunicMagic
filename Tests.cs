@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RunicMagic.World;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
@@ -10,7 +11,7 @@ namespace RunicMagic
         [Fact]
         public void CanConstructWorld() 
         {
-            var world = World.World.Instance;
+            var world = TheWorld.Instance;
 
             Assert.NotNull(world);
         }
@@ -18,7 +19,7 @@ namespace RunicMagic
         [Fact]
         public void WorldHasARoom()
         {
-            var world = World.World.Instance;
+            var world = TheWorld.Instance;
 
             Assert.NotNull(world.GetTheOnlyRoom());
         }
