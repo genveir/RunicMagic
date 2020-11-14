@@ -36,6 +36,8 @@ namespace RunicMagic.World {
     {
         string Name { get; }
 
+        string ShortDesc { get; }
+
         IRoom Location { get; }
 
         int Hitpoints { get; set; }
