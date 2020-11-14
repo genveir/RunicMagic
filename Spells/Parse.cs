@@ -11,11 +11,11 @@ namespace RunicMagic.Spells
         public string reason;
 
 
-        private ParseResult(ISpell s, bool succ, string reason = null)
+        private ParseResult(ISpell spell, bool success, string reason = null)
         {
-            spell = s;
-            success = succ;
-            reason = reason;
+            this.spell = spell;
+            this.success = success;
+            this.reason = reason;
         }
 
         public static ParseResult Succeed(ISpell spell) { return new ParseResult(spell, true); }
