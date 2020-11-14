@@ -6,6 +6,9 @@ namespace RunicMagic.World {
     
     public interface IModel
     {
+        IWorld GetWorld();
+        IPlayer GetPlayer();
+
         void ExecuteInput(IInput input);
 
         bool KeepRunning { get; }

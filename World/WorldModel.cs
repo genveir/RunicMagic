@@ -8,6 +8,9 @@ namespace RunicMagic.World
 {
     public class WorldModel : IModel
     {
+        public IWorld GetWorld() { return TheWorld.Instance; }
+        public IPlayer GetPlayer() { return Player.Instance; }
+
         public bool KeepRunning { get; set; } = true;
 
         public ICollection<string> Feedback { get; }
@@ -27,7 +30,7 @@ namespace RunicMagic.World
                 var spell = Parser.Parse(asString.Substring(5));
                 if (!spell.success)
                 {
-                    Feedback.Add("You failed to cast the spell");
+                    Feedback.Add(spell.reason);
                 }
                 else
                 {

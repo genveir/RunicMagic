@@ -7,12 +7,20 @@ namespace RunicMagic.View
 {
     public class ConsoleView : IView
     {
-        public void Display()
+        IWorld world;
+        IPlayer player;
+
+        public void Display(IModel model)
         {
-            var roomToDisplay = Player.Instance.Location;
+            this.world = model.GetWorld();
+            this.player = model.GetPlayer();
+
+            var roomToDisplay = player.Location;
 
             var currentBackgroundColor = Console.BackgroundColor;
             var currentForegroundColor = Console.ForegroundColor;
+
+            DisplayFeedback(model);
 
             DisplayRoomName(roomToDisplay);
             DisplayRoomDescription(roomToDisplay);
@@ -23,6 +31,15 @@ namespace RunicMagic.View
 
             Console.BackgroundColor = currentBackgroundColor;
             Console.ForegroundColor = currentForegroundColor;
+        }
+
+        private void DisplayFeedback(IModel model)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            foreach(var line in model.Feedback)
+            {
+                Console.WriteLine(line);
+            }
         }
 
         private void DisplayRoomName(IRoom roomToDisplay)
@@ -46,7 +63,7 @@ namespace RunicMagic.View
             Console.ForegroundColor = ConsoleColor.Magenta;
             foreach (var entity in roomToDisplay.Entities)
             {
-                if (entity != Player.Instance) 
+                if (entity != player) 
                 {
                     Console.WriteLine($"{entity.ShortDesc ?? entity.Name} is here.");
                 }
@@ -61,7 +78,7 @@ namespace RunicMagic.View
 
         private void DisplayPrompt()
         {
-            Console.Write($"{Player.Instance.Hitpoints}hp)> ");
+            Console.Write($"{player.Hitpoints}hp)> ");
         }
 
         public IInput GetInput()

@@ -21,7 +21,7 @@ namespace RunicMagic
         {
             while(model.KeepRunning)
             {
-                view.Display();
+                view.Display(model);
 
                 var input = view.GetInput();
 
