@@ -1,7 +1,16 @@
+using RunicMagic.View;
 using System;
 using System.Collections.Generic;
 
 namespace RunicMagic.World {
+    
+    public interface IModel
+    {
+        void ExecuteInput(IInput input);
+
+        bool KeepRunning { get; }
+    }
+    
     public interface IWorld
     {
         HashSet<IRoom> Rooms { get; }

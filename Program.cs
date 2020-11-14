@@ -1,4 +1,5 @@
-﻿using RunicMagic.World;
+﻿using RunicMagic.View;
+using RunicMagic.World;
 using System;
 
 namespace RunicMagic
@@ -9,7 +10,9 @@ namespace RunicMagic
         {
             new WorldBuilder().InitializeTheWorld();
 
+            new GameRunner(new ConsoleView(), new WorldModel()).Run();
 
+            
         }
     }
 }
