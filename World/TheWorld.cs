@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace RunicMagic.World
 {
     public class TheWorld
@@ -13,9 +15,6 @@ namespace RunicMagic.World
 
         private TheWorld() {}
 
-        public IRoom GetTheOnlyRoom()
-        {
-            throw new System.NotImplementedException();
-        }
+        public HashSet<IRoom> Rooms { get; }
     }
 }

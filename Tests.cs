@@ -21,7 +21,7 @@ namespace RunicMagic
         {
             var world = TheWorld.Instance;
 
-            Assert.NotNull(world.GetTheOnlyRoom());
+            Assert.True(world.Rooms.Count > 0);
         }
     }
 }
