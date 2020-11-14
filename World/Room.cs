@@ -10,7 +10,7 @@ namespace RunicMagic.World
 
         public string Description { get; set; }
 
-        public IEnumerable<IMobile> Entities { get; set; }
+        public ICollection<IMobile> Entities { get; set; }
 
         public Room(string name, string description)
         {
