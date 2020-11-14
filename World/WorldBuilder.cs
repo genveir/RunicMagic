@@ -14,6 +14,10 @@ namespace RunicMagic.World
             world.Rooms.Add(theOnlyRoom);
 
             Player.Initialize("The Player", theOnlyRoom);
+            Player.Instance.Hitpoints = 10;
+
+            var orc = new Creature("Orc", theOnlyRoom);
+            orc.Hitpoints = 10;
         }
     }
 }

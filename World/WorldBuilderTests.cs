@@ -36,6 +36,15 @@ namespace RunicMagic.World
             new WorldBuilder().InitializeTheWorld();
 
             Assert.NotNull(TheWorld.Instance.ThePlayer);
+            Assert.Equal(10, TheWorld.Instance.ThePlayer.Hitpoints);
+        }
+
+        [Fact]
+        public void IntitializeTheWorldAddsAnOrcInTheSameRoomAsThePlayer()
+        {
+            new WorldBuilder().InitializeTheWorld();
+
+            Assert.Contains(TheWorld.Instance.ThePlayer.Location.Entities, e => e.Name == "Orc" && e.Hitpoints == 10);
         }
     }
 }
