@@ -8,6 +8,8 @@ namespace RunicMagic.World
     {
         public string Name { get; set; }
 
+        public string ShortDesc { get; set; }
+
         public IRoom Location { get; set; }
 
         public int Hitpoints { get; set; }
