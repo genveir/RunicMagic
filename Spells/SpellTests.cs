@@ -13,7 +13,7 @@ namespace RunicMagic.Spells
         {
             var spell = Parser.Parse("ZU BEH");
             Assert.NotNull(spell);
-            Assert.True(spell.Debug() == "zu(beh)");
+            Assert.True(spell.spell.Debug() == "zu(beh)");
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace RunicMagic.Spells
         {
             var spell = Parser.Parse("BASDU TI OH");
             Assert.NotNull(spell);
-            Assert.True(spell.Debug() == "basdu(ti(oh,imo))");
+            Assert.True(spell.spell.Debug() == "basdu(ti(oh,imo))");
         }
 
     }

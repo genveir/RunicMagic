@@ -9,15 +9,19 @@ namespace RunicMagic.Spells
 
         private IRune arg;
 
-        public void Parse(Stack<IRune> stack)
+        public bool Parse(Stack<IRune> stack)
         {
             var arg1 = stack.Pop();
             if (!arg1.Types.Contains("reference") && !arg1.Types.Contains("statement"))
             {
                 throw new System.Exception("Parse exception");
             }
-            arg1.Parse(stack);
+            if (!arg1.Parse(stack))
+            {
+                return false;
+            }
             arg = arg1;
+            return true;
         }
 
         public string Debug() {
@@ -28,7 +32,7 @@ namespace RunicMagic.Spells
     {
         public string Name => "beh";
         public List<string> Types => new List<string>{"reference"};
-        public void Parse(Stack<IRune> stack) {}
+        public bool Parse(Stack<IRune> stack) { return true; }
         public string Debug() {
             return Name;
         }
@@ -38,15 +42,19 @@ namespace RunicMagic.Spells
         public string Name => "basdu";
         private IRune arg;
         public List<string> Types => new List<string>{"statement"};
-        public void Parse(Stack<IRune> stack)
+        public bool Parse(Stack<IRune> stack)
         {
             var arg1 = stack.Pop();
             if (!arg1.Types.Contains("statement"))
             {
-                throw new System.Exception("Parse exception");
+                return false;
             }
-            arg1.Parse(stack);
+            if (!arg1.Parse(stack))
+            {
+                return false;
+            }
             arg = arg1;
+            return true;
         }
         public string Debug() {
             return $"{Name}({arg.Debug()})";    
@@ -58,12 +66,15 @@ namespace RunicMagic.Spells
         private IRune from;
         private IRune amount;
         public List<string> Types => new List<string>{"powersource", "statement"};
-        public void Parse(Stack<IRune> stack)
+        public bool Parse(Stack<IRune> stack)
         {
             if (stack.Count != 0 && stack.Peek().Types.Contains("powersource"))
             {
                 var arg1 = stack.Pop();
-                arg1.Parse(stack);
+                if (!arg1.Parse(stack))
+                {
+                    return false;
+                }
                 from = arg1;
             }
             else {
@@ -73,13 +84,17 @@ namespace RunicMagic.Spells
             if (stack.Count != 0 && stack.Peek().Types.Contains("number"))
             {
                 var arg2 = stack.Pop();
-                arg2.Parse(stack);
+                if (!arg2.Parse(stack))
+                {
+                    return false;
+                }
                 amount = arg2;
             }
             else {
                 //default
                 amount = new Imo();
             }
+            return true;
         }
         public string Debug() {
             return $"{Name}({from.Debug()},{amount.Debug()})";    
@@ -89,7 +104,7 @@ namespace RunicMagic.Spells
     {
         public string Name => "oh";
         public List<string> Types => new List<string>{"powersource"};
-        public void Parse(Stack<IRune> stack) {}
+        public bool Parse(Stack<IRune> stack) { return true; }
         public string Debug() {
             return Name;    
         }
@@ -98,7 +113,7 @@ namespace RunicMagic.Spells
     {
         public string Name => "a";
         public List<string> Types => new List<string>{"scope", "powersource"};
-        public void Parse(Stack<IRune> stack) {}
+        public bool Parse(Stack<IRune> stack) { return true; }
         public string Debug() {
             return Name;    
         }
@@ -107,7 +122,7 @@ namespace RunicMagic.Spells
     {
         public string Name => "imo";
         public List<string> Types => new List<string>{"number"};
-        public void Parse(Stack<IRune> stack) {}
+        public bool Parse(Stack<IRune> stack) { return true; }
         public string Debug() {
             return Name;    
         }

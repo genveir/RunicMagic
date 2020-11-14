@@ -18,8 +18,14 @@ namespace RunicMagic.World
             else if (asString.StartsWith("cast"))
             {
                 var spell = Parser.Parse(asString.Substring(5));
-
-                spell.Execute(Player.Instance, Player.Instance);
+                if (!spell.success)
+                {
+                    // Geerten los hier je merge conflict op
+                }
+                else
+                {
+                    spell.spell.Execute(Player.Instance, Player.Instance);
+                }
             }
         }
     }
