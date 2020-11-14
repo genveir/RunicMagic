@@ -16,6 +16,8 @@ namespace RunicMagic.World
         {
             this.Name = name;
             this.Location = location;
+
+            location.Entities.Add(this);
         }
     }
 }

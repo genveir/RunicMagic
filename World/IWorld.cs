@@ -13,7 +13,7 @@ namespace RunicMagic.World {
 
         string Description { get; }
 
-        IEnumerable<IMobile> Entities { get; }
+        ICollection<IMobile> Entities { get; }
     }
 
     public interface IPlayer : IMobile
