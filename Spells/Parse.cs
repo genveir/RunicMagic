@@ -8,12 +8,18 @@ namespace RunicMagic.Spells
     {
         public ISpell spell;
         public bool success;
+        public string reason;
 
-        public ParseResult(ISpell s, bool succ)
+
+        private ParseResult(ISpell s, bool succ, string reason = null)
         {
             spell = s;
             success = succ;
+            reason = reason;
         }
+
+        public static ParseResult Succeed(ISpell spell) { return new ParseResult(spell, true); }
+        public static ParseResult Fail(string reason) { return new ParseResult(null, false, reason); }
     }
     public static class Parser
     {
@@ -27,17 +33,17 @@ namespace RunicMagic.Spells
                 IRune r;
                 var success = lookup(runesRaw[runesRaw.Length-i-1], out r);
                 if (!success) {
-                    return new ParseResult(null, false);
+                    return ParseResult.Fail("lookup failed");
                 }
                 runes.Push(r);
             }
             var root = runes.Pop();
             if (!root.Parse(runes))
             {
-                return new ParseResult(null, false);
+                return ParseResult.Fail("failed to parse spell");
             }
-            if (runes.Count != 0) return new ParseResult(null, false);
-            return new ParseResult(new Spell(root), true);
+            if (runes.Count != 0) return ParseResult.Fail("not all runes were used");
+            return ParseResult.Succeed(new Spell(root));
         }
 
         private static bool lookup(string runestr, out IRune rune)

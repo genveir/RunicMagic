@@ -10,6 +10,13 @@ namespace RunicMagic.World
     {
         public bool KeepRunning { get; set; } = true;
 
+        public ICollection<string> Feedback { get; }
+
+        public WorldModel()
+        {
+            Feedback = new List<string>();
+        }
+
         public void ExecuteInput(IInput input)
         {
             var asString = input.ParseInput();
@@ -20,10 +27,11 @@ namespace RunicMagic.World
                 var spell = Parser.Parse(asString.Substring(5));
                 if (!spell.success)
                 {
-                    // Geerten los hier je merge conflict op
+                    Feedback.Add("You failed to cast the spell");
                 }
                 else
                 {
+                    Feedback.Add("You succesfully cast the spell");
                     spell.spell.Execute(Player.Instance, Player.Instance);
                 }
             }

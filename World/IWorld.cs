@@ -9,6 +9,8 @@ namespace RunicMagic.World {
         void ExecuteInput(IInput input);
 
         bool KeepRunning { get; }
+
+        ICollection<string> Feedback { get; }
     }
     
     public interface IWorld
