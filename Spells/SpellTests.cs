@@ -21,7 +21,7 @@ namespace RunicMagic.Spells
         {
             var spell = Parser.Parse("BASDU TI OH");
             Assert.NotNull(spell);
-            Assert.True(spell.Debug() == "basdu(ti(oh))");
+            Assert.True(spell.Debug() == "basdu(ti(oh,imo))");
         }
 
     }

@@ -15,7 +15,7 @@ namespace RunicMagic.Spells
 
         public string Debug()
         {
-            return "";
+            return root.Debug();
         }
 
         public void Execute(IPlayer caster, object executor)
