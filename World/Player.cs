@@ -4,11 +4,27 @@ using System.Text;
 
 namespace RunicMagic.World
 {
-    public class Player : Creature
+    public class Player : Creature, IPlayer
     {
-        public Player(string name, IRoom location) : base(name, location)
-        {
+        private static IPlayer _player;
 
+        public static IPlayer Instance { 
+            get
+            {
+                return _player;
+            } 
+        }
+        private Player(string name, IRoom location) : base(name, location) { }
+
+        public static void Initialize(string name, IRoom location)
+        {
+            if (_player == null) _player = new Player(name, location);
+            else throw new PlayerAlreadyInitializedException("Player was already initialized");
+        }
+
+        public static void DestroyInstance()
+        {
+            _player = null;
         }
 
         public void Cast(string spell)

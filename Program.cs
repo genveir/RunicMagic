@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RunicMagic.World;
+using System;
 
 namespace RunicMagic
 {
@@ -6,7 +7,9 @@ namespace RunicMagic
     {
         static void Main(string[] args)
         {
-            
+            new WorldBuilder().InitializeTheWorld();
+
+
         }
     }
 }

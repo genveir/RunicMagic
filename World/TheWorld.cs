@@ -18,7 +18,12 @@ namespace RunicMagic.World
             _instance = null;
         }
 
-        private TheWorld() {}
+        private TheWorld() 
+        {
+            Rooms = new HashSet<IRoom>();
+        }
+
+        public IPlayer ThePlayer { get { return Player.Instance; } }
 
         public HashSet<IRoom> Rooms { get; }
     }
