@@ -14,7 +14,7 @@ namespace RunicMagic.Spells
             var arg1 = stack.Pop();
             if (!arg1.Types.Contains("reference") && !arg1.Types.Contains("statement"))
             {
-                throw new System.Exception("Parse exception");
+                return false;
             }
             if (!arg1.Parse(stack))
             {
