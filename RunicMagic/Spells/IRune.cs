@@ -6,7 +6,7 @@ namespace RunicMagic.Spells
     public interface IRune
     {
         string Name { get; }
-        List<string> Types {get;}
+        HashSet<string> Types {get;}
         bool Parse(Stack<IRune> stack);
         int EvaluateCost();
         string Debug();
