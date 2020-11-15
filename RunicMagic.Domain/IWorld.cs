@@ -1,21 +1,7 @@
-using RunicMagic.View;
 using System;
 using System.Collections.Generic;
 
-namespace RunicMagic.World {
-    
-    public interface IModel
-    {
-        IWorld GetWorld();
-        IPlayer GetPlayer();
-
-        void ExecuteInput(IInput input);
-
-        bool KeepRunning { get; }
-
-        ICollection<string> Feedback { get; }
-    }
-    
+namespace RunicMagic.Domain {
     public interface IWorld
     {
         HashSet<IRoom> Rooms { get; }

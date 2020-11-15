@@ -1,4 +1,5 @@
-﻿using RunicMagic.World;
+﻿using RunicMagic.Domain;
+using RunicMagic.World;
 using System;
 using System.Collections.Generic;
 using System.Text;

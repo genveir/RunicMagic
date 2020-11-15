@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>Exe</OutputType>
+	  <GenerateProgramFile>false</GenerateProgramFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RunicMagic.Domain\RunicMagic.Domain.csproj" />
+    <ProjectReference Include="..\RunicMagic.View\RunicMagic.View.csproj" />
+    <ProjectReference Include="..\RunicMagic\RunicMagic.csproj" />
+  </ItemGroup>
+
+</Project>

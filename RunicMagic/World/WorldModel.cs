@@ -1,5 +1,5 @@
-﻿using RunicMagic.Spells;
-using RunicMagic.View;
+﻿using RunicMagic.Domain;
+using RunicMagic.Spells;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -1,10 +1,10 @@
-﻿using RunicMagic.View;
+﻿using RunicMagic.Domain;
 using RunicMagic.World;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RunicMagic
+namespace RunicMagic.Runner
 {
     public class GameRunner
     {

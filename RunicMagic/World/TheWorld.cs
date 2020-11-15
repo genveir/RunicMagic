@@ -1,3 +1,4 @@
+using RunicMagic.Domain;
 using System.Collections.Generic;
 
 namespace RunicMagic.World

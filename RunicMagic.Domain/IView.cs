@@ -1,9 +1,8 @@
-﻿using RunicMagic.World;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RunicMagic.View
+namespace RunicMagic.Domain
 {
     public interface IView
     {
