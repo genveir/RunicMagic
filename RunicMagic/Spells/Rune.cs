@@ -1,15 +1,40 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RunicMagic.Spells
 {
-    public class Zu : IRune
+    public abstract class Rune
     {
-        public string Name => "zu";
+        public abstract bool Parse(Stack<IRune> stack);
+
+        public virtual string Name {get;}
+        public List<IRune> arguments {get;}
+
+        public Rune()
+        {
+            arguments = new List<IRune>();
+        }
+
+        public int EvaluateCost()
+        {
+            return 1 + arguments.Sum(x => x.EvaluateCost());
+        }
+        public string Debug()
+        {
+            if (arguments.Count == 0)
+            {
+                return Name;
+            }
+            var argstr = string.Join(',', arguments.Select(x => x.Debug()));
+            return $"{Name}({argstr})";
+        }
+    }
+    public class Zu : Rune, IRune
+    {
+        override public string Name => "zu";
         public List<string> Types => new List<string>{"executedstatement"};
 
-        private IRune arg;
-
-        public bool Parse(Stack<IRune> stack)
+        override public bool Parse(Stack<IRune> stack)
         {
             var arg1 = stack.Pop();
             if (!arg1.Types.Contains("reference") && !arg1.Types.Contains("statement"))
@@ -20,38 +45,22 @@ namespace RunicMagic.Spells
             {
                 return false;
             }
-            arg = arg1;
+            arguments.Add(arg1);
             return true;
         }
 
-        public int EvaluateCost()
-        {
-            return arg.EvaluateCost() + 1;
-        }
-
-        public string Debug() {
-            return $"{Name}({arg.Debug()})";    
-        }
     }
-    public class Beh : IRune
+    public class Beh : Rune, IRune
     {
-        public string Name => "beh";
+        override public string Name => "beh";
         public List<string> Types => new List<string>{"reference"};
-        public bool Parse(Stack<IRune> stack) { return true; }
-        public string Debug() {
-            return Name;
-        }
-        public int EvaluateCost()
-        {
-            return 1;
-        }
+        override public bool Parse(Stack<IRune> stack) { return true; }
     }
-    public class Basdu : IRune
+    public class Basdu : Rune, IRune
     {
-        public string Name => "basdu";
-        private IRune arg;
+        override public string Name => "basdu";
         public List<string> Types => new List<string>{"statement"};
-        public bool Parse(Stack<IRune> stack)
+        override public bool Parse(Stack<IRune> stack)
         {
             var arg1 = stack.Pop();
             if (!arg1.Types.Contains("statement"))
@@ -62,24 +71,15 @@ namespace RunicMagic.Spells
             {
                 return false;
             }
-            arg = arg1;
+            arguments.Add(arg1);
             return true;
         }
-        public string Debug() {
-            return $"{Name}({arg.Debug()})";    
-        }
-        public int EvaluateCost()
-        {
-            return arg.EvaluateCost() + 1;
-        }
     }
-    public class Ti : IRune
+    public class Ti : Rune, IRune
     {
-        public string Name => "ti";
-        private IRune from;
-        private IRune amount;
+        override public string Name => "ti";
         public List<string> Types => new List<string>{"powersource", "statement"};
-        public bool Parse(Stack<IRune> stack)
+        override public bool Parse(Stack<IRune> stack)
         {
             if (stack.Count != 0 && stack.Peek().Types.Contains("powersource"))
             {
@@ -88,11 +88,11 @@ namespace RunicMagic.Spells
                 {
                     return false;
                 }
-                from = arg1;
+                arguments.Add(arg1);
             }
             else {
                 //default
-                from = new A();
+                arguments.Add(new A());
             }
             if (stack.Count != 0 && stack.Peek().Types.Contains("number"))
             {
@@ -101,59 +101,31 @@ namespace RunicMagic.Spells
                 {
                     return false;
                 }
-                amount = arg2;
+                arguments.Add(arg2);
             }
             else {
                 //default
-                amount = new Imo();
+                arguments.Add(new Imo());
             }
             return true;
         }
-        public string Debug() {
-            return $"{Name}({from.Debug()},{amount.Debug()})";    
-        }
-        public int EvaluateCost()
-        {
-            return from.EvaluateCost() + amount.EvaluateCost() + 1;
-        }
     }
-    public class Oh : IRune
+    public class Oh : Rune, IRune
     {
-        public string Name => "oh";
+        override public string Name => "oh";
         public List<string> Types => new List<string>{"powersource"};
-        public bool Parse(Stack<IRune> stack) { return true; }
-        public string Debug() {
-            return Name;    
-        }
-        public int EvaluateCost()
-        {
-            return 1;
-        }
+        override public bool Parse(Stack<IRune> stack) { return true; }
     }
-    public class A : IRune
+    public class A : Rune, IRune
     {
-        public string Name => "a";
+        override public string Name => "a";
         public List<string> Types => new List<string>{"scope", "powersource"};
-        public bool Parse(Stack<IRune> stack) { return true; }
-        public string Debug() {
-            return Name;    
-        }
-        public int EvaluateCost()
-        {
-            return 1;
-        }
+        override public bool Parse(Stack<IRune> stack) { return true; }
     }
-    public class Imo : IRune
+    public class Imo : Rune, IRune
     {
-        public string Name => "imo";
+        override public string Name => "imo";
         public List<string> Types => new List<string>{"number"};
-        public bool Parse(Stack<IRune> stack) { return true; }
-        public string Debug() {
-            return Name;    
-        }
-        public int EvaluateCost()
-        {
-            return 1;
-        }
+        override public bool Parse(Stack<IRune> stack) { return true; }
     }
 }
