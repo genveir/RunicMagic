@@ -24,6 +24,11 @@ namespace RunicMagic.Spells
             return true;
         }
 
+        public int EvaluateCost()
+        {
+            return arg.EvaluateCost() + 1;
+        }
+
         public string Debug() {
             return $"{Name}({arg.Debug()})";    
         }
@@ -35,6 +40,10 @@ namespace RunicMagic.Spells
         public bool Parse(Stack<IRune> stack) { return true; }
         public string Debug() {
             return Name;
+        }
+        public int EvaluateCost()
+        {
+            return 1;
         }
     }
     public class Basdu : IRune
@@ -58,6 +67,10 @@ namespace RunicMagic.Spells
         }
         public string Debug() {
             return $"{Name}({arg.Debug()})";    
+        }
+        public int EvaluateCost()
+        {
+            return arg.EvaluateCost() + 1;
         }
     }
     public class Ti : IRune
@@ -99,6 +112,10 @@ namespace RunicMagic.Spells
         public string Debug() {
             return $"{Name}({from.Debug()},{amount.Debug()})";    
         }
+        public int EvaluateCost()
+        {
+            return from.EvaluateCost() + amount.EvaluateCost() + 1;
+        }
     }
     public class Oh : IRune
     {
@@ -107,6 +124,10 @@ namespace RunicMagic.Spells
         public bool Parse(Stack<IRune> stack) { return true; }
         public string Debug() {
             return Name;    
+        }
+        public int EvaluateCost()
+        {
+            return 1;
         }
     }
     public class A : IRune
@@ -117,6 +138,10 @@ namespace RunicMagic.Spells
         public string Debug() {
             return Name;    
         }
+        public int EvaluateCost()
+        {
+            return 1;
+        }
     }
     public class Imo : IRune
     {
@@ -125,6 +150,10 @@ namespace RunicMagic.Spells
         public bool Parse(Stack<IRune> stack) { return true; }
         public string Debug() {
             return Name;    
+        }
+        public int EvaluateCost()
+        {
+            return 1;
         }
     }
 }
