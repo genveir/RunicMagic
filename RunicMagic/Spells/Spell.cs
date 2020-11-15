@@ -14,6 +14,12 @@ namespace RunicMagic.Spells
             root = r;
         }
 
+        public int EvaluateCost()
+        {
+            var rawcost = root.EvaluateCost();
+            return rawcost / 5;
+        }
+
         public string Debug()
         {
             return root.Debug();

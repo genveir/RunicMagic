@@ -48,9 +48,9 @@ namespace RunicMagic.Spells
 
         private static bool lookup(string runestr, out IRune rune)
         {
-            switch (runestr)
+            switch (runestr.ToUpper())
             {
-                case "ZU": 
+                case "ZU":
                     rune = new Zu();
                     return true;
                 case "BEH": 

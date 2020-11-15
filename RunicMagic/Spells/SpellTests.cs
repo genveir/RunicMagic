@@ -9,19 +9,57 @@ namespace RunicMagic.Spells
     {
 
         [Fact]
+        public void ParseZUBEH()
+        {
+            var result = Parser.Parse("ZU BEH");
+            Assert.True(result.success);
+            Assert.NotNull(result.spell);
+            Assert.True(result.spell.Debug() == "zu(beh)");
+        }
+
+        [Fact]
         public void ParseZuBeh()
         {
-            var spell = Parser.Parse("ZU BEH");
-            Assert.NotNull(spell);
-            Assert.True(spell.spell.Debug() == "zu(beh)");
+            var result = Parser.Parse("zu beh");
+            Assert.True(result.success);
+            Assert.NotNull(result.spell);
+            Assert.True(result.spell.Debug() == "zu(beh)");
         }
 
         [Fact]
         public void ParseBasduTiOh()
         {
-            var spell = Parser.Parse("BASDU TI OH");
+            var result = Parser.Parse("BASDU TI OH");
+            Assert.True(result.success);
+            Assert.NotNull(result.spell);
+            Assert.True(result.spell.Debug() == "basdu(ti(oh,imo))");
+        }
+
+        [Fact]
+        public void ParseFail()
+        {
+            var result = Parser.Parse("BASDU OH TI");
+            Assert.False(result.success);
+            Assert.Null(result.spell);
+
+        }
+
+        [Fact]
+        public void EvaluateCostZero()
+        {
+            var spell = Parser.Parse("BASDU TI OH").spell;
             Assert.NotNull(spell);
-            Assert.True(spell.spell.Debug() == "basdu(ti(oh,imo))");
+            var cost = spell.EvaluateCost();
+            Assert.Equal(0, cost);
+        }
+
+        [Fact]
+        public void EvaluateCostWithDefaults()
+        {
+            var spell = Parser.Parse("ZU BASDU TI").spell;
+            Assert.NotNull(spell);
+            var cost = spell.EvaluateCost();
+            Assert.Equal(1, cost);
         }
 
     }
