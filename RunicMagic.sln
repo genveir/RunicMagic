@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RunicMagic.Model", "RunicMagic\RunicMagic.Model.csproj", "{DD5498C5-5405-435C-A214-05A4A3DF9371}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RunicMagic.View", "RunicMagic.View\RunicMagic.View.csproj", "{66FC9586-22CB-480E-9F70-C6C1AB89951A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RunicMagic.Domain", "RunicMagic.Domain\RunicMagic.Domain.csproj", "{8BB829EE-AAA3-4FAF-B89A-64F0281DBEB7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RunicMagic.Runner", "RunicMagic.Runner\RunicMagic.Runner.csproj", "{3A46D8AE-C85C-4763-B6E8-1CC8874F7F37}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RunicMagic.Model", "RunicMagic.Model\RunicMagic.Model.csproj", "{5B666167-EC28-4781-84EF-B84A2FB9F6B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DD5498C5-5405-435C-A214-05A4A3DF9371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD5498C5-5405-435C-A214-05A4A3DF9371}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD5498C5-5405-435C-A214-05A4A3DF9371}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD5498C5-5405-435C-A214-05A4A3DF9371}.Release|Any CPU.Build.0 = Release|Any CPU
 		{66FC9586-22CB-480E-9F70-C6C1AB89951A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{66FC9586-22CB-480E-9F70-C6C1AB89951A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66FC9586-22CB-480E-9F70-C6C1AB89951A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{3A46D8AE-C85C-4763-B6E8-1CC8874F7F37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A46D8AE-C85C-4763-B6E8-1CC8874F7F37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A46D8AE-C85C-4763-B6E8-1CC8874F7F37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B666167-EC28-4781-84EF-B84A2FB9F6B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B666167-EC28-4781-84EF-B84A2FB9F6B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B666167-EC28-4781-84EF-B84A2FB9F6B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B666167-EC28-4781-84EF-B84A2FB9F6B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
