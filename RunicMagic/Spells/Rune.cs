@@ -5,127 +5,118 @@ namespace RunicMagic.Spells
 {
     public abstract class Rune
     {
-        public abstract bool Parse(Stack<IRune> stack);
-
         public virtual string Name {get;}
-        public List<IRune> arguments {get;}
+        public List<IRune> Arguments {get;}
+        public abstract List<RuneArgument> ArgTypesAndDefaults {get;}
 
         public Rune()
         {
-            arguments = new List<IRune>();
+            Arguments = new List<IRune>();
         }
 
         public int EvaluateCost()
         {
-            return 1 + arguments.Sum(x => x.EvaluateCost());
+            return 1 + Arguments.Sum(x => x.EvaluateCost());
+        }
+        public bool Parse(Stack<IRune> stack)
+        {
+            foreach (RuneArgument ra in ArgTypesAndDefaults)
+            {
+                if (stack.Count == 0)
+                {
+                    if (ra.Default == null)
+                    {
+                        return false;
+                    }
+                    Arguments.Add(ra.Default);
+                    continue;
+                }
+                var arg1 = stack.Pop();
+                if (ra.Types.Intersect(arg1.Types) == null)
+                {
+                    if (ra.Default == null)
+                    {
+                        return false;
+                    }
+                    Arguments.Add(ra.Default);
+                    continue;
+                }
+                if (!arg1.Parse(stack))
+                {
+                    return false;
+                }
+                Arguments.Add(arg1);
+            }
+            return true;
         }
         public string Debug()
         {
-            if (arguments.Count == 0)
+            if (Arguments.Count == 0)
             {
                 return Name;
             }
-            var argstr = string.Join(',', arguments.Select(x => x.Debug()));
+            var argstr = string.Join(',', Arguments.Select(x => x.Debug()));
             return $"{Name}({argstr})";
+        }
+    }
+    public class RuneArgument
+    {
+        public HashSet<string> Types {get;}
+        public IRune Default {get;}
+        public RuneArgument(HashSet<string> types, IRune def)
+        {
+            Types = types;
+            Default = def;
         }
     }
     public class Zu : Rune, IRune
     {
         override public string Name => "zu";
-        public List<string> Types => new List<string>{"executedstatement"};
+        public HashSet<string> Types => new HashSet<string>{"executedstatement"};
 
-        override public bool Parse(Stack<IRune> stack)
-        {
-            var arg1 = stack.Pop();
-            if (!arg1.Types.Contains("reference") && !arg1.Types.Contains("statement"))
-            {
-                return false;
-            }
-            if (!arg1.Parse(stack))
-            {
-                return false;
-            }
-            arguments.Add(arg1);
-            return true;
-        }
-
+        public override List<RuneArgument> ArgTypesAndDefaults => new List<RuneArgument>{
+                new RuneArgument(new HashSet<string>{"reference", "statement"}, null)
+            };
     }
     public class Beh : Rune, IRune
     {
         override public string Name => "beh";
-        public List<string> Types => new List<string>{"reference"};
-        override public bool Parse(Stack<IRune> stack) { return true; }
+        public HashSet<string> Types => new HashSet<string>{"reference"};
+        public override List<RuneArgument> ArgTypesAndDefaults => new List<RuneArgument>();
     }
     public class Basdu : Rune, IRune
     {
         override public string Name => "basdu";
-        public List<string> Types => new List<string>{"statement"};
-        override public bool Parse(Stack<IRune> stack)
-        {
-            var arg1 = stack.Pop();
-            if (!arg1.Types.Contains("statement"))
-            {
-                return false;
-            }
-            if (!arg1.Parse(stack))
-            {
-                return false;
-            }
-            arguments.Add(arg1);
-            return true;
-        }
+        public HashSet<string> Types => new HashSet<string>{"statement"};
+        public override List<RuneArgument> ArgTypesAndDefaults => new List<RuneArgument>{
+                new RuneArgument(new HashSet<string>{"statement"}, null)
+            };
     }
     public class Ti : Rune, IRune
     {
         override public string Name => "ti";
-        public List<string> Types => new List<string>{"powersource", "statement"};
-        override public bool Parse(Stack<IRune> stack)
-        {
-            if (stack.Count != 0 && stack.Peek().Types.Contains("powersource"))
-            {
-                var arg1 = stack.Pop();
-                if (!arg1.Parse(stack))
-                {
-                    return false;
-                }
-                arguments.Add(arg1);
-            }
-            else {
-                //default
-                arguments.Add(new A());
-            }
-            if (stack.Count != 0 && stack.Peek().Types.Contains("number"))
-            {
-                var arg2 = stack.Pop();
-                if (!arg2.Parse(stack))
-                {
-                    return false;
-                }
-                arguments.Add(arg2);
-            }
-            else {
-                //default
-                arguments.Add(new Imo());
-            }
-            return true;
-        }
+        public HashSet<string> Types => new HashSet<string>{"powersource", "statement"};
+        public override List<RuneArgument> ArgTypesAndDefaults => new List<RuneArgument>{
+                new RuneArgument(new HashSet<string>{"powersource"}, new A()),
+                new RuneArgument(new HashSet<string>{"number"}, new Imo())
+            };
     }
     public class Oh : Rune, IRune
     {
         override public string Name => "oh";
-        public List<string> Types => new List<string>{"powersource"};
-        override public bool Parse(Stack<IRune> stack) { return true; }
+        public HashSet<string> Types => new HashSet<string>{"powersource"};
+        public override List<RuneArgument> ArgTypesAndDefaults => new List<RuneArgument>();
     }
     public class A : Rune, IRune
     {
         override public string Name => "a";
-        public List<string> Types => new List<string>{"scope", "powersource"};
-        override public bool Parse(Stack<IRune> stack) { return true; }
+        public HashSet<string> Types => new HashSet<string>{"scope", "powersource"};
+        public override List<RuneArgument> ArgTypesAndDefaults => new List<RuneArgument>();
     }
     public class Imo : Rune, IRune
     {
         override public string Name => "imo";
-        public List<string> Types => new List<string>{"number"};
-        override public bool Parse(Stack<IRune> stack) { return true; }
+        public HashSet<string> Types => new HashSet<string>{"number"};
+        public override List<RuneArgument> ArgTypesAndDefaults => new List<RuneArgument>();
     }
 }
