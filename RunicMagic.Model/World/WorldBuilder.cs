@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RunicMagic.Domain;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,18 +7,23 @@ namespace RunicMagic.World
 {
     public class WorldBuilder
     {
-        public void InitializeTheWorld()
+        public IRoom AddInitialRoom(string name, string description)
         {
             var world = TheWorld.Instance;
 
-            var theOnlyRoom = new Room("The Only Room", @"You are standing in The Room. It is a room. Not very distinct, nothing to distinguish it, even though it is unique.");
-            world.Rooms.Add(theOnlyRoom);
+            var initialRoom = new Room(name, description);
+            world.Rooms.Add(initialRoom);
 
-            Player.Initialize("The Player", theOnlyRoom);
-            Player.Instance.Hitpoints = 10;
+            return initialRoom;
+        }
 
-            var orc = new Creature("Orc", theOnlyRoom);
-            orc.Hitpoints = 10;
+        public IRoom Build(IRoom room, Direction direction, string name, string description)
+        {
+            var newRoom = new Room(name, description);
+
+            room.Link(newRoom, direction);
+
+            return newRoom;
         }
     }
 }

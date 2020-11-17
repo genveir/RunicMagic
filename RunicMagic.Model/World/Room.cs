@@ -1,4 +1,5 @@
 ﻿using RunicMagic.Domain;
+using RunicMagic.Model.World;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,12 +14,22 @@ namespace RunicMagic.World
 
         public ICollection<IMobile> Entities { get; set; }
 
+        public Dictionary<Direction, IExit> Exits { get; }
+
         public Room(string name, string description)
         {
             this.Name = name;
             this.Description = description;
 
             this.Entities = new List<IMobile>();
+            this.Exits = new Dictionary<Direction, IExit>();
+        }
+
+        public void Link(IRoom room, Direction direction)
+        {
+            var exit = new Exit(this, room);
+            this.Exits[direction] = exit;
+            room.Exits[direction.Inverse()] = exit;
         }
     }
 }

@@ -7,6 +7,8 @@ namespace RunicMagic.Domain {
         HashSet<IRoom> Rooms { get; }
     }
 
+    public enum Direction { North, East, South, West, Up, Down }
+
     public interface IRoom 
     {
         string Name { get; }
@@ -14,11 +16,31 @@ namespace RunicMagic.Domain {
         string Description { get; }
 
         ICollection<IMobile> Entities { get; }
+
+        Dictionary<Direction, IExit> Exits { get; }
+
+        void Link(IRoom room, Direction direction);
+    }
+
+    public interface IExit
+    {
+        IDoor Door { get; set; }
+
+        (IRoom first, IRoom second) LinkedRooms { get; }
+
+        bool IsBlocked();
+    }
+
+    public interface IDoor
+    {
+        bool Open { get; set; }
     }
 
     public interface IPlayer : IMobile
     {
         string Look();
+
+        void IndicateTarget(object target);
 
         void Cast(string spell);
     }

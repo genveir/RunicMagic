@@ -28,6 +28,11 @@ namespace RunicMagic.World
             _player = null;
         }
 
+        public void IndicateTarget(object target)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Cast(string spell)
         {
             throw new NotImplementedException();

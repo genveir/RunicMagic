@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RunicMagic.Model.World;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace RunicMagic.World
         [Fact]
         public void InitializeTheWorldCreatesAWorld()
         {
-            new WorldBuilder().InitializeTheWorld();
+            new CanonicalWorld().InitializeTheWorld();
 
             Assert.NotNull(TheWorld.Instance);
         }
@@ -26,7 +27,7 @@ namespace RunicMagic.World
         [Fact]
         public void InitializeTheWorldCreatesARoom()
         {
-            new WorldBuilder().InitializeTheWorld();
+            new CanonicalWorld().InitializeTheWorld();
 
             Assert.True(TheWorld.Instance.Rooms.Count > 0);
         }
@@ -34,7 +35,7 @@ namespace RunicMagic.World
         [Fact]
         public void InitializeTheWorldAddsAPlayer()
         {
-            new WorldBuilder().InitializeTheWorld();
+            new CanonicalWorld().InitializeTheWorld();
 
             Assert.NotNull(TheWorld.Instance.ThePlayer);
             Assert.Equal(10, TheWorld.Instance.ThePlayer.Hitpoints);
@@ -43,7 +44,7 @@ namespace RunicMagic.World
         [Fact]
         public void IntitializeTheWorldAddsAnOrcInTheSameRoomAsThePlayer()
         {
-            new WorldBuilder().InitializeTheWorld();
+            new CanonicalWorld().InitializeTheWorld();
 
             Assert.Contains(TheWorld.Instance.ThePlayer.Location.Entities, e => e.Name == "Orc" && e.Hitpoints == 10);
         }
