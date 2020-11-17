@@ -10,6 +10,12 @@ namespace RunicMagic.Model.Spells.Tests
 {
     public class ScenarioTests
     {
+        public ScenarioTests()
+        {
+            TheWorld.DestroyInstance();
+            Player.DestroyInstance();
+        }
+
         [Fact]
         public void CanOpenTheDoorWithUntargetedSpell()
         {
