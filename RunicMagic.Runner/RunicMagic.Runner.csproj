@@ -9,7 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\RunicMagic.Domain\RunicMagic.Domain.csproj" />
     <ProjectReference Include="..\RunicMagic.View\RunicMagic.View.csproj" />
-    <ProjectReference Include="..\RunicMagic\RunicMagic.csproj" />
+    <ProjectReference Include="..\RunicMagic\RunicMagic.Model.csproj" />
   </ItemGroup>
 
 </Project>
