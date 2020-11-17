@@ -73,7 +73,28 @@ namespace RunicMagic.View
         private void DisplayExits(IRoom roomToDisplay)
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("There are no exits..");
+
+            Console.Write("[ ");
+            Console.ForegroundColor = ConsoleColor.White;
+            foreach (var exitByDirection in roomToDisplay.Exits)
+            {
+                var door = exitByDirection.Value.Door;
+                if (door != null)
+                {
+                    if (door.Open) Console.Write("|");
+                    else Console.Write("[");
+                }
+                Console.Write(exitByDirection.Key);
+                if (door != null)
+                {
+                    if (door.Open) Console.Write("|");
+                    else Console.Write("]");
+                }
+            }
+            if (roomToDisplay.Exits.Count == 0) Console.Write("none");
+
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine(" ]");
         }
 
         private void DisplayPrompt()
