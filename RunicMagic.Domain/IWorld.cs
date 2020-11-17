@@ -38,6 +38,8 @@ namespace RunicMagic.Domain {
 
     public interface IPlayer : IMobile
     {
+        object IndicatedTarget { get; }
+
         string Look();
 
         void IndicateTarget(object target);

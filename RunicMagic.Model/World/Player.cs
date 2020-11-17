@@ -29,9 +29,11 @@ namespace RunicMagic.World
             _player = null;
         }
 
+        public object IndicatedTarget { get; private set; }
+
         public void IndicateTarget(object target)
         {
-            throw new NotImplementedException();
+            IndicatedTarget = target;
         }
 
         public ICastResult Cast(string spell)
