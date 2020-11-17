@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RunicMagic.Domain;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,16 +9,21 @@ namespace RunicMagic.Model.World
     {
         public void InitializeTheWorld()
         {
-            var world = TheWorld.Instance;
+            var builder = new WorldBuilder();
 
-            var theOnlyRoom = new Room("The Only Room", @"You are standing in The Room. It is a room. Not very distinct, nothing to distinguish it, even though it is unique.");
-            world.Rooms.Add(theOnlyRoom);
+            var theFirstRoom = builder.AddInitialRoom("The First Room", @"You are standing in The First Room. It is a room. Not very distinct, nothing to distinguish it, even though it is unique.");
+            builder.Build(theFirstRoom, Direction.East, "The Second Room", @"
+Where at first your world was small, you were afraid, you were petrified alone in the dark,
+now you know you will survive. Because you have opened a door and moved, and life is good. ".Trim());
 
-            Player.Initialize("The Player", theOnlyRoom);
+            theFirstRoom.Exits[Direction.East].Door = new Door() { Open = false };
+
+            Player.Initialize("The Player", theFirstRoom);
             Player.Instance.Hitpoints = 10;
 
-            var orc = new Creature("Orc", theOnlyRoom);
-            orc.Hitpoints = 10;
+            var sheep = new Creature("Sheep", theFirstRoom);
+            sheep.ShortDesc = "A sheep is walking around, bleating merrily";
+            sheep.Hitpoints = 10;
         }
     }
 }

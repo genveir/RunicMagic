@@ -36,6 +36,25 @@ namespace RunicMagic.Model.World
                     Feedback.Add(effect.ToString());
                 }
             }
+            else
+            {
+                IEnumerable<IEffect> MoveEffect;
+                switch(asString)
+                {
+                    case "n": MoveEffect = Player.Instance.Move(Direction.North); break;
+                    case "e": MoveEffect = Player.Instance.Move(Direction.East); break;
+                    case "s": MoveEffect = Player.Instance.Move(Direction.South); break;
+                    case "w": MoveEffect = Player.Instance.Move(Direction.West); break;
+                    case "u": MoveEffect = Player.Instance.Move(Direction.Up); break;
+                    case "d": MoveEffect = Player.Instance.Move(Direction.Down); break;
+                    default: MoveEffect = new List<IEffect>(); break;
+                }
+
+                foreach (var effect in MoveEffect)
+                {
+                    Feedback.Add(effect.ToString());
+                }
+            }
         }
     }
 }

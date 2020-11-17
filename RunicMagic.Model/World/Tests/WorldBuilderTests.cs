@@ -42,11 +42,11 @@ namespace RunicMagic.Model.World
         }
 
         [Fact]
-        public void IntitializeTheWorldAddsAnOrcInTheSameRoomAsThePlayer()
+        public void IntitializeTheWorldAddsASheepInTheSameRoomAsThePlayer()
         {
             new CanonicalWorld().InitializeTheWorld();
 
-            Assert.Contains(TheWorld.Instance.ThePlayer.Location.Entities, e => e.Name == "Orc" && e.Hitpoints == 10);
+            Assert.Contains(TheWorld.Instance.ThePlayer.Location.Entities, e => e.Name == "Sheep" && e.Hitpoints == 10);
         }
     }
 }

@@ -65,7 +65,8 @@ namespace RunicMagic.View
             {
                 if (entity != player) 
                 {
-                    Console.WriteLine($"{entity.ShortDesc ?? entity.Name} is here.");
+                    var description = entity.ShortDesc ?? (entity.Name + " is here");
+                    Console.WriteLine(description);
                 }
             }
         }
