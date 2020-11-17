@@ -25,7 +25,7 @@ namespace RunicMagic.Spells
     {
         public static ParseResult Parse(string input)
         {
-            var runesRaw = input.Split(' ');
+            var runesRaw = input.Split(new char[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
             if (runesRaw.Length == 0) return null;
             var runes = new Stack<IRune>();
             for (var i = 0; i < runesRaw.Length; i++ )
@@ -78,9 +78,10 @@ namespace RunicMagic.Spells
                 case "DEZEDUROPE":
                     rune = new DezeDurOpe();
                     return true;
+                default:
+                    rune = null;
+                    return false;
             }
-            rune = null;
-            return true;
         }
     }
 }

@@ -29,6 +29,8 @@ namespace RunicMagic.Domain {
         (IRoom first, IRoom second) LinkedRooms { get; }
 
         bool IsBlocked();
+
+        void Transport(IMobile mobile);
     }
 
     public interface IDoor
@@ -51,10 +53,10 @@ namespace RunicMagic.Domain {
     {
         bool Success { get; }
 
-        IEnumerable<ISpellEffect> Effects { get; }
+        IEnumerable<IEffect> Effects { get; }
     }
 
-    public interface ISpellEffect { }
+    public interface IEffect { }
 
     public interface IMobile
     {
@@ -62,8 +64,10 @@ namespace RunicMagic.Domain {
 
         string ShortDesc { get; }
 
-        IRoom Location { get; }
+        IRoom Location { get; set; }
 
         int Hitpoints { get; set; }
+
+        IEnumerable<IEffect> Move(Direction direction);
     }
 }

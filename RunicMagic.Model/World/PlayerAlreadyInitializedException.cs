@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace RunicMagic.World
+namespace RunicMagic.Model.World
 {
     [Serializable]
     internal class PlayerAlreadyInitializedException : Exception

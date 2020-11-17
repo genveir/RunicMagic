@@ -1,7 +1,7 @@
 using RunicMagic.Domain;
 using System.Collections.Generic;
 
-namespace RunicMagic.World
+namespace RunicMagic.Model.World
 {
     public class TheWorld : IWorld
     {

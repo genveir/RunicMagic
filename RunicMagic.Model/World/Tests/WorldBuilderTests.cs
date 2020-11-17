@@ -6,7 +6,7 @@ using System.Text;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace RunicMagic.World
+namespace RunicMagic.Model.World
 {
     public class WorldBuilderTests
     {

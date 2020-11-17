@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RunicMagic.World
+namespace RunicMagic.Model.World
 {
     public class Creature : IMobile
     {
@@ -12,6 +12,33 @@ namespace RunicMagic.World
         public string ShortDesc { get; set; }
 
         public IRoom Location { get; set; }
+
+        public IEnumerable<IEffect> Move(Direction direction)
+        {
+            var effects = new List<IEffect>();
+
+            IExit exit;
+            Location.Exits.TryGetValue(direction, out exit);
+            if (exit == null)
+            {
+                effects.Add(new StringEffect("donk! You walk into the wall!"));
+            }
+            else
+            {
+                if (exit.IsBlocked())
+                {
+                    effects.Add(new StringEffect("bonk! The way is blocked!"));
+                }
+                else
+                {
+                    effects.Add(new StringEffect("You walk " + direction.ToString()));
+
+                    exit.Transport(this);
+                }
+            }
+
+            return effects;
+        }
 
         public int Hitpoints { get; set; }
 

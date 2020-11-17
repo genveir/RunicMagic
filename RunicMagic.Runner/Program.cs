@@ -1,7 +1,6 @@
 ﻿using RunicMagic.Model.World;
 using RunicMagic.Runner;
 using RunicMagic.View;
-using RunicMagic.World;
 using System;
 
 namespace RunicMagic

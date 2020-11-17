@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RunicMagic.World
+namespace RunicMagic.Model.World
 {
     public class WorldModel : IModel
     {

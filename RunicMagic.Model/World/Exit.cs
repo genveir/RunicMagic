@@ -20,5 +20,13 @@ namespace RunicMagic.Model.World
         {
             return Door != null && !Door.Open;
         }
+
+        public void Transport(IMobile mobile)
+        {
+            var (first, second) = LinkedRooms;
+            if (mobile.Location == first) mobile.Location = second;
+            else if (mobile.Location == second) mobile.Location = first;
+            else throw new NotImplementedException("transporting mobiles is only implemented for mobiles adjacent to the exit");
+        }
     }
 }

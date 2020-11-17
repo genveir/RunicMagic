@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RunicMagic.World
+namespace RunicMagic.Model.World
 {
     public class Player : Creature, IPlayer
     {
@@ -58,35 +58,20 @@ namespace RunicMagic.World
         {
             public bool Success { get; set; }
 
-            private List<ISpellEffect> _effects = new List<ISpellEffect>();
-            public IEnumerable<ISpellEffect> Effects => _effects;
+            private List<IEffect> _effects = new List<IEffect>();
+            public IEnumerable<IEffect> Effects => _effects;
 
             public CastResult(ParseResult parseResult, string spell)
             {
                 this.Success = parseResult.success;
                 if (parseResult.success)
                 {
-                    _effects.Add(new StringSpellEffect($"You successfully cast the spell {spell}"));
+                    _effects.Add(new StringEffect($"You successfully cast the spell {spell}"));
                 }
                 else
                 {
-                    _effects.Add(new StringSpellEffect($"You failed to cast the spell {spell} because {parseResult.reason}"));
+                    _effects.Add(new StringEffect($"You failed to cast the spell {spell} because {parseResult.reason}"));
                 }
-            }
-        }
-
-        private class StringSpellEffect : ISpellEffect
-        {
-            private string effect;
-
-            public StringSpellEffect(string effect)
-            {
-                this.effect = effect;
-            }
-
-            public override string ToString()
-            {
-                return effect;
             }
         }
     }
