@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using RunicMagic.Domain;
 
 namespace RunicMagic.Spells
 {
@@ -10,6 +10,7 @@ namespace RunicMagic.Spells
         bool Parse(Stack<IRune> stack);
         int EvaluateCost();
         string Debug();
+        void Execute(IPlayer player, object executor);
     }
 
 }

@@ -1,7 +1,4 @@
 using RunicMagic.Domain;
-using RunicMagic.World;
-
-using System.Linq;
 
 namespace RunicMagic.Spells
 {
@@ -27,7 +24,15 @@ namespace RunicMagic.Spells
 
         public void Execute(IPlayer caster, object executor)
         {
-            caster.Location.Entities.Where(e => e.Name == "Orc").Single().Hitpoints = 0;
+            // for now, we can only actually execute using Zu
+            if (!root.Types.Contains("executedstatement"))
+            {
+                return;
+            }
+
+            // TODO: evaluate costs and execute costs
+
+            root.Execute(caster, executor);
         }
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using RunicMagic.Domain;
+
 namespace RunicMagic.Spells
 {
     public abstract class Rune
@@ -58,6 +60,7 @@ namespace RunicMagic.Spells
             var argstr = string.Join(',', Arguments.Select(x => x.Debug()));
             return $"{Name}({argstr})";
         }
+        public virtual void Execute(IPlayer player, object executor){}
     }
     public class RuneArgument
     {
@@ -77,6 +80,11 @@ namespace RunicMagic.Spells
         public override List<RuneArgument> ArgTypesAndDefaults => new List<RuneArgument>{
                 new RuneArgument(new HashSet<string>{"reference", "statement"}, null)
             };
+
+        public override void Execute(IPlayer player, object executor)
+        {
+            Arguments.First().Execute(player, executor);
+        }
     }
     public class Beh : Rune, IRune
     {
@@ -118,5 +126,38 @@ namespace RunicMagic.Spells
         override public string Name => "imo";
         public HashSet<string> Types => new HashSet<string>{"number"};
         public override List<RuneArgument> ArgTypesAndDefaults => new List<RuneArgument>();
+    }
+
+    // debug runes
+    public class AlleDurOpe : Rune, IRune
+    {
+        override public string Name => "alledurope";
+        public HashSet<string> Types => new HashSet<string>{"statement"};
+        public override List<RuneArgument> ArgTypesAndDefaults => new List<RuneArgument>();
+
+        public override void Execute(IPlayer player, object executor)
+        {
+            // open all doors in the room where the caster is standing
+            var room = player.Location;
+            foreach (IExit exit in room.Exits.Values)
+            {
+                if (exit.Door == null) continue;
+                exit.Door.Open = true;
+            }
+        }
+
+    }
+
+    public class DezeDurOpe : Rune, IRune
+    {
+        override public string Name => "dezedurope";
+        public HashSet<string> Types => new HashSet<string>{"statement"};
+        public override List<RuneArgument> ArgTypesAndDefaults => new List<RuneArgument>();
+
+        public override void Execute(IPlayer player, object executor)
+        {
+            // open door if indicated
+        }
+
     }
 }
