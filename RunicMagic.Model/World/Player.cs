@@ -1,4 +1,5 @@
 ﻿using RunicMagic.Domain;
+using RunicMagic.Spells;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,14 +34,58 @@ namespace RunicMagic.World
             throw new NotImplementedException();
         }
 
-        public void Cast(string spell)
+        public ICastResult Cast(string spell)
         {
-            throw new NotImplementedException();
+            var parseResult = Parser.Parse(spell);
+
+            if (parseResult.success)
+            {
+                parseResult.spell.Execute(this, this);
+            }
+            var castResult = new CastResult(parseResult, spell);
+
+            return castResult;
         }
 
         public string Look()
         {
             throw new NotImplementedException();
+        }
+
+        private class CastResult : ICastResult
+        {
+            public bool Success { get; set; }
+
+            private List<ISpellEffect> _effects = new List<ISpellEffect>();
+            public IEnumerable<ISpellEffect> Effects => _effects;
+
+            public CastResult(ParseResult parseResult, string spell)
+            {
+                this.Success = parseResult.success;
+                if (parseResult.success)
+                {
+                    _effects.Add(new StringSpellEffect($"You successfully cast the spell {spell}"));
+                }
+                else
+                {
+                    _effects.Add(new StringSpellEffect($"You failed to cast the spell {spell} because {parseResult.reason}"));
+                }
+            }
+        }
+
+        private class StringSpellEffect : ISpellEffect
+        {
+            private string effect;
+
+            public StringSpellEffect(string effect)
+            {
+                this.effect = effect;
+            }
+
+            public override string ToString()
+            {
+                return effect;
+            }
         }
     }
 }

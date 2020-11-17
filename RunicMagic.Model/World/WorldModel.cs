@@ -22,20 +22,18 @@ namespace RunicMagic.World
 
         public void ExecuteInput(IInput input)
         {
+            Feedback.Clear();
+
             var asString = input.ParseInput();
 
             if (asString == "quit") KeepRunning = false;
             else if (asString.StartsWith("cast"))
             {
-                var spell = Parser.Parse(asString.Substring(5));
-                if (!spell.success)
+                var result = Player.Instance.Cast(asString.Substring(5));
+
+                foreach(var effect in result.Effects)
                 {
-                    Feedback.Add(spell.reason);
-                }
-                else
-                {
-                    Feedback.Add("You succesfully cast the spell");
-                    spell.spell.Execute(Player.Instance, Player.Instance);
+                    Feedback.Add(effect.ToString());
                 }
             }
         }

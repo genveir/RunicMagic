@@ -42,8 +42,17 @@ namespace RunicMagic.Domain {
 
         void IndicateTarget(object target);
 
-        void Cast(string spell);
+        ICastResult Cast(string spell);
     }
+
+    public interface ICastResult
+    {
+        bool Success { get; }
+
+        IEnumerable<ISpellEffect> Effects { get; }
+    }
+
+    public interface ISpellEffect { }
 
     public interface IMobile
     {

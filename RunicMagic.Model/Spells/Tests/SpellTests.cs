@@ -62,5 +62,12 @@ namespace RunicMagic.Spells
             Assert.Equal(1, cost);
         }
 
+        [Fact]
+        public void ParsingInvalidRuneReturnsUnsuccesfulResult()
+        {
+            var spell = Parser.Parse("ZU SJOERD");
+            Assert.False(spell.success);
+        }
+
     }
 }
