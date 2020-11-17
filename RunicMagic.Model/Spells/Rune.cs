@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using RunicMagic.Domain;
+using RunicMagic.Model.World;
 
 namespace RunicMagic.Spells
 {
@@ -157,6 +158,12 @@ namespace RunicMagic.Spells
         public override void Execute(IPlayer player, object executor)
         {
             // open door if indicated
+            var door = player.IndicatedTarget as Door;
+            if (door == null)
+            {
+                return;
+            }
+            door.Open = true;
         }
 
     }

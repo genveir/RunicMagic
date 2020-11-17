@@ -65,9 +65,22 @@ namespace RunicMagic.Spells
                 case "OH": 
                     rune = new Oh();
                     return true;
+                case "A":
+                    rune = new A();
+                    return true;
+                case "IMO":
+                    rune = new Imo();
+                    return true;
+                // debug runes
+                case "ALLEDUROPE":
+                    rune = new AlleDurOpe();
+                    return true;
+                case "DEZEDUROPE":
+                    rune = new DezeDurOpe();
+                    return true;
             }
             rune = null;
-            return false;
+            return true;
         }
     }
 }
