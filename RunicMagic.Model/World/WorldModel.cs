@@ -65,6 +65,11 @@ namespace RunicMagic.Model.World
                     GetPlayer().PushOutput(effect.ToString());
                 }
             }
+            if (GetPlayer().Hitpoints == 0)
+            {
+                GetPlayer().PushOutput("You died");
+                KeepRunning = false;
+            }
         }
     }
 }
