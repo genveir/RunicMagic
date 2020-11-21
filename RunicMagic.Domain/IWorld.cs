@@ -24,6 +24,7 @@ namespace RunicMagic.Domain {
         Dictionary<Direction, IExit> Exits { get; }
 
         void Link(IRoom room, Direction direction);
+        object GetTarget(string name);
     }
 
     public interface IExit
