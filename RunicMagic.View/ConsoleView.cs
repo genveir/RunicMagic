@@ -98,11 +98,22 @@ namespace RunicMagic.View
             Console.Write($"{player.Hitpoints}hp)> ");
         }
 
-        public IInput GetInput()
+        private Action<IInput> inputFunc;
+        public void SetupInput(Action<IInput> inputFunc)
+        {
+            this.inputFunc = inputFunc;
+        }
+
+        public void PushInput(IInput input)
+        {
+            this.inputFunc(input);
+        }
+
+        public void GetInput()
         {
             var input = Console.ReadLine();
 
-            return new StringInput(input);
+            PushInput(new StringInput(input));
         }
     }
 }

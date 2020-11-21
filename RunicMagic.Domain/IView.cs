@@ -8,7 +8,9 @@ namespace RunicMagic.Domain
     {
         void Display(IModel model);
 
-        IInput GetInput();
+        void SetupInput(Action<IInput> inputFunc);
+        void PushInput(IInput input);
+        void GetInput();
 
         void DisplayOutput(string output);
     }
