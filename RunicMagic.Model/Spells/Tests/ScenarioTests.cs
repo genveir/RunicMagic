@@ -61,7 +61,7 @@ namespace RunicMagic.Model.Spells.Tests
             var fire = new Fire(10, theRoom);
 
             var castresult = world.ThePlayer.Cast("ZU DURERUNE");
-            Assert.Equal(true, castresult.Success);
+            Assert.True(castresult.Success);
 
             Assert.Equal(100, world.ThePlayer.Hitpoints);
             Assert.Equal(0, fire.PowerPoints);
