@@ -8,16 +8,16 @@ namespace RunicMagic.Model.World
 {
     public class Player : Mobile, IPlayer
     {
-        private Action<string> outputFunc;
+        private Action<IEffect> outputFunc;
 
         public Player(string name, IRoom location) : base(name, location) { }
 
-        public void SetupOutput(Action<string> outputFunc)
+        public void SetupOutput(Action<IEffect> outputFunc)
         {
             this.outputFunc = outputFunc;
         }
 
-        public void PushOutput(string output)
+        public void PushOutput(IEffect output)
         {
             this.outputFunc(output);
         }

@@ -54,9 +54,11 @@ namespace RunicMagic.Runner
             model.ExecuteInput(input);
         }
 
-        public void HandleOutput(string output)
+        public void HandleOutput(IEffect output)
         {
-            view.DisplayOutput(output);
+            view.DisplayOutput(output.ToString());
+
+            if (output.ShouldLook) view.Display(this.model);
         }
     }
 }

@@ -53,8 +53,8 @@ namespace RunicMagic.Domain {
 
         ICastResult Cast(string spell);
 
-        void SetupOutput(Action<string> outputFunc);
-        void PushOutput(string output);
+        void SetupOutput(Action<IEffect> outputFunc);
+        void PushOutput(IEffect output);
     }
 
     public interface ICastResult
@@ -64,7 +64,10 @@ namespace RunicMagic.Domain {
         IEnumerable<IEffect> Effects { get; }
     }
 
-    public interface IEffect { }
+    public interface IEffect 
+    { 
+        bool ShouldLook { get; }
+    }
 
     public interface IMobile : IPowerSource
     {

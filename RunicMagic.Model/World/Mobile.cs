@@ -55,7 +55,7 @@ namespace RunicMagic.Model.World
                 }
                 else
                 {
-                    effects.Add(new StringEffect("You walk " + direction.ToString()));
+                    effects.Add(new StringEffect("You walk " + direction.ToString(), true));
 
                     exit.Transport(this);
                 }

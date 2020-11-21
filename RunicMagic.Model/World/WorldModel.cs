@@ -34,7 +34,7 @@ namespace RunicMagic.Model.World
             {
                 var targetStr = asString.Substring(9);
                 var target = world.ThePlayer.Location.GetTarget(targetStr);
-                if (target == null) GetPlayer().PushOutput("invalid target");
+                if (target == null) GetPlayer().PushOutput(new StringEffect("invalid target"));
                 else GetPlayer().IndicateTarget(target);
             }
             else if (asString.StartsWith("cast"))
@@ -43,7 +43,7 @@ namespace RunicMagic.Model.World
 
                 foreach(var effect in result.Effects)
                 {
-                    GetPlayer().PushOutput(effect.ToString());
+                    GetPlayer().PushOutput(effect);
                 }
             }
             else
@@ -62,7 +62,7 @@ namespace RunicMagic.Model.World
 
                 foreach (var effect in MoveEffect)
                 {
-                    GetPlayer().PushOutput(effect.ToString());
+                    GetPlayer().PushOutput(effect);
                 }
             }
         }
