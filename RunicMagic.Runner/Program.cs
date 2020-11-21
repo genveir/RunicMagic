@@ -12,7 +12,7 @@ namespace RunicMagic
             var world = new CanonicalWorld();
             world.InitializeTheWorld();
 
-            new GameRunner(new ConsoleView(), new WorldModel(world)).Run();
+            new GameRunner(new ConsoleView(world.ThePlayer), new WorldModel(world)).Run();
         }
     }
 }

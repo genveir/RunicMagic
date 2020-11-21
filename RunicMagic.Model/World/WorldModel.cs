@@ -18,12 +18,11 @@ namespace RunicMagic.Model.World
         public WorldModel(IWorld world)
         {
             this.world = world;
-
         }
 
         public void RunTick()
         {
-
+            
         }
 
         public void ExecuteInput(IInput input)

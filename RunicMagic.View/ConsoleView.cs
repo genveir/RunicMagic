@@ -2,24 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace RunicMagic.View
 {
     public class ConsoleView : IView
     {
-        IWorld world;
-        IPlayer player;
+        private IPlayer player;
+
+        public ConsoleView(IPlayer player)
+        {
+            this.player = player;
+        }
 
         public void Display(IModel model)
         {
-            this.world = model.GetWorld();
-            this.player = model.GetPlayer();
-
             var roomToDisplay = player.Location;
 
             var currentBackgroundColor = Console.BackgroundColor;
             var currentForegroundColor = Console.ForegroundColor;
 
+            Console.WriteLine();
             DisplayRoomName(roomToDisplay);
             DisplayRoomDescription(roomToDisplay);
             DisplayEntities(roomToDisplay);
@@ -33,8 +36,17 @@ namespace RunicMagic.View
 
         public void DisplayOutput(string output)
         {
+            var currentBackgroundColor = Console.BackgroundColor;
+            var currentForegroundColor = Console.ForegroundColor;
+
+            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(output);
+
+            DisplayPrompt();
+
+            Console.BackgroundColor = currentBackgroundColor;
+            Console.ForegroundColor = currentForegroundColor;
         }
 
         private void DisplayRoomName(IRoom roomToDisplay)
@@ -109,6 +121,7 @@ namespace RunicMagic.View
             this.inputFunc(input);
         }
 
+        // Dit even omschrijven naar ReadKey, de keys in een buffer tot je op enter duwt, en bij de prompt de buffer achter de prompt zetten
         public void GetInput()
         {
             var input = Console.ReadLine();
