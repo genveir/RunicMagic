@@ -8,15 +8,20 @@ namespace RunicMagic.Model.World
 {
     public class WorldModel : IModel
     {
-        public IWorld GetWorld() { return TheWorld.Instance; }
-        public IPlayer GetPlayer() { return Player.Instance; }
+        private IWorld world;
+
+        public IWorld GetWorld() { return world; }
+        public IPlayer GetPlayer() { return world.ThePlayer; }
 
         public bool KeepRunning { get; set; } = true;
 
         public ICollection<string> Feedback { get; }
 
-        public WorldModel()
+        public WorldModel(IWorld world = null)
         {
+            if (world == null) world = TheWorld.Instance;
+            this.world = world;
+
             Feedback = new List<string>();
         }
 
@@ -29,7 +34,7 @@ namespace RunicMagic.Model.World
             if (asString == "quit") KeepRunning = false;
             else if (asString.StartsWith("cast"))
             {
-                var result = Player.Instance.Cast(asString.Substring(5));
+                var result = world.ThePlayer.Cast(asString.Substring(5));
 
                 foreach(var effect in result.Effects)
                 {
@@ -41,12 +46,12 @@ namespace RunicMagic.Model.World
                 IEnumerable<IEffect> MoveEffect;
                 switch(asString)
                 {
-                    case "n": MoveEffect = Player.Instance.Move(Direction.North); break;
-                    case "e": MoveEffect = Player.Instance.Move(Direction.East); break;
-                    case "s": MoveEffect = Player.Instance.Move(Direction.South); break;
-                    case "w": MoveEffect = Player.Instance.Move(Direction.West); break;
-                    case "u": MoveEffect = Player.Instance.Move(Direction.Up); break;
-                    case "d": MoveEffect = Player.Instance.Move(Direction.Down); break;
+                    case "n": MoveEffect = world.ThePlayer.Move(Direction.North); break;
+                    case "e": MoveEffect = world.ThePlayer.Move(Direction.East); break;
+                    case "s": MoveEffect = world.ThePlayer.Move(Direction.South); break;
+                    case "w": MoveEffect = world.ThePlayer.Move(Direction.West); break;
+                    case "u": MoveEffect = world.ThePlayer.Move(Direction.Up); break;
+                    case "d": MoveEffect = world.ThePlayer.Move(Direction.Down); break;
                     default: MoveEffect = new List<IEffect>(); break;
                 }
 

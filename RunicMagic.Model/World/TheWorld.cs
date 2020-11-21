@@ -24,7 +24,7 @@ namespace RunicMagic.Model.World
             Rooms = new HashSet<IRoom>();
         }
 
-        public IPlayer ThePlayer { get { return Player.Instance; } }
+        public IPlayer ThePlayer { get { return _instance.ThePlayer; } }
 
         public HashSet<IRoom> Rooms { get; }
     }

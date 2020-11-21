@@ -9,9 +9,10 @@ namespace RunicMagic
     {
         static void Main(string[] args)
         {
-            new CanonicalWorld().InitializeTheWorld();
+            var world = new CanonicalWorld();
+            world.InitializeTheWorld();
 
-            new GameRunner(new ConsoleView(), new WorldModel()).Run();
+            new GameRunner(new ConsoleView(), new WorldModel(world)).Run();
         }
     }
 }

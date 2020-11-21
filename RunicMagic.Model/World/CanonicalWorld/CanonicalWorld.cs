@@ -5,15 +5,11 @@ using System.Text;
 
 namespace RunicMagic.Model.World
 {
-    public class CanonicalWorld : IWorld
+    public class CanonicalWorld : World
     {
-        public HashSet<IRoom> Rooms { get; set; }
-
-        public IPlayer ThePlayer { get; set; }
-
-        public CanonicalWorld()
+        public CanonicalWorld() : base()
         {
-            this.Rooms = new HashSet<IRoom>();
+            InitializeTheWorld();
         }
 
         public void InitializeTheWorld()

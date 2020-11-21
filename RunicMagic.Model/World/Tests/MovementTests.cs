@@ -16,15 +16,17 @@ namespace RunicMagic.Model.World.Tests
         [Fact]
         public void CanMoveFromOneRoomToTheOther()
         {
-            var builder = new WorldBuilder();
+            var world = new World();
+
+            var builder = new WorldBuilder(world);
             var testRoom = builder.AddInitialRoom("testRoom", "");
 
             var newRoom = builder.Build(testRoom, Direction.East, "newRoom", "");
 
-            Player.Initialize("player", testRoom);
-            Player.Instance.Move(Direction.East);
+            world.ThePlayer = new Player("player", testRoom);
+            world.ThePlayer.Move(Direction.East);
 
-            Assert.Equal(newRoom, Player.Instance.Location);
+            Assert.Equal(newRoom, world.ThePlayer.Location);
         }
     }
 }
