@@ -5,13 +5,33 @@ using System.Text;
 
 namespace RunicMagic.Model.World
 {
-    public class Creature : IMobile
+    public class Mobile : IMobile
     {
-        public string Name { get; set; }
+        public string Name { get; }
 
         public string ShortDesc { get; set; }
 
         public IRoom Location { get; set; }
+
+        public int Hitpoints { get; set; }
+
+        public int CanTake()
+        {
+            return Hitpoints;
+        }
+
+        public int Take(int n)
+        {
+            if (Hitpoints > n)
+            {
+                Hitpoints -= n;
+                return n;
+            }
+            // TODO: creature dies
+            var temp = Hitpoints;
+            Hitpoints = 0;
+            return temp;
+        }
 
         public IEnumerable<IEffect> Move(Direction direction)
         {
@@ -40,9 +60,7 @@ namespace RunicMagic.Model.World
             return effects;
         }
 
-        public int Hitpoints { get; set; }
-
-        public Creature(string name, IRoom location)
+        public Mobile(string name, IRoom location)
         {
             this.Name = name;
             this.Location = location;

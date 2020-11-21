@@ -9,6 +9,7 @@ namespace RunicMagic.Spells
     {
         void Execute(IPlayer caster, object executor);
         int EvaluateCost();
+        int ExecuteCost();
         string Debug();
     }
 }

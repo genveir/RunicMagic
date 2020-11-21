@@ -1,4 +1,5 @@
 using RunicMagic.Domain;
+using System.Linq;
 
 namespace RunicMagic.Spells
 {
@@ -17,6 +18,11 @@ namespace RunicMagic.Spells
             return rawcost / 5;
         }
 
+        public int ExecuteCost()
+        {
+            return root.ExecuteCost();
+        }
+
         public string Debug()
         {
             return root.Debug();
@@ -29,10 +35,39 @@ namespace RunicMagic.Spells
             {
                 return;
             }
+            // costs for now are calculated in local scope (the room)
+            var cantake = CanTake(caster.Location, caster, executor);
+            var evalcost = root.EvaluateCost();
+            if (evalcost > cantake) return;
+            Take(caster.Location, caster, executor, evalcost);
+            cantake -= evalcost;
 
-            // TODO: evaluate costs and execute costs
+            var execcost = root.ExecuteCost();
+            if (execcost > cantake) return;
+            Take(caster.Location, caster, executor, execcost);
 
             root.Execute(caster, executor);
+        }
+
+        private int CanTake(IRoom location, IPlayer caster, object executor)
+        {
+            var sum = location.Items.Select(x => x as IPowerSource).Where(x => x != null).Sum(x => x.CanTake()) + 
+                location.Entities.Where(x => x != caster).Sum(x => x.CanTake()) + caster.Hitpoints;
+            if (executor == caster || executor as IPowerSource == null) return sum;
+            return sum + (executor as IPowerSource).CanTake();
+        }
+
+        private void Take(IRoom location, IPlayer caster, object executor, int n)
+        {
+            foreach(var item in location.Items)
+            {
+                var ps = item as IPowerSource;
+                if (ps == null) return;
+                var actual = ps.Take(n);
+                if (actual == n) return;
+                n -= actual;
+            }
+            //foreach(var e : location.Entities)
         }
     }
 }

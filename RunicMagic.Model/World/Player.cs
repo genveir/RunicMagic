@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RunicMagic.Model.World
 {
-    public class Player : Creature, IPlayer
+    public class Player : Mobile, IPlayer
     {
         private static IPlayer _player;
 

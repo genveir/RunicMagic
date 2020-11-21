@@ -26,7 +26,7 @@ now you know you will survive. Because you have opened a door and moved, and lif
             this.ThePlayer = new Player("The Player", theFirstRoom);
             this.ThePlayer.Hitpoints = 10;
 
-            var sheep = new Creature("Sheep", theFirstRoom);
+            var sheep = new Mobile("Sheep", theFirstRoom);
             sheep.ShortDesc = "A sheep is walking around, bleating merrily";
             sheep.Hitpoints = 10;
         }

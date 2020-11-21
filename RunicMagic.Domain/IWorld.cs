@@ -19,6 +19,8 @@ namespace RunicMagic.Domain {
 
         ICollection<IMobile> Entities { get; }
 
+        ICollection<IItem> Items { get; }
+
         Dictionary<Direction, IExit> Exits { get; }
 
         void Link(IRoom room, Direction direction);
@@ -60,7 +62,7 @@ namespace RunicMagic.Domain {
 
     public interface IEffect { }
 
-    public interface IMobile
+    public interface IMobile : IPowerSource
     {
         string Name { get; }
 
@@ -71,5 +73,17 @@ namespace RunicMagic.Domain {
         int Hitpoints { get; set; }
 
         IEnumerable<IEffect> Move(Direction direction);
+    }
+
+    public interface IItem
+    {
+        string Name { get; }
+    }
+
+    public interface IPowerSource
+    {
+        int CanTake();
+        // returns the amount of points actually taken
+        int Take(int n);
     }
 }

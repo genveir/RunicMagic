@@ -14,6 +14,8 @@ namespace RunicMagic.Model.World
 
         public ICollection<IMobile> Entities { get; set; }
 
+        public ICollection<IItem> Items { get; set; }
+
         public Dictionary<Direction, IExit> Exits { get; }
 
         public Room(string name, string description)
@@ -22,6 +24,7 @@ namespace RunicMagic.Model.World
             this.Description = description;
 
             this.Entities = new List<IMobile>();
+            this.Items = new List<IItem>();
             this.Exits = new Dictionary<Direction, IExit>();
         }
 

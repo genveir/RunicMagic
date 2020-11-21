@@ -21,6 +21,10 @@ namespace RunicMagic.Spells
         {
             return 1 + Arguments.Sum(x => x.EvaluateCost());
         }
+        public virtual int ExecuteCost()
+        {
+            return 0;
+        }
         public bool Parse(Stack<IRune> stack)
         {
             foreach (RuneArgument ra in ArgTypesAndDefaults)
@@ -81,6 +85,11 @@ namespace RunicMagic.Spells
         public override List<RuneArgument> ArgTypesAndDefaults => new List<RuneArgument>{
                 new RuneArgument(new HashSet<string>{"reference", "statement"}, null)
             };
+
+        public override int ExecuteCost()
+        {
+            return 1 + Arguments.First().ExecuteCost();
+        }
 
         public override void Execute(IPlayer player, object executor)
         {
@@ -166,5 +175,17 @@ namespace RunicMagic.Spells
             door.Open = true;
         }
 
+    }
+
+    public class DureRune : Rune, IRune
+    {
+        override public string Name => "durerune";
+        public HashSet<string> Types => new HashSet<string>{"statement"};
+        public override List<RuneArgument> ArgTypesAndDefaults => new List<RuneArgument>();
+
+        public override int ExecuteCost()
+        {
+            return 42;
+        }
     }
 }
