@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Timers;
 
 namespace RunicMagic.Runner
 {
@@ -9,6 +10,8 @@ namespace RunicMagic.Runner
     {
         private IView view;
         private IModel model;
+
+        private Timer throughPutTimer;
 
         public GameRunner(IView view, IModel model)
         {
@@ -20,12 +23,20 @@ namespace RunicMagic.Runner
         {
             while(model.KeepRunning)
             {
-                view.Display(model);
+                HandleOutput("");
 
-                var input = view.GetInput();
-
-                model.ExecuteInput(input);
+                HandleInput(view.GetInput());
             }
+        }
+
+        public void HandleInput(IInput input)
+        {
+            model.ExecuteInput(input);
+        }
+
+        public void HandleOutput(string output)
+        {
+            view.Display(model);
         }
     }
 }
