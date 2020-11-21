@@ -5,6 +5,8 @@ namespace RunicMagic.Domain {
     public interface IWorld
     {
         HashSet<IRoom> Rooms { get; }
+
+        IPlayer ThePlayer { get; }
     }
 
     public enum Direction { North, East, South, West, Up, Down }

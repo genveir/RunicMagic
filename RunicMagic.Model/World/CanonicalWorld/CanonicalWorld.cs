@@ -5,11 +5,20 @@ using System.Text;
 
 namespace RunicMagic.Model.World
 {
-    public class CanonicalWorld
+    public class CanonicalWorld : IWorld
     {
+        public HashSet<IRoom> Rooms { get; set; }
+
+        public IPlayer ThePlayer { get; set; }
+
+        public CanonicalWorld()
+        {
+            this.Rooms = new HashSet<IRoom>();
+        }
+
         public void InitializeTheWorld()
         {
-            var builder = new WorldBuilder();
+            var builder = new WorldBuilder(this);
 
             var theFirstRoom = builder.AddInitialRoom("The First Room", @"You are standing in The First Room. It is a room. Not very distinct, nothing to distinguish it, even though it is unique.");
             builder.Build(theFirstRoom, Direction.East, "The Second Room", @"
@@ -18,8 +27,8 @@ now you know you will survive. Because you have opened a door and moved, and lif
 
             theFirstRoom.Exits[Direction.East].Door = new Door() { Open = false };
 
-            Player.Initialize("The Player", theFirstRoom);
-            Player.Instance.Hitpoints = 10;
+            this.ThePlayer = new Player("The Player", theFirstRoom);
+            this.ThePlayer.Hitpoints = 10;
 
             var sheep = new Creature("Sheep", theFirstRoom);
             sheep.ShortDesc = "A sheep is walking around, bleating merrily";

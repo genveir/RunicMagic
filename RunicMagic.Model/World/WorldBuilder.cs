@@ -7,10 +7,17 @@ namespace RunicMagic.Model.World
 {
     public class WorldBuilder
     {
+        private IWorld world;
+
+        public WorldBuilder(IWorld world = null)
+        {
+            if (world == null) world = TheWorld.Instance;
+
+            this.world = world;
+        }
+
         public IRoom AddInitialRoom(string name, string description)
         {
-            var world = TheWorld.Instance;
-
             var initialRoom = new Room(name, description);
             world.Rooms.Add(initialRoom);
 

@@ -16,7 +16,7 @@ namespace RunicMagic.Model.World
                 return _player;
             } 
         }
-        private Player(string name, IRoom location) : base(name, location) { }
+        public Player(string name, IRoom location) : base(name, location) { }
 
         public static void Initialize(string name, IRoom location)
         {
