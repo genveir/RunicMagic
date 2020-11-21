@@ -8,11 +8,6 @@ namespace RunicMagic.Model.World.Tests
 {
     public class MovementTests
     {
-        public MovementTests()
-        {
-            Player.DestroyInstance();
-        }
-
         [Fact]
         public void CanMoveFromOneRoomToTheOther()
         {

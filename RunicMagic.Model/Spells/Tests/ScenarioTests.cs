@@ -9,24 +9,19 @@ namespace RunicMagic.Model.Spells.Tests
 {
     public class ScenarioTests
     {
-        public ScenarioTests()
-        {
-            TheWorld.DestroyInstance();
-            Player.DestroyInstance();
-        }
-
         [Fact]
         public void CanOpenTheDoorWithUntargetedSpell()
         {
-            var builder = new WorldBuilder();
+            var world = new World.World();
+            var builder = new WorldBuilder(world);
 
             var theRoom = builder.AddInitialRoom("testRoom", "");
-            Player.Initialize("testPlayer", theRoom);
+            world.ThePlayer = new Player("testPlayer", theRoom);
 
             builder.Build(theRoom, Direction.East, "anotherRoom", "");
             theRoom.Exits[Direction.East].Door = new Door() { Open = false };
 
-            Player.Instance.Cast("ZU ALLEDUROPE");
+            world.ThePlayer.Cast("ZU ALLEDUROPE");
 
             Assert.True(theRoom.Exits[Direction.East].Door.Open);
         }
@@ -34,16 +29,17 @@ namespace RunicMagic.Model.Spells.Tests
         [Fact]
         public void CanOpenTheDoorWithTargetedSpell()
         {
-            var builder = new WorldBuilder();
+            var world = new World.World();
+            var builder = new WorldBuilder(world);
 
             var theRoom = builder.AddInitialRoom("testRoom", "");
-            Player.Initialize("testPlayer", theRoom);
+            world.ThePlayer = new Player("testPlayer", theRoom);
 
             builder.Build(theRoom, Direction.East, "anotherRoom", "");
             theRoom.Exits[Direction.East].Door = new Door() { Open = false };
 
-            Player.Instance.IndicateTarget(theRoom.Exits[Direction.East].Door);
-            Player.Instance.Cast("ZU DEZEDUROPE");
+            world.ThePlayer.IndicateTarget(theRoom.Exits[Direction.East].Door);
+            world.ThePlayer.Cast("ZU DEZEDUROPE");
 
             Assert.True(theRoom.Exits[Direction.East].Door.Open);
         }
@@ -51,22 +47,23 @@ namespace RunicMagic.Model.Spells.Tests
         [Fact]
         public void SpellCanTakeFromPowerSource()
         {
-            var builder = new WorldBuilder();
+            var world = new World.World();
+            var builder = new WorldBuilder(world);
 
             var theRoom = builder.AddInitialRoom("testRoom", "");
-            Player.Initialize("testPlayer", theRoom);
-            Player.Instance.Hitpoints = 100;
+            world.ThePlayer = new Player("testPlayer", theRoom);
+            world.ThePlayer.Hitpoints = 100;
 
             var sheep = new Mobile("Sheep", theRoom);
             sheep.Hitpoints = 50;
 
             var fire = new Fire(10, theRoom);
 
-            Player.Instance.Cast("ZU DURERUNE");
+            world.ThePlayer.Cast("ZU DURERUNE");
 
             Assert.Equal(0, fire.PowerPoints);
             Assert.Equal(17, sheep.Hitpoints);
-            Assert.Equal(100, Player.Instance.Hitpoints);
+            Assert.Equal(100, world.ThePlayer.Hitpoints);
         }
     }
 }

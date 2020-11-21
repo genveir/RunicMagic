@@ -17,9 +17,8 @@ namespace RunicMagic.Model.World
 
         public ICollection<string> Feedback { get; }
 
-        public WorldModel(IWorld world = null)
+        public WorldModel(IWorld world)
         {
-            if (world == null) world = TheWorld.Instance;
             this.world = world;
 
             Feedback = new List<string>();

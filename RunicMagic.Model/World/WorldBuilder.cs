@@ -9,10 +9,8 @@ namespace RunicMagic.Model.World
     {
         private IWorld world;
 
-        public WorldBuilder(IWorld world = null)
+        public WorldBuilder(IWorld world)
         {
-            if (world == null) world = TheWorld.Instance;
-
             this.world = world;
         }
 
@@ -31,6 +29,11 @@ namespace RunicMagic.Model.World
             room.Link(newRoom, direction);
 
             return newRoom;
+        }
+
+        public IWorld Complete()
+        {
+            return this.world;
         }
     }
 }
