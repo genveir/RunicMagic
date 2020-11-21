@@ -72,6 +72,8 @@ namespace RunicMagic.Domain {
 
         int Hitpoints { get; set; }
 
+        bool ProtectedByZuBeh { get; set; }
+
         IEnumerable<IEffect> Move(Direction direction);
     }
 

@@ -15,13 +15,17 @@ namespace RunicMagic.Model.World
 
         public int Hitpoints { get; set; }
 
+        public bool ProtectedByZuBeh { get; set; }
+
         public int CanTake()
         {
+            if (ProtectedByZuBeh) return 0;
             return Hitpoints;
         }
 
         public int Take(int n)
         {
+            if (ProtectedByZuBeh) return 0;
             if (Hitpoints > n)
             {
                 Hitpoints -= n;

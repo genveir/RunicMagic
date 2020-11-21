@@ -7,7 +7,7 @@ namespace RunicMagic.Spells
 {
     public interface ISpell
     {
-        void Execute(IPlayer caster, object executor);
+        bool Execute(IPlayer caster, object executor);
         int EvaluateCost();
         int ExecuteCost();
         string Debug();

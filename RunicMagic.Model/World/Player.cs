@@ -20,14 +20,10 @@ namespace RunicMagic.Model.World
         public ICastResult Cast(string spell)
         {
             var parseResult = Parser.Parse(spell);
-
-            if (parseResult.success)
-            {
-                parseResult.spell.Execute(this, this);
-            }
-            var castResult = new CastResult(parseResult, spell);
-
-            return castResult;
+            if (!parseResult.success) return new CastResult(parseResult, spell);
+            var spellsuccess = parseResult.spell.Execute(this, this);
+            parseResult.success = spellsuccess;
+            return new CastResult(parseResult, spell);
         }
 
         public string Look()

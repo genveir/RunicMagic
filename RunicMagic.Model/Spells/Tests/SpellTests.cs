@@ -69,5 +69,13 @@ namespace RunicMagic.Spells
             Assert.False(spell.success);
         }
 
+        [Fact]
+        public void SpellCanTake()
+        {
+            var spell = Parser.Parse("ZU DURERUNE");
+            Assert.Equal(spell.spell.EvaluateCost(), 0);
+            Assert.Equal(spell.spell.ExecuteCost(), 43);
+        }
+
     }
 }

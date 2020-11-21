@@ -43,7 +43,7 @@ namespace RunicMagic.Model.Spells.Tests
 
             Assert.True(theRoom.Exits[Direction.East].Door.Open);
         }
-
+        
         [Fact]
         public void SpellCanTakeFromPowerSource()
         {
@@ -53,17 +53,19 @@ namespace RunicMagic.Model.Spells.Tests
             var theRoom = builder.AddInitialRoom("testRoom", "");
             world.ThePlayer = new Player("testPlayer", theRoom);
             world.ThePlayer.Hitpoints = 100;
+            world.ThePlayer.ProtectedByZuBeh = true;
 
             var sheep = new Mobile("Sheep", theRoom);
             sheep.Hitpoints = 50;
 
             var fire = new Fire(10, theRoom);
 
-            world.ThePlayer.Cast("ZU DURERUNE");
+            var castresult = world.ThePlayer.Cast("ZU DURERUNE");
+            Assert.Equal(true, castresult.Success);
 
+            Assert.Equal(100, world.ThePlayer.Hitpoints);
             Assert.Equal(0, fire.PowerPoints);
             Assert.Equal(17, sheep.Hitpoints);
-            Assert.Equal(100, world.ThePlayer.Hitpoints);
         }
     }
 }
