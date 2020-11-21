@@ -17,6 +17,7 @@ namespace RunicMagic.Model.Spells.Tests
 
             var theRoom = builder.AddInitialRoom("testRoom", "");
             world.ThePlayer = new Player("testPlayer", theRoom);
+            world.ThePlayer.Hitpoints = 100;
 
             builder.Build(theRoom, Direction.East, "anotherRoom", "");
             theRoom.Exits[Direction.East].Door = new Door() { Open = false };
@@ -34,6 +35,7 @@ namespace RunicMagic.Model.Spells.Tests
 
             var theRoom = builder.AddInitialRoom("testRoom", "");
             world.ThePlayer = new Player("testPlayer", theRoom);
+            world.ThePlayer.Hitpoints = 100;
 
             builder.Build(theRoom, Direction.East, "anotherRoom", "");
             theRoom.Exits[Direction.East].Door = new Door() { Open = false };
