@@ -15,17 +15,17 @@ namespace RunicMagic.Model.World
 
         public int Hitpoints { get; set; }
 
-        public bool ProtectedByBasduTiOh { get; set; }
+        public bool ProtectedBy_BASDU_TI_OH { get; set; }
 
         public int CanTake()
         {
-            if (ProtectedByBasduTiOh) return 0;
+            if (ProtectedBy_BASDU_TI_OH) return 0;
             return Hitpoints;
         }
 
         public int Take(int n)
         {
-            if (ProtectedByBasduTiOh) return 0;
+            if (ProtectedBy_BASDU_TI_OH) return 0;
             if (Hitpoints > n)
             {
                 Hitpoints -= n;
