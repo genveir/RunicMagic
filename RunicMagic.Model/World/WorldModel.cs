@@ -30,9 +30,16 @@ namespace RunicMagic.Model.World
             var asString = input.ParseInput();
 
             if (asString == "quit") KeepRunning = false;
+            else if (asString.StartsWith("indicate"))
+            {
+                var targetStr = asString.Substring(9);
+                var target = world.ThePlayer.Location.GetTarget(targetStr);
+                if (target == null) GetPlayer().PushOutput("invalid target");
+                else GetPlayer().IndicateTarget(target);
+            }
             else if (asString.StartsWith("cast"))
             {
-                var result = world.ThePlayer.Cast(asString.Substring(5));
+                var result = GetPlayer().Cast(asString.Substring(5));
 
                 foreach(var effect in result.Effects)
                 {
