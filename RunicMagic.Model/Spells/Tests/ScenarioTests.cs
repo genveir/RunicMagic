@@ -12,7 +12,7 @@ namespace RunicMagic.Model.Spells.Tests
         [Fact]
         public void CanOpenTheDoorWithUntargetedSpell()
         {
-            var world = new World.World();
+            var world = new World.EmptyWorld();
             var builder = new WorldBuilder(world);
 
             var theRoom = builder.AddInitialRoom("testRoom", "");
@@ -29,7 +29,7 @@ namespace RunicMagic.Model.Spells.Tests
         [Fact]
         public void CanOpenTheDoorWithTargetedSpell()
         {
-            var world = new World.World();
+            var world = new World.EmptyWorld();
             var builder = new WorldBuilder(world);
 
             var theRoom = builder.AddInitialRoom("testRoom", "");
@@ -47,7 +47,7 @@ namespace RunicMagic.Model.Spells.Tests
         [Fact]
         public void SpellCanTakeFromPowerSource()
         {
-            var world = new World.World();
+            var world = new World.EmptyWorld();
             var builder = new WorldBuilder(world);
 
             var theRoom = builder.AddInitialRoom("testRoom", "");

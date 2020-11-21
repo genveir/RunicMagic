@@ -5,9 +5,9 @@ using System.Text;
 
 namespace RunicMagic.Model.World
 {
-    public class World : IWorld
+    public class EmptyWorld : IWorld
     {
-        public World()
+        public EmptyWorld()
         {
             this.Rooms = new HashSet<IRoom>();
         }

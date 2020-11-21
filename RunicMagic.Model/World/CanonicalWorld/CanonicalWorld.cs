@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RunicMagic.Model.World
 {
-    public class CanonicalWorld : World
+    public class CanonicalWorld : EmptyWorld
     {
         public CanonicalWorld() : base()
         {

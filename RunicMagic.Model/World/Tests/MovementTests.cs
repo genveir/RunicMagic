@@ -11,7 +11,7 @@ namespace RunicMagic.Model.World.Tests
         [Fact]
         public void CanMoveFromOneRoomToTheOther()
         {
-            var world = new World();
+            var world = new EmptyWorld();
 
             var builder = new WorldBuilder(world);
             var testRoom = builder.AddInitialRoom("testRoom", "");
