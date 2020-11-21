@@ -28,10 +28,10 @@ namespace RunicMagic.View
             DisplayEntities(roomToDisplay);
             DisplayExits(roomToDisplay);
 
-            DisplayPrompt();
-
             Console.BackgroundColor = currentBackgroundColor;
             Console.ForegroundColor = currentForegroundColor;
+
+            DisplayPrompt();
         }
 
         public void DisplayOutput(string output)
@@ -43,10 +43,10 @@ namespace RunicMagic.View
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine(output);
 
-            DisplayPrompt();
-
             Console.BackgroundColor = currentBackgroundColor;
             Console.ForegroundColor = currentForegroundColor;
+
+            DisplayPrompt();
         }
 
         private void DisplayRoomName(IRoom roomToDisplay)
