@@ -78,6 +78,9 @@ namespace RunicMagic.Spells
                 case "DEZEDUROPE":
                     rune = new DezeDurOpe();
                     return true;
+                case "DURERUNE":
+                    rune = new DureRune();
+                    return true;
                 default:
                     rune = null;
                     return false;
