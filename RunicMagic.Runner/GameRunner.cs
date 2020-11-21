@@ -11,8 +11,6 @@ namespace RunicMagic.Runner
         private IView view;
         private IModel model;
 
-        private Timer throughPutTimer;
-
         public GameRunner(IView view, IModel model)
         {
             this.view = view;
