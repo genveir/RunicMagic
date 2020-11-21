@@ -53,7 +53,7 @@ namespace RunicMagic.Model.Spells.Tests
             var theRoom = builder.AddInitialRoom("testRoom", "");
             world.ThePlayer = new Player("testPlayer", theRoom);
             world.ThePlayer.Hitpoints = 100;
-            world.ThePlayer.ProtectedByZuBeh = true;
+            world.ThePlayer.ProtectedByBasduTiOh = true;
 
             var sheep = new Mobile("Sheep", theRoom);
             sheep.Hitpoints = 50;
