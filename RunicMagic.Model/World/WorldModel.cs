@@ -15,19 +15,19 @@ namespace RunicMagic.Model.World
 
         public bool KeepRunning { get; set; } = true;
 
-        public ICollection<string> Feedback { get; }
-
         public WorldModel(IWorld world)
         {
             this.world = world;
 
-            Feedback = new List<string>();
+        }
+
+        public void RunTick()
+        {
+
         }
 
         public void ExecuteInput(IInput input)
         {
-            Feedback.Clear();
-
             var asString = input.ParseInput();
 
             if (asString == "quit") KeepRunning = false;
@@ -37,7 +37,7 @@ namespace RunicMagic.Model.World
 
                 foreach(var effect in result.Effects)
                 {
-                    Feedback.Add(effect.ToString());
+                    GetPlayer().PushOutput(effect.ToString());
                 }
             }
             else
@@ -56,7 +56,7 @@ namespace RunicMagic.Model.World
 
                 foreach (var effect in MoveEffect)
                 {
-                    Feedback.Add(effect.ToString());
+                    GetPlayer().PushOutput(effect.ToString());
                 }
             }
         }

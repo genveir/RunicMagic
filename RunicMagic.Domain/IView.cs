@@ -9,6 +9,8 @@ namespace RunicMagic.Domain
         void Display(IModel model);
 
         IInput GetInput();
+
+        void DisplayOutput(string output);
     }
 
     public interface IInput

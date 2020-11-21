@@ -15,13 +15,16 @@ namespace RunicMagic.Runner
         {
             this.view = view;
             this.model = model;
+
+            var player = this.model.GetPlayer();
+            player.SetupOutput((output) => this.HandleOutput(output));
         }
 
         public void Run()
         {
             while(model.KeepRunning)
             {
-                HandleOutput("");
+                view.Display(model);
 
                 HandleInput(view.GetInput());
             }
@@ -34,7 +37,7 @@ namespace RunicMagic.Runner
 
         public void HandleOutput(string output)
         {
-            view.Display(model);
+            view.DisplayOutput(output);
         }
     }
 }

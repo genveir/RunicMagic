@@ -20,8 +20,6 @@ namespace RunicMagic.View
             var currentBackgroundColor = Console.BackgroundColor;
             var currentForegroundColor = Console.ForegroundColor;
 
-            DisplayFeedback(model);
-
             DisplayRoomName(roomToDisplay);
             DisplayRoomDescription(roomToDisplay);
             DisplayEntities(roomToDisplay);
@@ -33,13 +31,10 @@ namespace RunicMagic.View
             Console.ForegroundColor = currentForegroundColor;
         }
 
-        private void DisplayFeedback(IModel model)
+        public void DisplayOutput(string output)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            foreach(var line in model.Feedback)
-            {
-                Console.WriteLine(line);
-            }
+            Console.WriteLine(output);
         }
 
         private void DisplayRoomName(IRoom roomToDisplay)

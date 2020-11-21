@@ -12,7 +12,6 @@ namespace RunicMagic.Domain
         void ExecuteInput(IInput input);
 
         bool KeepRunning { get; }
-
-        ICollection<string> Feedback { get; }
+        void RunTick();
     }
 }

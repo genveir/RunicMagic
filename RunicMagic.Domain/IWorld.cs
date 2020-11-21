@@ -51,6 +51,9 @@ namespace RunicMagic.Domain {
         void IndicateTarget(object target);
 
         ICastResult Cast(string spell);
+
+        void SetupOutput(Action<string> outputFunc);
+        void PushOutput(string output);
     }
 
     public interface ICastResult
