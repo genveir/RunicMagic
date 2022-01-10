@@ -12,5 +12,6 @@ jobs:
             url: 'https://ciserver.geertenvink.nl/notifyPush/RunicMagic'
             method: 'POST'
             data: ${{ secrets.CISecret }}
+            timeout: 15000
         - name: show-response
           run: echo ${{ steps.ci-request.outputs.response }}
