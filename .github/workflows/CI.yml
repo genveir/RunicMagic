@@ -9,7 +9,7 @@ jobs:
           id: ci-request
           uses: fjogeleit/http-request-action@master
           with:
-            url: 'https://ci-server.geertenvink.nl/RunicMagic'
+            url: 'https://ciserver.geertenvink.nl/RunicMagic'
             method: 'POST'
             data: ${{ secrets.CISecret }}
         - name: show-response
