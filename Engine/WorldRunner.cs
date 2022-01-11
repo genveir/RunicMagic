@@ -44,7 +44,7 @@ namespace Engine
 
         private static async Task DoTick()
         {
-            foreach (IPlayerService player in Players) player.SendOutput("spam spam");
+            await Task.CompletedTask;
         }
     }
 }

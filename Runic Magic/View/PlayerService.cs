@@ -10,9 +10,10 @@ namespace Runic_Magic.View
     {
         private readonly Player _player;
 
+        private static int naamCounter = 0;
         public PlayerService()
         {
-            this._player = new Player("Naam");
+            this._player = new Player("Naam_" + naamCounter++);
 
             WorldRunner.Players.Add(this);
         }
@@ -20,6 +21,8 @@ namespace Runic_Magic.View
         public List<string> Inputs { get; } = new List<string>();
         public async Task RegisterInput(string input) 
         {
+            if (input == "whoami") SendOutput(_player.Name);
+
             if (_player.Name == input) SendOutput("wow dat is je naam!");
             this.Inputs.Add(input);
 
