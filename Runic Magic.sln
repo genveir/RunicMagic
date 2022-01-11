@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "World", "World\World.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\Persistence.csproj", "{0DB3A816-5F3E-46C1-BEE8-81EC7BA1050D}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Runes", "Runes\Runes.fsproj", "{19A7CEB7-3932-4D68-AD42-99B59A4B7F7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Runes", "Runes\Runes.csproj", "{B255B5DA-2145-46EF-B625-08C48962A421}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +40,10 @@ Global
 		{0DB3A816-5F3E-46C1-BEE8-81EC7BA1050D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DB3A816-5F3E-46C1-BEE8-81EC7BA1050D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DB3A816-5F3E-46C1-BEE8-81EC7BA1050D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19A7CEB7-3932-4D68-AD42-99B59A4B7F7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19A7CEB7-3932-4D68-AD42-99B59A4B7F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19A7CEB7-3932-4D68-AD42-99B59A4B7F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19A7CEB7-3932-4D68-AD42-99B59A4B7F7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B255B5DA-2145-46EF-B625-08C48962A421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B255B5DA-2145-46EF-B625-08C48962A421}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B255B5DA-2145-46EF-B625-08C48962A421}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B255B5DA-2145-46EF-B625-08C48962A421}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
