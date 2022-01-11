@@ -1,7 +1,91 @@
-﻿<h3>This is a terminal, it's just very static</h3>
-
-You are in a room. There is a puzzle.
+﻿@using System.Text.Json
+<Xterm
+    @ref="_terminal"
+    Options="_options"
+    OnFirstRender="@OnFirstRender"
+    OnBinary="@OnBinary"
+    OnCursorMove="@OnCursorMove"
+    OnData="@OnData"
+    OnKey="@OnKey"
+    OnLineFeed="@OnLineFeed"
+    OnScroll="@OnScroll"
+    OnSelectionChange="@OnSelectionChange"
+    OnRender="@OnRender"
+    OnResize="@OnResize"
+    OnTitleChange="@OnTitleChange"
+    OnBell="@OnBell"
+/>
 
 @code {
+    private Xterm _terminal;
 
+    private TerminalOptions _options = new TerminalOptions
+    {
+        CursorBlink = true,
+        CursorStyle = CursorStyle.Block,
+        DisableStdin = false,
+        Rows = 50,
+        Columns = 180
+    };
+
+    private async Task OnFirstRender()
+    {
+        await _terminal.WriteLine("Hello World");
+    }
+
+    private async Task OnBinary(string data)
+    {
+        await Task.CompletedTask;
+    }
+
+    private async Task OnCursorMove()
+    {
+        await Task.CompletedTask;
+    }
+
+    private async Task OnData(string data)
+    {
+        await Task.CompletedTask;
+    }
+
+    private async Task OnKey(KeyboardEventArgs args)
+    {
+        if (args.Key == "\r") await _terminal.WriteLine("");
+        else await _terminal.Write(args.Key);
+    }
+
+    private async Task OnLineFeed()
+    {
+        await Task.CompletedTask;
+    }
+
+    private async Task OnScroll(int newPosition)
+    {
+        await Task.CompletedTask;
+    }
+
+    private async Task OnSelectionChange()
+    {
+        await Task.CompletedTask;
+    }
+
+    private async Task OnRender(RenderEventArgs args)
+    {
+        await Task.CompletedTask;
+    }
+
+    private async Task OnResize(ResizeEventArgs args)
+    {
+        await Task.CompletedTask;
+    }
+
+    private async Task OnTitleChange(string title)
+    {
+        await Task.CompletedTask;
+    }
+
+    private async Task OnBell()
+    {
+        await Task.CompletedTask;
+    }
 }
