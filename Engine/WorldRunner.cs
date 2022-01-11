@@ -1,12 +1,16 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Engine.Plugins;
+using Microsoft.Extensions.Hosting;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Engine
 {
-    public class Engine : BackgroundService
+    public class WorldRunner : BackgroundService
     {
+        public static List<IPlayerService> Players { get; } = new List<IPlayerService>();
+
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
             await Loop(cancellationToken);
@@ -38,9 +42,9 @@ namespace Engine
             }
         }
 
-        private async Task DoTick()
+        private static async Task DoTick()
         {
-            await Task.CompletedTask;
+            foreach (IPlayerService player in Players) player.SendOutput("spam spam");
         }
     }
 }

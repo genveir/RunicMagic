@@ -1,32 +1,45 @@
 ﻿@using System.Text.Json
-<Xterm
-    @ref="_terminal"
-    Options="_options"
-    OnFirstRender="@OnFirstRender"
-    OnBinary="@OnBinary"
-    OnCursorMove="@OnCursorMove"
-    OnData="@OnData"
-    OnKey="@OnKey"
-    OnLineFeed="@OnLineFeed"
-    OnScroll="@OnScroll"
-    OnSelectionChange="@OnSelectionChange"
-    OnRender="@OnRender"
-    OnResize="@OnResize"
-    OnTitleChange="@OnTitleChange"
-    OnBell="@OnBell"
-/>
+<Xterm @ref="_terminal"
+       Options="_options"
+       OnFirstRender="@OnFirstRender"
+       OnBinary="@OnBinary"
+       OnCursorMove="@OnCursorMove"
+       OnData="@OnData"
+       OnKey="@OnKey"
+       OnLineFeed="@OnLineFeed"
+       OnScroll="@OnScroll"
+       OnSelectionChange="@OnSelectionChange"
+       OnRender="@OnRender"
+       OnResize="@OnResize"
+       OnTitleChange="@OnTitleChange"
+       OnBell="@OnBell" />
 
 @code {
+    [Parameter]
+    public PlayerService player { get; set; } = null!; // boooeeee
+
     private Xterm _terminal = null!; // boeee
 
     private TerminalOptions _options = new TerminalOptions
+        {
+            CursorBlink = true,
+            CursorStyle = CursorStyle.Block,
+            DisableStdin = false,
+            Rows = 50,
+            Columns = 180
+        };
+
+    protected override void OnInitialized()
     {
-        CursorBlink = true,
-        CursorStyle = CursorStyle.Block,
-        DisableStdin = false,
-        Rows = 50,
-        Columns = 180
-    };
+        if (player == null) throw new PlayerNotInjectedException("Terminal was created without player service");
+
+        player.DataAvailable += HandleDataUpdate;
+    }
+
+    public void HandleDataUpdate(object sender, DataAvailableEventArgs args)
+    {
+        _terminal.WriteLine(args.Data);
+    }
 
     private async Task OnFirstRender()
     {
@@ -48,10 +61,20 @@
         await Task.CompletedTask;
     }
 
+    private List<string> collectedKeys = new List<string>();
     private async Task OnKey(KeyboardEventArgs args)
     {
-        if (args.Key == "\r") await _terminal.WriteLine("");
-        else await _terminal.Write(args.Key);
+        if (args.Key == "\r")
+        {
+            await _terminal.WriteLine("");
+            await player.RegisterInput(string.Join("", collectedKeys));
+            collectedKeys.Clear();
+        }
+        else
+        {
+            collectedKeys.Add(args.Key);
+            await _terminal.Write(args.Key);
+        }
     }
 
     private async Task OnLineFeed()

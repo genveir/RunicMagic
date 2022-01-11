@@ -1,5 +1,7 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Engine;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Runic_Magic.View;
 
 namespace Runic_Magic
 {
@@ -13,6 +15,8 @@ namespace Runic_Magic
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
 
+            RegisterServices(builder.Services);
+
             var app = builder.Build();
 
             app.UseHttpsRedirection();
@@ -25,6 +29,13 @@ namespace Runic_Magic
             app.MapFallbackToPage("/_Host");
 
             app.Run();
+        }
+
+        private static void RegisterServices(IServiceCollection services)
+        {
+            services.AddHostedService<WorldRunner>();
+
+            services.AddScoped<PlayerService>();
         }
     }
 }

@@ -3,12 +3,16 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Runic_Magic</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="XtermBlazor" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Engine\Engine.csproj" />
+    <ProjectReference Include="..\World\World.csproj" />
   </ItemGroup>
 
 </Project>
