@@ -26,7 +26,7 @@ namespace View
 
         public static IEnumerable<string> DescribeCreatures(Room room)
         {
-            return room.Creatures.Select(c => c.LongDesc);
+            return room.Creatures.Select(c => c.LongDesc).Select(c => $"\u001b[35;1m{c}\u001b[0m");
         }
 
         public static string DescribeExits(Room room)
