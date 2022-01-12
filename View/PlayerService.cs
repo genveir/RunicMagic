@@ -10,32 +10,24 @@ namespace View
 {
     public class PlayerService : IPlayerService
     {
-        private readonly Player _player;
         private readonly PlayerEventHandler _playerEventHandler;
+
+        public Player Player { get; }
 
         public PlayerService(PlayerFactory playerFactory)
         {
             _playerEventHandler = new PlayerEventHandler(this);
-            _player = playerFactory.CreatePlayer();
+            Player = playerFactory.CreatePlayer();
 
-            _player.SubscribeToEvents(_playerEventHandler);
+            Player.SubscribeToEvents(_playerEventHandler);
 
-            WorldRunner.Players.Add(this);
+            WorldRunner.PlayerServices.Add(this);
         }
 
-        public List<string> Inputs { get; } = new List<string>();
-        public async Task RegisterInput(string input) 
+        public Queue<string> Commands { get; } = new Queue<string>();
+        public void RegisterInput(string input) 
         {
-            if (input == "n") _player.Move(Direction.NORTH);
-            if (input == "e") _player.Move(Direction.EAST);
-            if (input == "s") _player.Move(Direction.SOUTH);
-            if (input == "w") _player.Move(Direction.WEST);
-            if (input == "u") _player.Move(Direction.UP);
-            if (input == "d") _player.Move(Direction.DOWN);
-
-            if (input == "l") _playerEventHandler.Look(_player.Location);
-
-            await Task.CompletedTask;
+            Commands.Enqueue(input);
         }
 
         public delegate Task DataAvailableEventHandler(PlayerService sender, string data);

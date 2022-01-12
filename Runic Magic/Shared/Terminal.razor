@@ -42,9 +42,9 @@
         await _terminal.WriteLine(data);
     }
 
-    private async Task OnFirstRender()
+    private void OnFirstRender()
     {
-        await player.RegisterInput("l");
+        player.RegisterInput("l");
     }
 
     private async Task OnBinary(string data)
@@ -68,7 +68,7 @@
         if (args.Key == "\r")
         {
             await _terminal.WriteLine("");
-            await player.RegisterInput(string.Join("", collectedKeys));
+            player.RegisterInput(string.Join("", collectedKeys));
             collectedKeys.Clear();
         }
         else

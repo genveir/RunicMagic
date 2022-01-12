@@ -19,5 +19,9 @@ namespace World.Plugins
         
         void TriedInvalidMove();
         void Moved(Room to, Direction direction);
+
+        void TriedInvalidCommand(string command);
+
+        void Look(Room room);
     }
 }

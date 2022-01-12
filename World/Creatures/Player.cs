@@ -30,10 +30,25 @@ namespace World.Creatures
             else OnInvalidMove?.Invoke();
         }
 
+        public void Look()
+        {
+            OnLook?.Invoke(Location);
+        }
+
+        public void InvalidCommand(string command)
+        {
+            OnInvalidCommand?.Invoke(command);
+        }
+
         public void SubscribeToEvents(IPlayerWorldEventsHandler eventHandler)
         {
             OnInvalidMove += eventHandler.TriedInvalidMove;
             OnValidMove += eventHandler.Moved;
+            OnLook += eventHandler.Look;
+
+            OnInvalidCommand += eventHandler.TriedInvalidCommand;
+
+            Location.SubscribePlayerToEvents(eventHandler);
         }
 
         #region events
@@ -41,8 +56,14 @@ namespace World.Creatures
         public delegate void VoidEventHandler();
         public event VoidEventHandler? OnInvalidMove;
 
-        public delegate void RoomEventHandler(Room room, Direction direction);
-        public event RoomEventHandler? OnValidMove;
+        public delegate void RoomDirectionEventHandler(Room room, Direction direction);
+        public event RoomDirectionEventHandler? OnValidMove;
+
+        public delegate void RoomEventHandler(Room room);
+        public event RoomEventHandler? OnLook;
+
+        public delegate void StringEventHandler(string value);
+        public event StringEventHandler? OnInvalidCommand;
         #endregion
     }
 }

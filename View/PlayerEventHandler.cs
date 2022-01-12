@@ -38,6 +38,11 @@ namespace View
             playerService.SendOutput("you bumped into the wall. Ouch!");
         }
 
+        public void TriedInvalidCommand(string command)
+        {
+            playerService.SendOutput($"I don't know what '{command}' means!");
+        }
+
         public void Moved(Room to, Direction direction)
         {
             playerService.SendOutput($"you walked {direction.DepartureDescriptor}");

@@ -1,4 +1,5 @@
-﻿using Engine.Plugins;
+﻿using Engine.Commands;
+using Engine.Plugins;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Engine
 {
     public class WorldRunner : BackgroundService
     {
-        public static List<IPlayerService> Players { get; } = new List<IPlayerService>();
+        public static List<IPlayerService> PlayerServices { get; } = new List<IPlayerService>();
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
@@ -44,7 +45,16 @@ namespace Engine
 
         private static async Task DoTick()
         {
-            await Task.CompletedTask;
+            foreach(var playerService in PlayerServices)
+            {
+                if (playerService.Commands.Count > 0)
+                {
+                    var command = playerService.Commands.Dequeue();
+                    var player = playerService.Player;
+                    
+                    if (!CommandParser.Parse(player, command)) player.InvalidCommand(command);
+                }
+            }
         }
     }
 }
