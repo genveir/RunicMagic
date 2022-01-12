@@ -1,6 +1,7 @@
 using Engine;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Persistence;
 using Runic_Magic.View;
 
 namespace Runic_Magic
@@ -34,6 +35,9 @@ namespace Runic_Magic
         private static void RegisterServices(IServiceCollection services)
         {
             services.AddHostedService<WorldRunner>();
+
+            EngineServiceRegistry.RegisterServices(services);
+            PersistenceServiceRegistry.RegisterServices(services);
 
             services.AddScoped<PlayerService>();
         }

@@ -43,7 +43,7 @@
 
     private async Task OnFirstRender()
     {
-        await _terminal.WriteLine("Hello World");
+        await Task.CompletedTask;
     }
 
     private async Task OnBinary(string data)
