@@ -33,7 +33,7 @@ namespace View
             if (input == "u") _player.Move(Direction.UP);
             if (input == "d") _player.Move(Direction.DOWN);
 
-            if (input == "l") _playerEventHandler.Looked(_player.Location);
+            if (input == "l") _playerEventHandler.Look(_player.Location);
 
             await Task.CompletedTask;
         }

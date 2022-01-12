@@ -9,7 +9,27 @@ namespace View
 {
     public static class DescriptorGenerators
     {
-        public static string DescribeRoomExits(Room room)
+        public static List<string> Look(Room room)
+        {
+            var header = $"[\u001b[36;1m{room.Name}\u001b[0m]";
+            var desc = room.Description;
+            var creatures = DescribeCreatures(room);
+            var exits = DescribeExits(room);
+
+            return new List<string>()
+                .Append(header)
+                .Append(desc)
+                .Concat(creatures)
+                .Append(exits)
+                .ToList();
+        }
+
+        public static IEnumerable<string> DescribeCreatures(Room room)
+        {
+            return room.Creatures.Select(c => c.LongDesc);
+        }
+
+        public static string DescribeExits(Room room)
         {
             if (room.RoomCache._exitString == null)
             {

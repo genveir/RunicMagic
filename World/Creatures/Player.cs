@@ -12,7 +12,8 @@ namespace World.Creatures
     {
         public string Name { get; set; }
 
-        public Player(long id, string name, Room room) : base(id, name, room)
+        public Player(long id, string name, Room room) 
+            : base(id, name, $"{name} is here.", room)
         {
             this.Name = name;
         }

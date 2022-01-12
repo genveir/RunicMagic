@@ -41,14 +41,15 @@ namespace View
         public void Moved(Room to, Direction direction)
         {
             playerService.SendOutput($"you walked {direction.DepartureDescriptor}");
-            this.Looked(to);
+
+            Look(to);
         }
 
-        public void Looked(Room room)
+        public void Look(Room room)
         {
-            playerService.SendOutput($"[\u001b[36;1m{room.Name}\u001b[0m]");
-            playerService.SendOutput(room.Description);
-            playerService.SendOutput(DescriptorGenerators.DescribeRoomExits(room));
+            var lookData = DescriptorGenerators.Look(room);
+
+            foreach (var line in lookData) playerService.SendOutput(line);
         }
     }
 }

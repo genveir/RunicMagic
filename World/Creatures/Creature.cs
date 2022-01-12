@@ -15,10 +15,13 @@ namespace World.Creatures
 
         public string ShortDesc { get; set; }
 
-        public Creature(long id, string shortDesc, Room location)
+        public string LongDesc { get; set; }
+
+        public Creature(long id, string shortDesc, string longDesc, Room location)
         {
             Id = id;
             ShortDesc = shortDesc;
+            LongDesc = longDesc;
             Location = location;
         }
     }
