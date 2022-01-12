@@ -21,8 +21,6 @@ namespace Runic_Magic.View
             _player.SubscribeToEvents(_playerEventHandler);
 
             WorldRunner.Players.Add(this);
-
-            _playerEventHandler.Looked(_player.Location);
         }
 
         public List<string> Inputs { get; } = new List<string>();

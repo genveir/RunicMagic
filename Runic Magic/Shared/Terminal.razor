@@ -43,7 +43,7 @@
 
     private async Task OnFirstRender()
     {
-        await Task.CompletedTask;
+        await player.RegisterInput("l");
     }
 
     private async Task OnBinary(string data)
