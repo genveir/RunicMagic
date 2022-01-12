@@ -13,28 +13,6 @@ namespace World.Rooms
         public List<Creature> Creatures { get; } = new List<Creature>();
 
         public Room?[] LinkedRooms { get; } = new Room?[6];
-        private string _exitString;
-        public string ExitString
-        {
-            get
-            {
-                if (_exitString == null)
-                {
-                    List<string> exitStrings = new List<string>();
-                    for (int dir = 0; dir < 6; dir++)
-                    {
-                        if (LinkedRooms[dir] != null)
-                        {
-                            exitStrings.Add(Direction.From(dir).ExitDescriptor);
-                        }
-                    }
-                    var exits = string.Join(" ", exitStrings);
-
-                    _exitString = $"Exits: [{exits}]";
-                }
-                return _exitString;
-            }
-        }
 
         public string Name { get; set; }
         public string Description { get; set; }
@@ -57,6 +35,8 @@ namespace World.Rooms
         {
             this.CreatureEntered += player.CreatureEnteredRoom;
             this.CreatureExited += player.CreatureExitedRoom;
+            
+            this.CreatureSpoke += player.CreatureSpoke;
 
             this.MessageBroadcast += player.ReceivedBroadcastMessage;
         }
@@ -66,6 +46,8 @@ namespace World.Rooms
             this.CreatureEntered -= player.CreatureEnteredRoom;
             this.CreatureExited -= player.CreatureExitedRoom;
             
+            this.CreatureSpoke -= player.CreatureSpoke;
+
             this.MessageBroadcast -= player.ReceivedBroadcastMessage;
         }
 
@@ -80,5 +62,7 @@ namespace World.Rooms
         public event BroadcastMessageHandler? MessageBroadcast;
 
         #endregion
+
+        public RoomCache RoomCache { get; } = new RoomCache();
     }
 }

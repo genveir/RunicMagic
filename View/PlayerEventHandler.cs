@@ -28,11 +28,6 @@ namespace View
             playerService.SendOutput($"{creature.ShortDesc} says '{message}'");
         }
 
-        public void CreatureYelled(Creature creature, string message)
-        {
-            playerService.SendOutput($"{creature.ShortDesc} yells '{message}'");
-        }
-
         public void ReceivedBroadcastMessage(string message)
         {
             playerService.SendOutput(message);
@@ -53,7 +48,7 @@ namespace View
         {
             playerService.SendOutput($"[\u001b[36;1m{room.Name}\u001b[0m]");
             playerService.SendOutput(room.Description);
-            playerService.SendOutput(room.ExitString);
+            playerService.SendOutput(DescriptorGenerators.DescribeRoomExits(room));
         }
     }
 }
