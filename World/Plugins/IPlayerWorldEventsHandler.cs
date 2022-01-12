@@ -23,5 +23,6 @@ namespace World.Plugins
         void TriedInvalidCommand(string command);
 
         void Look(Room room);
+        void Quit();
     }
 }

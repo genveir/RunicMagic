@@ -30,7 +30,8 @@ namespace World.Creatures
             Location.PerformSay(this, sentence);
         }
 
-        public virtual bool Move(Direction direction)
+        protected virtual bool CanMove(Direction direction) => Location.LinkedRooms[direction.Value] != null;
+        public virtual void Move(Direction direction)
         {
             var to = Location.LinkedRooms[direction.Value];
             if (to != null)
@@ -38,29 +39,9 @@ namespace World.Creatures
                 Location.Exit(this, direction);
 
                 Location = to;
-                OnValidMove?.Invoke(to, direction);
 
                 to.Enter(this, direction.Opposite());
-
-                return true;
-            }
-            else
-            {
-                OnInvalidMove?.Invoke();
-
-                return false;
             }
         }
-
-        #region events
-
-        public delegate void VoidEventHandler();
-        public event VoidEventHandler? OnInvalidMove;
-
-        public delegate void RoomDirectionEventHandler(Room room, Direction direction);
-        public event RoomDirectionEventHandler? OnValidMove;
-
-
-        #endregion
     }
 }

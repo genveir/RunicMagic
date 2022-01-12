@@ -44,6 +44,8 @@ namespace Engine.Commands
             {
                 case "l":
                 case "look": player.Look(); return true;
+                case "quit":
+                case "exit": player.Quit(); return true;
                 default: return false;
             }
         }

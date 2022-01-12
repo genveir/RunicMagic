@@ -8,7 +8,7 @@ using World.Rooms;
 
 namespace View
 {
-    public class PlayerService : IPlayerService
+    public class PlayerService : IPlayerService, IDisposable
     {
         private readonly PlayerEventHandler _playerEventHandler;
 
@@ -19,7 +19,7 @@ namespace View
             _playerEventHandler = new PlayerEventHandler(this);
             Player = playerFactory.CreatePlayer();
 
-            Player.SubscribeToEvents(_playerEventHandler);
+            Player.Initialize(_playerEventHandler);
 
             WorldRunner.PlayerServices.Add(this);
         }
@@ -40,6 +40,13 @@ namespace View
         public void SendOutput(string output)
         {
             RaiseDataAvailableEvent(output);
+        }
+
+        public void Dispose()
+        {
+            Player.Dispose();
+
+            WorldRunner.PlayerServices.Remove(this);
         }
     }
 }

@@ -60,5 +60,12 @@ namespace View
 
             foreach (var line in lookData) playerService.SendOutput(line);
         }
+
+        public void Quit()
+        {
+            playerService.SendOutput("Thanks for playing!");
+
+            playerService.Dispose();
+        }
     }
 }
