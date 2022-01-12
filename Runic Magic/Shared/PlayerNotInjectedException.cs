@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Runic_Magic.View
+namespace Runic_Magic.Shared
 {
     [Serializable]
     internal class PlayerNotInjectedException : Exception

@@ -6,7 +6,7 @@ using World;
 using World.Creatures;
 using World.Rooms;
 
-namespace Runic_Magic.View
+namespace View
 {
     public class PlayerService : IPlayerService
     {
@@ -38,11 +38,11 @@ namespace Runic_Magic.View
             await Task.CompletedTask;
         }
 
-        public delegate Task DataAvailableEventHandler(PlayerService sender, DataAvailableEventArgs e);
+        public delegate Task DataAvailableEventHandler(PlayerService sender, string data);
         public event DataAvailableEventHandler? DataAvailable;
         protected void RaiseDataAvailableEvent(string data)
         {
-            DataAvailable?.Invoke(this, new DataAvailableEventArgs(data));
+            DataAvailable?.Invoke(this, data);
         }
 
         public void SendOutput(string output)

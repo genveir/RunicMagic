@@ -2,7 +2,7 @@ using Engine;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence;
-using Runic_Magic.View;
+using View;
 
 namespace Runic_Magic
 {

@@ -2,7 +2,7 @@
 using World.Plugins;
 using World.Rooms;
 
-namespace Runic_Magic.View
+namespace View
 {
     public class PlayerEventHandler : IPlayerWorldEventsHandler
     {
