@@ -46,6 +46,7 @@ namespace World.Creatures
 
             OnInvalidCommand += EventHandler.TriedInvalidCommand;
 
+            Location.SubscribePlayerToEvents(EventHandler);
             Location.Enter(this, Direction.From(-1));
         }
 
