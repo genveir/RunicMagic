@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Runes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -79,7 +80,9 @@ namespace Engine.Commands
 
         private static void ParseCast(Player player, string spell)
         {
-            player.Echo("I recognized you're trying to cast {spell} but can't parse runes yet!");
+            var parser = new RuneParser(player);
+
+            parser.Parse(spell);
         }
     }
 }
