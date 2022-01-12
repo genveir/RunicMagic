@@ -12,8 +12,10 @@ namespace Engine.Commands
     {
         public static bool Parse(Player player, string command)
         {
-            return TryParseMovement(player, command) ||
-                TryParseSingleWordCommands(player, command);
+            return
+                TryParseMovement(player, command) ||
+                TryParseSingleWordCommands(player, command) ||
+                TryParseMultiWordCommands(player, command);
         }
 
         private static bool TryParseMovement(Player player, string command)
@@ -44,6 +46,33 @@ namespace Engine.Commands
                 case "look": player.Look(); return true;
                 default: return false;
             }
+        }
+
+        private static bool TryParseMultiWordCommands(Player player, string command)
+        {
+            var split = command.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+
+            if (split.Length > 1)
+            {
+                var commandWord = split[0];
+                var arguments = split[1];
+
+                switch(commandWord)
+                {
+                    case "say":
+                        player.Say(arguments); return true;
+                    case "cast":
+                        ParseCast(player, arguments); return true;
+                    default:
+                        return false;
+                }
+            }
+            return false;
+        }
+
+        private static void ParseCast(Player player, string spell)
+        {
+            player.Echo("I recognized you're trying to cast {spell} but can't parse runes yet!");
         }
     }
 }

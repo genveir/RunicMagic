@@ -25,7 +25,11 @@ namespace View
 
         public void CreatureSpoke(Creature creature, string message)
         {
-            playerService.SendOutput($"{creature.ShortDesc} says '{message}'");
+            if (creature == playerService.Player)
+            {
+                playerService.SendOutput($"you say `{message}`");
+            }
+            else playerService.SendOutput($"{creature.ShortDesc} says '{message}'");
         }
 
         public void ReceivedBroadcastMessage(string message)

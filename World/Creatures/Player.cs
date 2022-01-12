@@ -12,22 +12,12 @@ namespace World.Creatures
     {
         public string Name { get; set; }
 
+        public IPlayerWorldEventsHandler EventHandler { get; private set; } = null!; // haha booeee
+
         public Player(long id, string name, Room room) 
             : base(id, name, $"{name} is here.", room)
         {
             this.Name = name;
-        }
-
-        public void Move(Direction direction)
-        {
-            // should queue commands and let the server handle them, but for now this is instant
-            var to = Location.LinkedRooms[direction.Value];
-            if (to != null)
-            {
-                Location = to;
-                OnValidMove?.Invoke(to, direction);
-            }
-            else OnInvalidMove?.Invoke();
         }
 
         public void Look()
@@ -40,30 +30,48 @@ namespace World.Creatures
             OnInvalidCommand?.Invoke(command);
         }
 
+        public void Echo(string message)
+        {
+            OnEcho?.Invoke(message);
+        }
+
         public void SubscribeToEvents(IPlayerWorldEventsHandler eventHandler)
         {
-            OnInvalidMove += eventHandler.TriedInvalidMove;
-            OnValidMove += eventHandler.Moved;
-            OnLook += eventHandler.Look;
+            EventHandler = eventHandler;
 
-            OnInvalidCommand += eventHandler.TriedInvalidCommand;
+            OnInvalidMove += EventHandler.TriedInvalidMove;
+            OnValidMove += EventHandler.Moved;
+            OnLook += EventHandler.Look;
+            OnEcho += EventHandler.ReceivedBroadcastMessage;
 
-            Location.SubscribePlayerToEvents(eventHandler);
+            OnInvalidCommand += EventHandler.TriedInvalidCommand;
+
+            Location.SubscribePlayerToEvents(EventHandler);
+        }
+
+        public override bool Move(Direction direction)
+        {
+            var currentLocation = Location;
+
+            var moved = base.Move(direction);
+
+            if (moved)
+            {
+                currentLocation.UnsubscribePlayerFromEvents(EventHandler);
+                Location.SubscribePlayerToEvents(EventHandler);
+            }
+
+            return moved;
         }
 
         #region events
-
-        public delegate void VoidEventHandler();
-        public event VoidEventHandler? OnInvalidMove;
-
-        public delegate void RoomDirectionEventHandler(Room room, Direction direction);
-        public event RoomDirectionEventHandler? OnValidMove;
 
         public delegate void RoomEventHandler(Room room);
         public event RoomEventHandler? OnLook;
 
         public delegate void StringEventHandler(string value);
         public event StringEventHandler? OnInvalidCommand;
+        public event StringEventHandler? OnEcho;
         #endregion
     }
 }

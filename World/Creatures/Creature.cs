@@ -24,5 +24,43 @@ namespace World.Creatures
             LongDesc = longDesc;
             Location = location;
         }
+
+        public void Say(string sentence)
+        {
+            Location.PerformSay(this, sentence);
+        }
+
+        public virtual bool Move(Direction direction)
+        {
+            var to = Location.LinkedRooms[direction.Value];
+            if (to != null)
+            {
+                Location.Exit(this, direction);
+
+                Location = to;
+                OnValidMove?.Invoke(to, direction);
+
+                to.Enter(this, direction.Opposite());
+
+                return true;
+            }
+            else
+            {
+                OnInvalidMove?.Invoke();
+
+                return false;
+            }
+        }
+
+        #region events
+
+        public delegate void VoidEventHandler();
+        public event VoidEventHandler? OnInvalidMove;
+
+        public delegate void RoomDirectionEventHandler(Room room, Direction direction);
+        public event RoomDirectionEventHandler? OnValidMove;
+
+
+        #endregion
     }
 }

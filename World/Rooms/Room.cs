@@ -29,6 +29,28 @@ namespace World.Rooms
             if (linkBack) otherRoom.LinkRoom(this, direction.Opposite(), false);
         }
 
+        public void Enter(Creature creature, Direction direction)
+        {
+            Creatures.Add(creature);
+            this.CreatureEntered?.Invoke(this, creature, direction);
+        }
+
+        public void Exit(Creature creature, Direction direction)
+        {
+            Creatures.Remove(creature);
+            this.CreatureExited?.Invoke(this, creature, direction);
+        }
+
+        public void PerformSay(Creature creature, string sentence)
+        {
+            this.CreatureSpoke?.Invoke(creature, sentence);
+        }
+
+        public void Echo(string message)
+        {
+            this.MessageBroadcast?.Invoke(message);
+        }
+
         #region events
 
         public void SubscribePlayerToEvents(IPlayerWorldEventsHandler player)

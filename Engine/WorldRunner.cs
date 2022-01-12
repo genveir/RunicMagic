@@ -29,7 +29,7 @@ namespace Engine
 
                     var next = DateTime.Now.Add(delay);
 
-                    await DoTick();
+                    DoTick();
 
                     delay = next - DateTime.Now;
                     if (delay < TimeSpan.Zero) delay = TimeSpan.Zero;
@@ -43,7 +43,7 @@ namespace Engine
             }
         }
 
-        private static async Task DoTick()
+        private static void DoTick()
         {
             foreach(var playerService in PlayerServices)
             {
