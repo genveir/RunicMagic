@@ -38,7 +38,7 @@ namespace Runic_Magic.View
             await Task.CompletedTask;
         }
 
-        public delegate void DataAvailableEventHandler(PlayerService sender, DataAvailableEventArgs e);
+        public delegate Task DataAvailableEventHandler(PlayerService sender, DataAvailableEventArgs e);
         public event DataAvailableEventHandler? DataAvailable;
         protected void RaiseDataAvailableEvent(string data)
         {

@@ -36,9 +36,9 @@
         player.DataAvailable += HandleDataUpdate;
     }
 
-    public void HandleDataUpdate(object sender, DataAvailableEventArgs args)
+    public async Task HandleDataUpdate(object sender, DataAvailableEventArgs args)
     {
-        _terminal.WriteLine(args.Data);
+        await _terminal.WriteLine(args.Data);
     }
 
     private async Task OnFirstRender()
