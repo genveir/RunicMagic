@@ -63,6 +63,11 @@ namespace Engine.Commands
                         player.Say(arguments); return true;
                     case "cast":
                         ParseCast(player, arguments); return true;
+                    case "rename":
+                        player.Name = arguments;
+                        player.ShortDesc = player.Name;
+                        player.LongDesc = $"{player.Name} is here.";
+                        return true;
                     default:
                         return false;
                 }

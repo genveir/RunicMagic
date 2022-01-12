@@ -1,4 +1,4 @@
-﻿@using System.Text.Json
+﻿@inject PlayerService player
 
 <Xterm @ref="_terminal"
        Options="_options"
@@ -16,9 +16,6 @@
        OnBell="@OnBell" />
 
 @code {
-    [Parameter]
-    public PlayerService player { get; set; } = null!; // boooeeee
-
     private Xterm _terminal = null!; // boeee
 
     private TerminalOptions _options = new TerminalOptions

@@ -46,7 +46,7 @@ namespace World.Creatures
 
             OnInvalidCommand += EventHandler.TriedInvalidCommand;
 
-            Location.SubscribePlayerToEvents(EventHandler);
+            Location.Enter(this, Direction.From(-1));
         }
 
         public override bool Move(Direction direction)
