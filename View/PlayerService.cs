@@ -14,7 +14,7 @@ namespace View
 
         public Player Player { get; }
 
-        public string Prompt => " >";
+        public string Prompt => DescriptorGenerators.GetPrompt(Player);
 
         public PlayerService(PlayerFactory playerFactory)
         {

@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using World.Creatures;
 using World.Rooms;
 
 namespace View
 {
     public static class DescriptorGenerators
     {
-        public static List<string> Look(Room room)
+        public static List<string> Look(Room room, Player player)
         {
-            var header = $"[\u001b[36;1m{room.Name}\u001b[0m]";
+            var header = $"[{ANSI_Colors.BrightCyan}{room.Name}{ANSI_Colors.Reset}]";
             var desc = room.Description;
-            var creatures = DescribeCreatures(room);
+            var creatures = DescribeCreatures(room, player);
             var exits = DescribeExits(room);
 
             return new List<string>()
@@ -24,9 +25,19 @@ namespace View
                 .ToList();
         }
 
-        public static IEnumerable<string> DescribeCreatures(Room room)
+        public static IEnumerable<string> DescribeCreatures(Room room, Player player)
         {
-            return room.Creatures.Select(c => c.LongDesc).Select(c => $"\u001b[35;1m{c}\u001b[0m");
+            List<string> descriptions = new();
+            foreach(var creature in room.Creatures)
+            {
+                if (creature == player) continue;
+                else
+                {
+                    descriptions.Add($"{ANSI_Colors.BrightMagenta}{creature.LongDesc}{ANSI_Colors.Reset}");
+                }
+            }
+
+            return descriptions;
         }
 
         public static string DescribeExits(Room room)
@@ -46,6 +57,27 @@ namespace View
                 room.RoomCache._exitString = $"Exits: [{exits}]";
             }
             return room.RoomCache._exitString;
+        }
+
+        public static string GetPrompt(Player player)
+        {
+            var hp = $"{ANSI_Colors.Red}{player.HitPoints}{ANSI_Colors.Reset}";
+            var maxHp = $"{ANSI_Colors.BrightRed}{player.HitPointsMax}{ANSI_Colors.Reset}";
+            var regenColor = player.HitPointsRegen switch
+            {
+                < 0 => ANSI_Colors.BrightRed,
+                0 => ANSI_Colors.BrightYellow,
+                > 0 => ANSI_Colors.BrightGreen
+            };
+            var regenSign = player.HitPointsRegen switch
+            {
+                < 0 => "-",
+                0 => "",
+                > 0 => "+"
+            };
+            var hpRegen = $"{regenColor}{regenSign}{player.HitPointsRegen}{ANSI_Colors.Reset}";
+
+            return $"{hp}/{maxHp} {hpRegen} >";
         }
     }
 }

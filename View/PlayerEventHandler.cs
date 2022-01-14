@@ -56,7 +56,7 @@ namespace View
 
         public void Look(Room room)
         {
-            var lookData = DescriptorGenerators.Look(room);
+            var lookData = DescriptorGenerators.Look(room, playerService.Player);
 
             foreach (var line in lookData) playerService.SendOutput(line);
         }

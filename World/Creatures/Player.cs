@@ -12,6 +12,10 @@ namespace World.Creatures
     {
         public string Name { get; set; }
 
+        public int HitPoints { get; set; } = 100;
+        public int HitPointsMax { get; set; } = 100;
+        public int HitPointsRegen { get; set; } = 5;
+
         public IPlayerWorldEventsHandler EventHandler { get; private set; } = null!; // haha booeee
 
         public Player(long id, string name, Room room) 
