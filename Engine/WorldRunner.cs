@@ -19,14 +19,12 @@ namespace Engine
 
         public int tickSizeInMS = 100;
 
-        private static long tick = 0;
         private async Task Loop(CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
             {
                 try
                 {
-                    tick++;
                     TimeSpan delay = TimeSpan.FromMilliseconds(tickSizeInMS);
 
                     var next = DateTime.Now.Add(delay);
