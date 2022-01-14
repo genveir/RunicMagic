@@ -4,17 +4,7 @@
 <Xterm @ref="_terminal"
        Options="_options"
        OnFirstRender="@OnFirstRender"
-       OnBinary="@OnBinary"
-       OnCursorMove="@OnCursorMove"
-       OnData="@OnData"
-       OnKey="@OnKey"
-       OnLineFeed="@OnLineFeed"
-       OnScroll="@OnScroll"
-       OnSelectionChange="@OnSelectionChange"
-       OnRender="@OnRender"
-       OnResize="@OnResize"
-       OnTitleChange="@OnTitleChange"
-       OnBell="@OnBell" />
+       OnKey="@OnKey" />
 
 @code {
     private Xterm _terminal = null!; // boeee
@@ -45,69 +35,31 @@
         player.RegisterInput("l");
     }
 
-    private async Task OnBinary(string data)
-    {
-        await Task.CompletedTask;
-    }
-
-    private async Task OnCursorMove()
-    {
-        await Task.CompletedTask;
-    }
-
-    private async Task OnData(string data)
-    {
-        await Task.CompletedTask;
-    }
-
-    private List<string> collectedKeys = new List<string>();
+    private string input = "";
     private async Task OnKey(KeyboardEventArgs args)
     {
-        if (args.Key == "\r")
+        var asChar = args.Key[0];
+        if (asChar > 31 && asChar < 127)
         {
-            await _terminal.WriteLine("");
-            player.RegisterInput(string.Join("", collectedKeys));
-            collectedKeys.Clear();
-        }
-        else
-        {
-            collectedKeys.Add(args.Key);
+            input += asChar;
             await _terminal.Write(args.Key);
         }
+        else if (asChar == 13)
+        {
+            await _terminal.WriteLine("");
+            player.RegisterInput(input);
+            input = "";
+        }
+        else if (asChar == '\u007f')
+        {
+            if (input.Length > 0)
+            {
+                await _terminal.Write(CURSOR_LEFT + ' ' + CURSOR_LEFT);
+                input = input.Substring(0, input.Length - 1);
+            }
+        }
     }
 
-    private async Task OnLineFeed()
-    {
-        await Task.CompletedTask;
-    }
-
-    private async Task OnScroll(int newPosition)
-    {
-        await Task.CompletedTask;
-    }
-
-    private async Task OnSelectionChange()
-    {
-        await Task.CompletedTask;
-    }
-
-    private async Task OnRender(RenderEventArgs args)
-    {
-        await Task.CompletedTask;
-    }
-
-    private async Task OnResize(ResizeEventArgs args)
-    {
-        await Task.CompletedTask;
-    }
-
-    private async Task OnTitleChange(string title)
-    {
-        await Task.CompletedTask;
-    }
-
-    private async Task OnBell()
-    {
-        await Task.CompletedTask;
-    }
+    private const char ESCAPE = '\u001b';
+    private const string CURSOR_LEFT = "\u001b[1D";
 }
