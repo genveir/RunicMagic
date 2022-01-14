@@ -14,5 +14,7 @@ namespace Engine.Plugins
         Player Player { get; }
 
         void SendOutput(string output);
+
+        void Tick();
     }
 }

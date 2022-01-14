@@ -14,6 +14,8 @@ namespace View
 
         public Player Player { get; }
 
+        public string Prompt => " >";
+
         public PlayerService(PlayerFactory playerFactory)
         {
             _playerEventHandler = new PlayerEventHandler(this);
@@ -30,16 +32,14 @@ namespace View
             Commands.Enqueue(input);
         }
 
-        public delegate Task DataAvailableEventHandler(PlayerService sender, string data);
-        public event DataAvailableEventHandler? DataAvailable;
-        protected void RaiseDataAvailableEvent(string data)
-        {
-            DataAvailable?.Invoke(this, data);
-        }
-
         public void SendOutput(string output)
         {
-            RaiseDataAvailableEvent(output);
+            DataAvailable?.Invoke(this, output);
+        }
+
+        public void Tick()
+        {
+            TickDone?.Invoke();
         }
 
         public void Dispose()
@@ -48,5 +48,11 @@ namespace View
 
             WorldRunner.PlayerServices.Remove(this);
         }
+
+        public delegate Task TickEventHandler();
+        public event TickEventHandler? TickDone;
+
+        public delegate Task DataAvailableEventHandler(PlayerService sender, string data);
+        public event DataAvailableEventHandler? DataAvailable;
     }
 }

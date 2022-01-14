@@ -23,11 +23,32 @@
         if (player == null) throw new PlayerNotInjectedException("Terminal was created without player service");
 
         player.DataAvailable += HandleDataUpdate;
+        player.TickDone += WriteData;
     }
 
-    public async Task HandleDataUpdate(object sender, string data)
+    private List<string> collectedData = new List<string>();
+    public Task HandleDataUpdate(object sender, string data)
     {
-        await _terminal.WriteLine(data);
+        collectedData.Add(data);
+
+        return Task.CompletedTask;
+    }
+
+    private bool writing = false;
+    public async Task WriteData()
+    {
+        if (collectedData.Count == 0 || writing) return;
+        writing = true;
+
+        await _terminal.WriteLine("");
+        List<string> toHandle = new List<string>(collectedData);
+        foreach(var data in toHandle)
+        {
+            await _terminal.WriteLine(data);
+            collectedData.Remove(data);
+        }
+        await _terminal.Write(player.Prompt + input);
+        writing = false;
     }
 
     private void OnFirstRender()
