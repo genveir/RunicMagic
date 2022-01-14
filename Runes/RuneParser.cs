@@ -21,7 +21,7 @@ namespace Runes
 
             if (individualRunes.Length == 1 && individualRunes.Single() == "DEBUG")
             {
-                _player.Echo("Debug!");
+                _player.Location.Echo($"{_player.ShortDesc} Debug!");
             }
             else
             {
