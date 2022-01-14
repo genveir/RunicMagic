@@ -70,6 +70,7 @@ namespace Engine.Commands
                         player.Name = arguments;
                         player.ShortDesc = player.Name;
                         player.LongDesc = $"{player.Name} is here.";
+                        player.Echo($"You are now named {player.Name}");
                         return true;
                     default:
                         return false;
