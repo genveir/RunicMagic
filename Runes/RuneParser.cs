@@ -23,6 +23,10 @@ namespace Runes
             {
                 _player.Echo("Debug!");
             }
+            else
+            {
+                _player.Echo("Your spell fizzles!");
+            }
         }
     }
 }
