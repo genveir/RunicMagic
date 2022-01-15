@@ -1,5 +1,6 @@
 using Engine;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Server.Circuits;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence;
 using View;
@@ -14,7 +15,11 @@ namespace Runic_Magic
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-            builder.Services.AddServerSideBlazor();
+            builder.Services.AddServerSideBlazor()
+                .AddCircuitOptions(options =>
+                {
+                    options.DisconnectedCircuitMaxRetained = 0;
+                });
 
             RegisterServices(builder.Services);
 
@@ -39,6 +44,7 @@ namespace Runic_Magic
             EngineServiceRegistry.RegisterServices(services);
             PersistenceServiceRegistry.RegisterServices(services);
 
+            services.AddScoped<CircuitHandler, CircuitHandlerService>();
             services.AddScoped<PlayerService>();
         }
     }
