@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using World.Creatures;
 using World.Rooms;
 
@@ -11,7 +12,7 @@ namespace Magic {
 			this.room = room;
 		}
 
-	    public abstract (Spellnode, Rune[]) Parse(Rune[] runes);
+	    public abstract (Spellnode, IEnumerable<Rune>) Parse(Player player, IEnumerable<Rune> runes);
 		public abstract object Eval(Spellnode sn);
 
 	    public virtual bool IsCastable => false;

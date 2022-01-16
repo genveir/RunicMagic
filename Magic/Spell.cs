@@ -6,7 +6,12 @@ namespace Magic {
             this.root = root;
         }
         private readonly Spellnode root;
-        public void Cast() {
+        public void Cast(Player player) {
+            if (!this.root.rune.IsCastable)
+            {
+                player.Echo("But nothing happens!");
+                return;
+            }
             this.root.Eval();
         }
     }
