@@ -1,14 +1,14 @@
 namespace Magic {
     public class Spellnode {
-        private Rune rune;
-        private Spellnode[]? children;
+        private readonly Rune rune;
+        private readonly Spellnode[]? children;
 
         public Spellnode(Rune rune) {
             this.rune = rune;
         }
 
-        public void eval() {
-            this.rune.eval(this);
+        public void Eval() {
+            this.rune.Eval(this);
         }
     }
 }

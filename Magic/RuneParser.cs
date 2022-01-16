@@ -37,8 +37,8 @@ namespace Magic
 
         private Rune[] ReadRunes(string spellstring) {
             var runestrings = spellstring.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            return runestrings.Select<string, Rune>(s => 
-                s switch 
+            return runestrings.Select<string, Rune>(s =>
+                s switch
                 {
                     "ZU" => new Runes.ZU(this._player, this._player.Location),
                     "DEBUG" => new Runes.DEBUG(this._player, this._player.Location),

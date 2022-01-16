@@ -6,13 +6,13 @@ namespace Magic.Runes {
 
         public ZU(Player caster, Room room) : base(caster, room) {}
 
-        public override (Spellnode, Rune[]) parse(Rune[] runes) {
+        public override (Spellnode, Rune[]) Parse(Rune[] runes) {
            return (null, null);
         }
-	    public override object eval(Spellnode sn) {
+	    public override object Eval(Spellnode sn) {
            return null;
        }
 
-       public override bool isCastable => true;
+       public override bool IsCastable => true;
     }
 }

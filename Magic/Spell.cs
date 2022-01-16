@@ -5,9 +5,9 @@ namespace Magic {
         public Spell(Spellnode root) {
             this.root = root;
         }
-        private Spellnode root;
-        public void cast(Player player) {
-            this.root.eval();
+        private readonly Spellnode root;
+        public void Cast() {
+            this.root.Eval();
         }
     }
 }

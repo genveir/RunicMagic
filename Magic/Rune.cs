@@ -6,16 +6,16 @@ namespace Magic {
 		protected Player caster;
 		protected Room room;
 
-		public Rune(Player caster, Room room) {
+		protected Rune(Player caster, Room room) {
 			this.caster = caster;
 			this.room = room;
 		}
 
-	    public abstract (Spellnode, Rune[]) parse(Rune[] runes);
-		public abstract object eval(Spellnode sn);
+	    public abstract (Spellnode, Rune[]) Parse(Rune[] runes);
+		public abstract object Eval(Spellnode sn);
 
-	    public virtual bool isCastable => false; 
-		public virtual bool isReference => false;
-		public virtual bool isEffect => false;
+	    public virtual bool IsCastable => false;
+		public virtual bool IsReference => false;
+		public virtual bool IsEffect => false;
 	}
 }
