@@ -33,7 +33,7 @@ namespace View
                 if (creature == player) continue;
                 else
                 {
-                    descriptions.Add($"{ANSI_Colors.BrightMagenta}{creature.LongDesc}{ANSI_Colors.Reset}");
+                    descriptions.Add($"{ANSI_Colors.BrightMagenta}{creature.Description.LongDesc}{ANSI_Colors.Reset}");
                 }
             }
 

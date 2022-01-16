@@ -15,12 +15,12 @@ namespace View
 
         public void CreatureEnteredRoom(Room room, Creature creature, Direction direction)
         {
-            playerService.SendOutput($"{creature.ShortDesc} walked in {direction.ArrivalDescriptor}");
+            playerService.SendOutput($"{creature.Description.ShortDesc} walked in {direction.ArrivalDescriptor}");
         }
 
         public void CreatureExitedRoom(Room room, Creature creature, Direction direction)
         {
-            playerService.SendOutput($"{creature.ShortDesc} walked {direction.DepartureDescriptor}");
+            playerService.SendOutput($"{creature.Description.ShortDesc} walked {direction.DepartureDescriptor}");
         }
 
         public void CreatureSpoke(Creature creature, string message)
@@ -29,7 +29,7 @@ namespace View
             {
                 playerService.SendOutput($"you say `{message}`");
             }
-            else playerService.SendOutput($"{creature.ShortDesc} says '{message}'");
+            else playerService.SendOutput($"{creature.Description.ShortDesc} says '{message}'");
         }
 
         public void ReceivedBroadcastMessage(string message)

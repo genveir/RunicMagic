@@ -10,8 +10,6 @@ namespace World.Creatures
 {
     public class Player : Creature
     {
-        public string Name { get; set; }
-
         public int HitPoints { get; set; } = 100;
         public int HitPointsMax { get; set; } = 100;
         public int HitPointsRegen { get; set; } = 5;
@@ -19,9 +17,9 @@ namespace World.Creatures
         public IPlayerWorldEventsHandler EventHandler { get; private set; } = null!; // haha booeee
 
         public Player(long id, string name, Room room) 
-            : base(id, name, $"{name} is here.", room)
+            : base(id, name, name, $"{name} is here.", $"{name} looks very pretty.", room)
         {
-            this.Name = name;
+            
         }
 
         public void Initialize(IPlayerWorldEventsHandler eventHandler)
@@ -31,6 +29,14 @@ namespace World.Creatures
             SubscribeToEvents();
 
             Location.Enter(this, Direction.From(-1));
+        }
+
+        public void Rename(string newName)
+        {
+            Description.Name = newName;
+            Description.ShortDesc = newName;
+            Description.LongDesc = $"{newName} is here.";
+            Description.LongDesc = $"{newName} looks very pretty!";
         }
 
         public override void Move(Direction direction)

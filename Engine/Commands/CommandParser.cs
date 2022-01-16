@@ -67,10 +67,8 @@ namespace Engine.Commands
                     case "cast":
                         ParseCast(player, arguments); return true;
                     case "rename":
-                        player.Name = arguments;
-                        player.ShortDesc = player.Name;
-                        player.LongDesc = $"{player.Name} is here.";
-                        player.Echo($"You are now named {player.Name}");
+                        player.Rename(arguments);
+                        player.Echo($"You are now named {player.Description.Name}");
                         return true;
                     default:
                         return false;
