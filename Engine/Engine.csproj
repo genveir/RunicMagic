@@ -10,7 +10,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Runes\Runes.csproj" />
+	  <ProjectReference Include="..\Magic\Magic.csproj" />
 	  <ProjectReference Include="..\World\World.csproj" />
 	</ItemGroup>
 

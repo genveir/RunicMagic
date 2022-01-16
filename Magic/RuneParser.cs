@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using World.Creatures;
+using OneOf;
 
-namespace Runes
+namespace Magic
 {
     public class RuneParser
     {
@@ -15,17 +16,17 @@ namespace Runes
             this._player = player;
         }
 
-        public void Parse(string runes)
+        public Spell? Parse(string runes)
         {
             var individualRunes = runes.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
             if (individualRunes.Length == 1 && individualRunes.Single() == "DEBUG")
             {
-                _player.Location.Echo($"{_player.ShortDesc} Debug!");
+                return new Spell();
             }
             else
             {
-                _player.Echo("Your spell fizzles!");
+                return null;
             }
         }
     }
