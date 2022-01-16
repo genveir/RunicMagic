@@ -86,7 +86,7 @@ namespace Engine.Commands
                 player.Echo("Your spell fizzles!");
                 return;
             }
-            spell.cast(player);
+            spell.Cast();
         }
     }
 }

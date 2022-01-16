@@ -1,12 +1,18 @@
+using World.Creatures;
+using World.Rooms;
+
 namespace Magic.Runes {
     public class ZU : Rune {
-       public override (spellnode, Rune[]) parse(Rune[] runes) {
+
+        public ZU(Player caster, Room room) : base(caster, room) {}
+
+        public override (Spellnode, Rune[]) Parse(Rune[] runes) {
            return (null, null);
-       }
-	    public override object eval(spellnode sn) {
+        }
+	    public override object Eval(Spellnode sn) {
            return null;
        }
 
-       public override bool isCastable => true;
+       public override bool IsCastable => true;
     }
 }
