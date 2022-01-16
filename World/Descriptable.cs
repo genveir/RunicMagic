@@ -8,17 +8,14 @@ namespace World
 {
     public class Description
     {
-        public string Name { get; set; }
-
         public string ShortDesc { get; set; }
 
         public string LongDesc { get; set; }
 
         public string LookDesc { get; set; }
 
-        public Description(string name, string shortDesc, string longDesc, string lookDesc)
+        public Description(string shortDesc, string longDesc, string lookDesc)
         {
-            Name = name;
             ShortDesc = shortDesc;
             LongDesc = longDesc;
             LookDesc = lookDesc;

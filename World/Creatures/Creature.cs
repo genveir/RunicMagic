@@ -7,19 +7,21 @@ using World.Rooms;
 
 namespace World.Creatures
 {
-    public class Creature : IDescriptable
+    public class Creature : IDescriptable, ITargetable
     {
         public long Id { get; }
+        public string[] TargetingKeywords { get; protected set; }
 
         public Room Location { get; set; }
-
         public Description Description { get; set; }
 
-        public Creature(long id, string name, string shortDesc, string longDesc, string lookDesc, Room location) 
+
+        public Creature(long id, string[] targetingKeywords, string shortDesc, string longDesc, string lookDesc, Room location) 
         {
+            TargetingKeywords = targetingKeywords;
             Id = id;
             Location = location;
-            Description = new Description(name, shortDesc, longDesc, lookDesc);
+            Description = new Description(shortDesc, longDesc, lookDesc);
         }
 
         public void Say(string sentence)
