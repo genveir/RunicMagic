@@ -18,7 +18,21 @@ namespace Magic
                 player.Echo("But nothing happens!");
                 return;
             }
-            this._root.Eval();
+
+            var result = _root.Eval();
+
+            if (!result.Success)
+            {
+                player.Echo("Your spell fizzles!");
+            }
+            else if (result.Action != null)
+            {
+                result.Action();
+            }
+            else
+            {
+                player.Echo("Your spell returned: {result.Value}");
+            }
         }
     }
 }

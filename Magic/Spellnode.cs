@@ -14,9 +14,9 @@ namespace Magic
             this._children = children;
         }
 
-        public void Eval()
+        public EvalResult Eval()
         {
-            this._rune.Eval(this);
+            return _rune.Eval(this);
         }
     }
 }

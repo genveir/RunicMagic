@@ -21,21 +21,12 @@ namespace Magic.Runes
             return (new Spellnode(this, new[] { arg }), remainder);
         }
 
-        public override void Eval(Spellnode sn)
+        public override EvalResult Eval(Spellnode sn)
         {
             var arg = sn._children?.First();
-            if (arg == null)
-            {
-                this.caster.Echo("Your spell fizzles!");
-                return;
-            }
-            // TODO: rune.IsReference resolving to an effect
-            if (!arg._rune.IsEffect)
-            {
-                this.caster.Echo("Your spell fizzles!");
-                return;
-            }
-            arg.Eval();
+
+            if (arg == null || !arg._rune.IsEffect) return EvalResult.Fail();
+            else return arg.Eval();
         }
 
         public override bool IsCastable => true;
