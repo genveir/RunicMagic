@@ -1,4 +1,4 @@
-﻿using Runes;
+﻿using Magic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,11 +79,16 @@ namespace Engine.Commands
             return false;
         }
 
-        private static void ParseCast(Player player, string spell)
+        private static void ParseCast(Player player, string spellstring)
         {
             var parser = new RuneParser(player);
-
-            parser.Parse(spell);
+            Spell? spell = parser.Parse(spellstring);
+            if (spell == null)
+            {
+                player.Echo("Your spell fizzles!");
+                return;
+            }
+            spell.cast(player);
         }
     }
 }
