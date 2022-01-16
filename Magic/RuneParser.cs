@@ -50,7 +50,6 @@ namespace Magic
         {
             if (!runes.Any())
             {
-                player.Echo("But nothing happens!");
                 throw new RuneParseException("expected runes but ran out");
             }
             return runes.First().Parse(player, runes.Skip(1));
