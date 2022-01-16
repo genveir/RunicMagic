@@ -16,18 +16,35 @@ namespace Magic
             this._player = player;
         }
 
-        public Spell? Parse(string runes)
+        public Spell? Parse(string spellstring)
         {
-            var individualRunes = runes.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-            if (individualRunes.Length == 1 && individualRunes.Single() == "DEBUG")
+            Rune[] runes;
+            try {
+                runes = ReadRunes(spellstring);
+            }
+            catch(RuneParseException){
+                return null;
+            }
+            if (runes.Length == 1 && runes.Single() is Runes.DEBUG)
             {
-                return new Spell();
+                return new Spell(new Spellnode(runes[0]));
             }
             else
             {
                 return null;
             }
+        }
+
+        private Rune[] ReadRunes(string spellstring) {
+            var runestrings = spellstring.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            return runestrings.Select<string, Rune>(s => 
+                s switch 
+                {
+                    "ZU" => new Runes.ZU(this._player, this._player.Location),
+                    "DEBUG" => new Runes.DEBUG(this._player, this._player.Location),
+                    _ => throw new RuneParseException()
+                }
+            ).ToArray();
         }
     }
 }
