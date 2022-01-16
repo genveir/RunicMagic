@@ -59,9 +59,16 @@ namespace World.Creatures
             }
         }
 
-        public void Look(ITargetable target)
+        public void Look(ITargetable? target)
         {
-            Echo(target.Description.LookDesc);
+            if (target == null) Echo("You don't see that here!");
+            else Echo(target.Description.LookDesc);
+        }
+
+        public override void Point(ITargetable? target)
+        {
+            if (target == null) Echo("You point at nothing!");
+            base.Point(target);
         }
 
         // commands that just fire an event

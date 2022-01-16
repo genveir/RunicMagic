@@ -1,4 +1,6 @@
-﻿using World.Creatures;
+﻿using System.Text;
+using World;
+using World.Creatures;
 using World.Plugins;
 using World.Rooms;
 
@@ -30,6 +32,21 @@ namespace View
                 _playerService.SendOutput($"you say `{message}`");
             }
             else _playerService.SendOutput($"{creature.Description.ShortDesc} says '{message}'");
+        }
+
+        public void CreaturePointed(Creature creature, ITargetable target)
+        {
+            StringBuilder result = new StringBuilder();
+
+            if (creature == _playerService.Player) result.Append("You ");
+            else result.Append(creature.Description.ShortDesc);
+
+            result.Append(" pointed at ");
+
+            if (target == _playerService.Player) result.Append("YOU");
+            else result.Append(target.Description.ShortDesc);
+
+            _playerService.SendOutput(result.ToString());
         }
 
         public void ReceivedBroadcastMessage(string message)

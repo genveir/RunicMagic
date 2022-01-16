@@ -41,15 +41,9 @@ namespace World.Rooms
             this.CreatureExited?.Invoke(this, creature, direction);
         }
 
-        public void PerformSay(Creature creature, string sentence)
-        {
-            this.CreatureSpoke?.Invoke(creature, sentence);
-        }
-
-        public void Echo(string message)
-        {
-            this.MessageBroadcast?.Invoke(message);
-        }
+        public void PerformSay(Creature creature, string sentence) => this.CreatureSpoke?.Invoke(creature, sentence);
+        public void PerformPoint(Creature creature, ITargetable target) => this.CreaturePointed?.Invoke(creature, target);
+        public void Echo(string message) => this.MessageBroadcast?.Invoke(message);
 
         #region events
 
@@ -59,6 +53,7 @@ namespace World.Rooms
             this.CreatureExited += player.CreatureExitedRoom;
             
             this.CreatureSpoke += player.CreatureSpoke;
+            this.CreaturePointed += player.CreaturePointed;
 
             this.MessageBroadcast += player.ReceivedBroadcastMessage;
         }
@@ -69,6 +64,7 @@ namespace World.Rooms
             this.CreatureExited -= player.CreatureExitedRoom;
             
             this.CreatureSpoke -= player.CreatureSpoke;
+            this.CreaturePointed -= player.CreaturePointed;
 
             this.MessageBroadcast -= player.ReceivedBroadcastMessage;
         }
@@ -76,6 +72,9 @@ namespace World.Rooms
         public delegate void CreatureMovementEventHandler(Room room, Creature creature, Direction direction);
         public event CreatureMovementEventHandler? CreatureEntered;
         public event CreatureMovementEventHandler? CreatureExited;
+
+        public delegate void CreatureTargetableEventHandler(Creature creature, ITargetable target);
+        public event CreatureTargetableEventHandler? CreaturePointed;
 
         public delegate void CreatureMessageEventHandler(Creature creature, string message);
         public event CreatureMessageEventHandler? CreatureSpoke;

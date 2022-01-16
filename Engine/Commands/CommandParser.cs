@@ -61,6 +61,7 @@ namespace Engine.Commands
                 var commandWord = split[0];
                 var arguments = split[1];
 
+                ITargetable? target;
                 switch(commandWord)
                 {
                     case "say":
@@ -72,9 +73,12 @@ namespace Engine.Commands
                         player.Echo($"You are now named {player.Description.ShortDesc}");
                         return true;
                     case "look":
-                        var target = ResolveLocalTarget(player, arguments);
-                        if (target != null) player.Look(target);
-                        else player.Echo("You don't see that here!");
+                        target = ResolveLocalTarget(player, arguments);
+                        player.Look(target);
+                        return true;
+                    case "point":
+                        target = ResolveLocalTarget(player, arguments);
+                        player.Point(target);
                         return true;
                     default:
                         return false;
@@ -85,7 +89,12 @@ namespace Engine.Commands
 
         private static ITargetable? ResolveLocalTarget(Player player, string targetingInfo)
         {
-            var targetWords = targetingInfo.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var targetWords = targetingInfo
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            targetWords = targetWords
+                .Select(word => (word == "self" || word == "me") ? player.TargetingKeywords[0] : word)
+                .ToArray();
 
             var possibleTargets = new List<ITargetable>();
             possibleTargets.AddRange(player.Location.Creatures);

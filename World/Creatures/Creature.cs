@@ -15,6 +15,7 @@ namespace World.Creatures
         public Room Location { get; set; }
         public Description Description { get; set; }
 
+        public ITargetable? Target { get; set; }
 
         public Creature(long id, string[] targetingKeywords, string shortDesc, string longDesc, string lookDesc, Room location) 
         {
@@ -27,6 +28,19 @@ namespace World.Creatures
         public void Say(string sentence)
         {
             Location.PerformSay(this, sentence);
+        }
+
+        public virtual void Point(ITargetable? target)
+        {
+            if (target == null)
+            {
+                Target = null;
+            }
+            else
+            {
+                Location.PerformPoint(this, target);
+                Target = target;
+            }
         }
 
         protected virtual bool CanMove(Direction direction) => Location.LinkedRooms[direction.Value] != null;
