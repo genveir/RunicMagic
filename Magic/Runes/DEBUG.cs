@@ -13,11 +13,10 @@ namespace Magic.Runes
         {
             return (new Spellnode(this), runes.Skip(1));
         }
-        public override object Eval(Spellnode sn)
+        public override void Eval(Spellnode sn)
         {
             var player = this.caster;
             player.Location.Echo($"{player.Description.ShortDesc} Debug!");
-            return null;
         }
 
         public override bool IsEffect => true;

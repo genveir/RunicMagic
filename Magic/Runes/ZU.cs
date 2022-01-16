@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using World.Creatures;
 using World.Rooms;
 
@@ -17,25 +18,24 @@ namespace Magic.Runes
                 player.Echo("But nothing happens!");
                 throw new RuneParseException("target of ZU cannot resolve to an effect");
             }
-            return (new Spellnode(this, new Spellnode[] { arg }), remainder);
+            return (new Spellnode(this, new[] { arg }), remainder);
         }
 
-        public override object Eval(Spellnode sn)
+        public override void Eval(Spellnode sn)
         {
-            var arg = sn._children[0];
+            var arg = sn._children?.First();
             if (arg == null)
             {
                 this.caster.Echo("Your spell fizzles!");
-                return null;
+                return;
             }
             // TODO: rune.IsReference resolving to an effect
             if (!arg._rune.IsEffect)
             {
                 this.caster.Echo("Your spell fizzles!");
-                return null;
+                return;
             }
             arg.Eval();
-            return null;
         }
 
         public override bool IsCastable => true;

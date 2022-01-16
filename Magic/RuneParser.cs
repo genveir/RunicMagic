@@ -11,21 +11,12 @@ namespace Magic
     {
         public static Spell? Parse(Player player, string spellstring)
         {
-            IEnumerable<Rune> runes;
-            try
-            {
-                runes = ReadRunes(player, spellstring);
-            }
-            catch (RuneParseException)
-            {
-                player.Echo("But nothing happens!");
-                return null;
-            }
-
             Spellnode root;
             IEnumerable<Rune> remainder;
             try
-            {
+            {                
+                var runes = ReadRunes(player, spellstring);
+
                 (root, remainder) = ParseRunes(player, runes);
             }
             catch (RuneParseException)
@@ -33,6 +24,7 @@ namespace Magic
                 player.Echo("But nothing happens!");
                 return null;
             }
+
             if (remainder?.Any() == true)
             {
                 player.Echo("But nothing happens!");

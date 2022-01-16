@@ -16,7 +16,7 @@ namespace Magic
         }
 
         public abstract (Spellnode, IEnumerable<Rune>) Parse(Player player, IEnumerable<Rune> runes);
-        public abstract object Eval(Spellnode sn);
+        public abstract void Eval(Spellnode sn);
 
         public virtual bool IsCastable => false;
         public virtual bool IsReference => false;
