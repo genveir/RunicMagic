@@ -42,12 +42,12 @@ namespace View
             TickDone?.Invoke();
         }
 
-        private bool disposed;
+        private bool _disposed;
         public void Dispose()
         {
-            if (!disposed)
+            if (!_disposed)
             {
-                disposed = true;
+                _disposed = true;
                 Player.Dispose();
 
                 WorldRunner.PlayerServices.Remove(this);
