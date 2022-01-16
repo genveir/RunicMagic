@@ -7,44 +7,56 @@ using OneOf;
 
 namespace Magic
 {
-    public class RuneParser
+    public static class RuneParser
     {
-        private readonly Player _player;
-
-        public RuneParser(Player player)
+        public static Spell? Parse(Player player, string spellstring)
         {
-            this._player = player;
-        }
-
-        public Spell? Parse(string spellstring)
-        {
-            Rune[] runes;
+            IEnumerable<Rune> runes;
             try {
-                runes = ReadRunes(spellstring);
+                runes = ReadRunes(player, spellstring);
             }
             catch(RuneParseException){
+                player.Echo("But nothing happens!");
                 return null;
             }
-            if (runes.Length == 1 && runes.Single() is Runes.DEBUG)
-            {
-                return new Spell(new Spellnode(runes[0]));
+
+            Spellnode root;
+            IEnumerable<Rune> remainder;
+            try {
+                (root, remainder) = ParseRunes(player, runes);
             }
-            else
+            catch(RuneParseException)
             {
+                player.Echo("But nothing happens!");
                 return null;
             }
+            if (remainder?.Any() == true)
+            {
+                player.Echo("But nothing happens!");
+                return null;
+            }
+            return new Spell(root!);
         }
 
-        private Rune[] ReadRunes(string spellstring) {
+        private static IEnumerable<Rune> ReadRunes(Player player, string spellstring) {
             var runestrings = spellstring.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             return runestrings.Select<string, Rune>(s =>
                 s switch
                 {
-                    "ZU" => new Runes.ZU(this._player, this._player.Location),
-                    "DEBUG" => new Runes.DEBUG(this._player, this._player.Location),
-                    _ => throw new RuneParseException()
+                    "ZU" => new Runes.ZU(player, player.Location),
+                    "DEBUG" => new Runes.DEBUG(player, player.Location),
+                    _ => throw new RuneParseException($"unknown rune {s}")
                 }
-            ).ToArray();
+            );
+        }
+
+        public static (Spellnode, IEnumerable<Rune>) ParseRunes(Player player, IEnumerable<Rune> runes) {
+            if (!runes.Any())
+            {
+                player.Echo("But nothing happens!");
+                throw new RuneParseException("expected runes but ran out");
+            }
+            return runes.First().Parse(player, runes.Skip(1));
         }
     }
 }

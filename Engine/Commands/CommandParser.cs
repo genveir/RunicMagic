@@ -99,14 +99,7 @@ namespace Engine.Commands
 
         private static void ParseCast(Player player, string spellstring)
         {
-            var parser = new RuneParser(player);
-            Spell? spell = parser.Parse(spellstring);
-            if (spell == null)
-            {
-                player.Echo("Your spell fizzles!");
-                return;
-            }
-            spell.Cast();
+            RuneParser.Parse(player, spellstring)?.Cast(player);
         }
     }
 }
