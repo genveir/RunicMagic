@@ -53,7 +53,7 @@ namespace World.Creatures
             }
         }
 
-        // commands that just 
+        // commands that just fire an event
         public void Look() => OnLook?.Invoke(Location);
         public void Quit() => OnQuit?.Invoke();
         public void InvalidCommand(string command) => OnInvalidCommand?.Invoke(command);
