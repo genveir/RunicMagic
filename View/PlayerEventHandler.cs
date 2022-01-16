@@ -38,7 +38,7 @@ namespace View
         {
             StringBuilder result = new();
 
-            if (creature == _playerService.Player) result.Append("You ");
+            if (creature == _playerService.Player) result.Append("You");
             else result.Append(creature.Description.ShortDesc);
 
             result.Append(" pointed at ");
