@@ -36,7 +36,7 @@ namespace World.Creatures
             TargetingKeywords = new[] { newName };
             Description.ShortDesc = newName;
             Description.LongDesc = $"{newName} is here.";
-            Description.LongDesc = $"{newName} looks very pretty!";
+            Description.LookDesc = $"{newName} looks very pretty!";
         }
 
         public override void Move(Direction direction)
