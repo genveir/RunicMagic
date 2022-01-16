@@ -1,18 +1,22 @@
-namespace Magic {
-    public class Spellnode {
-        internal Rune rune;
-        internal Spellnode[]? children;
+namespace Magic
+{
+    public class Spellnode
+    {
+        internal Rune _rune;
+        internal Spellnode[]? _children;
 
-        public Spellnode(Rune rune) {
-            this.rune = rune;
+        public Spellnode(Rune rune)
+        {
+            this._rune = rune;
         }
         public Spellnode(Rune rune, Spellnode[] children) : this(rune)
         {
-            this.children = children;
+            this._children = children;
         }
 
-        public void Eval() {
-            this.rune.Eval(this);
+        public void Eval()
+        {
+            this._rune.Eval(this);
         }
     }
 }

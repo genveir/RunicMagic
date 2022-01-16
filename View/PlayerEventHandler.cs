@@ -36,7 +36,7 @@ namespace View
 
         public void CreaturePointed(Creature creature, ITargetable target)
         {
-            StringBuilder result = new StringBuilder();
+            StringBuilder result = new();
 
             if (creature == _playerService.Player) result.Append("You ");
             else result.Append(creature.Description.ShortDesc);
