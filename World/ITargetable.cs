@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace World
 {
-    public interface ITargetable
+    public interface ITargetable : IDescriptable
     {
         string[] TargetingKeywords { get; }
     }

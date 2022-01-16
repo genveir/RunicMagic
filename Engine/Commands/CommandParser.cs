@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using World;
 using World.Creatures;
 using World.Rooms;
 
@@ -70,11 +71,30 @@ namespace Engine.Commands
                         player.Rename(arguments);
                         player.Echo($"You are now named {player.Description.ShortDesc}");
                         return true;
+                    case "look":
+                        var target = ResolveLocalTarget(player, arguments);
+                        if (target != null) player.Look(target);
+                        else player.Echo("You don't see that here!");
+                        return true;
                     default:
                         return false;
                 }
             }
             return false;
+        }
+
+        private static ITargetable? ResolveLocalTarget(Player player, string targetingInfo)
+        {
+            var targetWords = targetingInfo.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            var possibleTargets = new List<ITargetable>();
+            possibleTargets.AddRange(player.Location.Creatures);
+
+            foreach (var target in possibleTargets)
+            {
+                if (targetWords.All(word => target.TargetingKeywords.Any(t => t.StartsWith(word)))) return target;
+            }
+            return null;
         }
 
         private static void ParseCast(Player player, string spellstring)

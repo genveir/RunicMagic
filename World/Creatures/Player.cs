@@ -59,6 +59,11 @@ namespace World.Creatures
             }
         }
 
+        public void Look(ITargetable target)
+        {
+            Echo(target.Description.LookDesc);
+        }
+
         // commands that just fire an event
         public void Look() => OnLook?.Invoke(Location);
         public void Quit() => OnQuit?.Invoke();
