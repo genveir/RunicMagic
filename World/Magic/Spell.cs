@@ -4,22 +4,22 @@ namespace World.Magic
 {
     public class Spell
     {
-        private readonly Spellnode _root;
+        public Spellnode root;
 
         public Spell(Spellnode root)
         {
-            this._root = root;
+            this.root = root;
         }
 
         public void Cast(Player player)
         {
-            if (!this._root._rune.IsCastable)
+            if (!this.root._rune.IsCastable)
             {
                 player.Echo("But nothing happens!");
                 return;
             }
 
-            var result = _root.Eval();
+            var result = root.Eval();
 
             if (!result.Success)
             {

@@ -25,8 +25,28 @@ namespace World.Magic.Runes
         {
             var arg = sn._children?.First();
 
-            if (arg == null || !arg._rune.IsEffect) return EvalResult.Fail();
-            else return arg.Eval();
+            if (arg == null)
+            {
+                return EvalResult.Fail();
+            }
+            if (arg._rune.IsEffect)
+            {
+                return arg.Eval();
+            }
+            if (arg._rune.IsReference)
+            {
+                // TODO: for now we use BEH, which points to ITargetable.
+                // other runes could refer by different means, for example:
+                // ZU WATHIJDOET, referring to the spell cast by your target
+                Inscription? target = null;
+                this.caster.Target?.ReferenceWhenTargeted.TryPickT2(out target, out _);
+                if (target == null)
+                {
+                    return EvalResult.Fail();
+                }
+                return target.InscribedSpell.Eval();
+            }
+            return EvalResult.Fail();
         }
 
         public override bool IsCastable => true;

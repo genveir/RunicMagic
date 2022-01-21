@@ -109,7 +109,11 @@ namespace Engine.Commands
 
         private static void ParseCast(Player player, string spellstring)
         {
-            RuneParser.Parse(player, spellstring)?.Cast(player);
+            var result = RuneParser.Parse(player, spellstring);
+            result.Switch(
+                spell => spell.Cast(player),
+                _ => player.Echo("But nothing happens!")
+            );
         }
     }
 }

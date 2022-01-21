@@ -9,26 +9,24 @@ namespace World.Magic
 {
     public static class RuneParser
     {
-        public static Spell? Parse(Player player, string spellstring)
+        public static OneOf<Spell,string> Parse(Player player, string spellstring)
         {
             Spellnode root;
             IEnumerable<Rune> remainder;
             try
-            {                
+            {
                 var runes = ReadRunes(player, spellstring);
 
                 (root, remainder) = ParseRunes(player, runes);
             }
-            catch (RuneParseException)
+            catch (RuneParseException e)
             {
-                player.Echo("But nothing happens!");
-                return null;
+                return e.Message;
             }
 
             if (remainder?.Any() == true)
             {
-                player.Echo("But nothing happens!");
-                return null;
+                return "Nonempty remainder when parsing full spell";
             }
             return new Spell(root!);
         }
@@ -40,6 +38,7 @@ namespace World.Magic
                 s switch
                 {
                     "ZU" => new Runes.ZU(player, player.Location),
+                    "BEH" => new Runes.BEH(player, player.Location),
                     "DEBUG" => new Runes.DEBUG(player, player.Location),
                     _ => throw new RuneParseException($"unknown rune {s}")
                 }
