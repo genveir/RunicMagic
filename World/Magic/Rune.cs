@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using World.Creatures;
 using World.Rooms;
 
-namespace Magic
+namespace World.Magic
 {
     public abstract class Rune
     {

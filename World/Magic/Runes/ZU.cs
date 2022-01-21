@@ -3,7 +3,7 @@ using System.Linq;
 using World.Creatures;
 using World.Rooms;
 
-namespace Magic.Runes
+namespace World.Magic.Runes
 {
     public class ZU : Rune
     {

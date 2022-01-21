@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "View\View.csproj", "{8088C1EA-6D47-4209-93FD-8566FE0DB06B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magic", "Magic\Magic.csproj", "{FBBF447C-4FEA-436E-BF12-AFBD5566F744}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{D9F7E517-0952-49A8-BCDB-BB553F97A4DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{8088C1EA-6D47-4209-93FD-8566FE0DB06B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8088C1EA-6D47-4209-93FD-8566FE0DB06B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8088C1EA-6D47-4209-93FD-8566FE0DB06B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FBBF447C-4FEA-436E-BF12-AFBD5566F744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBBF447C-4FEA-436E-BF12-AFBD5566F744}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FBBF447C-4FEA-436E-BF12-AFBD5566F744}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FBBF447C-4FEA-436E-BF12-AFBD5566F744}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9F7E517-0952-49A8-BCDB-BB553F97A4DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9F7E517-0952-49A8-BCDB-BB553F97A4DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9F7E517-0952-49A8-BCDB-BB553F97A4DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9F7E517-0952-49A8-BCDB-BB553F97A4DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

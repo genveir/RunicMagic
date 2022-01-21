@@ -1,6 +1,6 @@
 using World.Creatures;
 
-namespace Magic
+namespace World.Magic
 {
     public class Spell
     {

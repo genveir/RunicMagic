@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using World.Creatures;
 using OneOf;
 
-namespace Magic
+namespace World.Magic
 {
     public static class RuneParser
     {

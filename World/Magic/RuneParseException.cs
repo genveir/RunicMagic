@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Magic
+namespace World.Magic
 {
     [Serializable]
     internal class RuneParseException : Exception

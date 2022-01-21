@@ -4,6 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OneOf;
+using World.Magic;
+using World.Objects;
 using World.Rooms;
 
 namespace World.Creatures
@@ -12,6 +15,7 @@ namespace World.Creatures
     {
         public long Id { get; }
         public string[] TargetingKeywords { get; protected set; }
+        public OneOf<Creature, RoomObject, Inscription> ReferenceWhenTargeted => this;
 
         public Room Location { get; set; }
         public Description Description { get; set; }
