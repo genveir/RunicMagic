@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using World;
 using World.Creatures;
 using World.Magic;
 using World.Magic.Runes;
@@ -14,7 +15,7 @@ namespace Tests
             var room = new Room("room", "room");
             var player = new Player(0, "player", room);
 
-            var inscription = new Inscription(0, new[] { "ins" }, "ins", "ins", "ins", new Spellnode(new ZU(player, room)));
+            var inscription = new Inscription(0, new[] { TargetingKeyword.From("ins") }, "ins", "ins", "ins", new Spellnode(new ZU(player, room)));
 
             player.Point(inscription);
 

@@ -17,7 +17,7 @@ namespace World.Creatures
         public IPlayerWorldEventsHandler EventHandler { get; private set; } = null!; // haha booeee
 
         public Player(long id, string name, Room room) 
-            : base(id, new[] { name }, name, $"{name} is here.", $"{name} looks very pretty.", room)
+            : base(id, new[] { TargetingKeyword.From(name) }, name, $"{name} is here.", $"{name} looks very pretty.", room)
         {
             
         }
@@ -33,7 +33,7 @@ namespace World.Creatures
 
         public void Rename(string newName)
         {
-            TargetingKeywords = new[] { newName };
+            TargetingKeywords = new[] { TargetingKeyword.From(newName) };
             Description.ShortDesc = newName;
             Description.LongDesc = $"{newName} is here.";
             Description.LookDesc = $"{newName} looks very pretty!";

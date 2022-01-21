@@ -16,12 +16,12 @@ namespace World.Objects
 
         public Description Description { get; set; }
 
-        public string[] TargetingKeywords { get; set; }
+        public TargetingKeyword[] TargetingKeywords { get; set; }
         public OneOf<Creature, RoomObject, Inscription> ReferenceWhenTargeted => this;
 
         public Room Location { get; set; }
 
-        public RoomObject(long id, string[] targetingKeywords, string shortDesc, string longDesc, string lookDesc, Room location)
+        public RoomObject(long id, TargetingKeyword[] targetingKeywords, string shortDesc, string longDesc, string lookDesc, Room location)
         {
             Id = id;
             Description = new Description(shortDesc, longDesc, lookDesc);

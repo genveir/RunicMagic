@@ -9,7 +9,7 @@ namespace World.Magic
 {
     public static class RuneParser
     {
-        public static OneOf<Spell,string> Parse(Player player, string spellstring)
+        public static OneOf<Spell, string> Parse(Player player, string spellstring)
         {
             Spellnode root;
             IEnumerable<Rune> remainder;
@@ -30,6 +30,8 @@ namespace World.Magic
             }
             return new Spell(root!);
         }
+
+
 
         private static IEnumerable<Rune> ReadRunes(Player player, string spellstring)
         {

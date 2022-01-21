@@ -90,15 +90,17 @@ namespace Engine.Commands
         private static ITargetable? ResolveLocalTarget(Player player, string targetingInfo)
         {
             var targetWords = targetingInfo
-                .Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(s => s.ToLower());
 
             targetWords = targetWords
-                .Select(word => (word == "self" || word == "me") ? player.TargetingKeywords[0] : word)
+                .Select(word => (word == "self" || word == "me") ? player.TargetingKeywords[0].Value : word)
                 .ToArray();
 
             var possibleTargets = new List<ITargetable>();
             possibleTargets.AddRange(player.Location.Creatures);
             possibleTargets.AddRange(player.Location.Objects);
+            possibleTargets.AddRange(player.Location.Inscriptions);
 
             foreach (var target in possibleTargets)
             {

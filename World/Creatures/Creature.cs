@@ -14,7 +14,7 @@ namespace World.Creatures
     public class Creature : ITargetable
     {
         public long Id { get; }
-        public string[] TargetingKeywords { get; protected set; }
+        public TargetingKeyword[] TargetingKeywords { get; protected set; }
         public OneOf<Creature, RoomObject, Inscription> ReferenceWhenTargeted => this;
 
         public Room Location { get; set; }
@@ -22,7 +22,7 @@ namespace World.Creatures
 
         public ITargetable? Target { get; set; }
 
-        public Creature(long id, string[] targetingKeywords, string shortDesc, string longDesc, string lookDesc, Room location) 
+        public Creature(long id, TargetingKeyword[] targetingKeywords, string shortDesc, string longDesc, string lookDesc, Room location) 
         {
             TargetingKeywords = targetingKeywords;
             Id = id;

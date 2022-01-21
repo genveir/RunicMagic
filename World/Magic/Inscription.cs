@@ -15,12 +15,12 @@ namespace World.Magic
 
         public Description Description { get; }
 
-        public string[] TargetingKeywords { get; }
+        public TargetingKeyword[] TargetingKeywords { get; }
         public OneOf<Creature, RoomObject, Inscription> ReferenceWhenTargeted => this;
 
         public Spellnode InscribedSpell;
 
-        public Inscription(long id, string[] targetingKeywords, string shortDesc, string longDesc, string lookDesc, Spellnode inscribedSpell)
+        public Inscription(long id, TargetingKeyword[] targetingKeywords, string shortDesc, string longDesc, string lookDesc, Spellnode inscribedSpell)
         {
             Id = id;
             TargetingKeywords = targetingKeywords;

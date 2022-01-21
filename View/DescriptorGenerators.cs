@@ -16,6 +16,7 @@ namespace View
             var desc = room.Description;
             var creatures = DescribeCreatures(room, player);
             var roomObjects = DescribeRoomObjects(room);
+            var inscriptions = DescribeInscriptions(room);
             var exits = DescribeExits(room);
 
             return new List<string>()
@@ -23,6 +24,7 @@ namespace View
                 .Append(desc)
                 .Concat(creatures)
                 .Concat(roomObjects)
+                .Concat(inscriptions)
                 .Append(exits)
                 .ToList();
         }
@@ -48,6 +50,17 @@ namespace View
             foreach (var roomObject in room.Objects)
             {
                 descriptions.Add($"{ANSI_Colors.BrightCyan}{roomObject.Description.LongDesc}{ANSI_Colors.Reset}");
+            }
+
+            return descriptions;
+        }
+
+        public static IEnumerable<string> DescribeInscriptions(Room room)
+        {
+            List<string> descriptions = new();
+            foreach (var inscription in room.Inscriptions)
+            {
+                descriptions.Add($"{ANSI_Colors.BrightYellow}{inscription.Description.LongDesc}{ANSI_Colors.Reset}");
             }
 
             return descriptions;
