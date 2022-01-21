@@ -28,7 +28,7 @@ namespace World.Creatures
 
             SubscribeToEvents();
 
-            Location.Enter(this, Direction.From(-1));
+            base.Initialize();
         }
 
         public void Rename(string newName)

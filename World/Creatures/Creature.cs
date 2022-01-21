@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using World.Rooms;
 
 namespace World.Creatures
 {
-    public class Creature : IDescriptable, ITargetable
+    public class Creature : ITargetable
     {
         public long Id { get; }
         public string[] TargetingKeywords { get; protected set; }
@@ -23,6 +24,11 @@ namespace World.Creatures
             Id = id;
             Location = location;
             Description = new Description(shortDesc, longDesc, lookDesc);
+        }
+
+        public virtual void Initialize()
+        {
+            this.Location.Enter(this, Direction.From(-1));
         }
 
         public void Say(string sentence)

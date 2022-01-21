@@ -15,12 +15,14 @@ namespace View
             var header = $"[{ANSI_Colors.BrightCyan}{room.Name}{ANSI_Colors.Reset}]";
             var desc = room.Description;
             var creatures = DescribeCreatures(room, player);
+            var roomObjects = DescribeRoomObjects(room);
             var exits = DescribeExits(room);
 
             return new List<string>()
                 .Append(header)
                 .Append(desc)
                 .Concat(creatures)
+                .Concat(roomObjects)
                 .Append(exits)
                 .ToList();
         }
@@ -35,6 +37,17 @@ namespace View
                 {
                     descriptions.Add($"{ANSI_Colors.BrightMagenta}{creature.Description.LongDesc}{ANSI_Colors.Reset}");
                 }
+            }
+
+            return descriptions;
+        }
+
+        public static IEnumerable<string> DescribeRoomObjects(Room room)
+        {
+            List<string> descriptions = new();
+            foreach (var roomObject in room.Objects)
+            {
+                descriptions.Add($"{ANSI_Colors.BrightCyan}{roomObject.Description.LongDesc}{ANSI_Colors.Reset}");
             }
 
             return descriptions;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using World.Creatures;
+using World.Objects;
 using World.Plugins;
 
 namespace World.Rooms
@@ -11,6 +12,8 @@ namespace World.Rooms
         public long Id { get; set; }
 
         public List<Creature> Creatures { get; } = new List<Creature>();
+
+        public List<RoomObject> Objects { get; } = new List<RoomObject>();
 
         public Room?[] LinkedRooms { get; } = new Room?[6];
 
