@@ -6,7 +6,7 @@ using World.Magic.Runes;
 using World.Objects;
 using World.Rooms;
 
-namespace Peristence
+namespace Persistence
 {
     public class SavedWorldState : IPersistedWorld
     {
