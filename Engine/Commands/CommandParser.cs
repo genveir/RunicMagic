@@ -73,11 +73,11 @@ namespace Engine.Commands
                         player.Echo($"You are now named {player.Description.ShortDesc}");
                         return true;
                     case "look":
-                        target = ResolveLocalTarget(player, arguments);
+                        target = Targeting.ResolveLocal(player, arguments);
                         player.Look(target);
                         return true;
                     case "point":
-                        target = ResolveLocalTarget(player, arguments);
+                        target = Targeting.ResolveLocal(player, arguments);
                         player.Point(target);
                         return true;
                     default:
@@ -85,28 +85,6 @@ namespace Engine.Commands
                 }
             }
             return false;
-        }
-
-        private static ITargetable? ResolveLocalTarget(Player player, string targetingInfo)
-        {
-            var targetWords = targetingInfo
-                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                .Select(s => s.ToLower());
-
-            targetWords = targetWords
-                .Select(word => (word == "self" || word == "me") ? player.TargetingKeywords[0].Value : word)
-                .ToArray();
-
-            var possibleTargets = new List<ITargetable>();
-            possibleTargets.AddRange(player.Location.Creatures);
-            possibleTargets.AddRange(player.Location.Objects);
-            possibleTargets.AddRange(player.Location.Inscriptions);
-
-            foreach (var target in possibleTargets)
-            {
-                if (targetWords.All(word => target.TargetingKeywords.Any(t => t.StartsWith(word)))) return target;
-            }
-            return null;
         }
 
         private static void ParseCast(Player player, string spellstring)
