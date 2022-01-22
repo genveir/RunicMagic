@@ -67,7 +67,7 @@ namespace Engine.Commands
                     case "say":
                         player.Say(arguments); return true;
                     case "cast":
-                        ParseCast(player, arguments); return true;
+                        Casting.Parse(player, arguments); return true;
                     case "rename":
                         player.Rename(arguments);
                         player.Echo($"You are now named {player.Description.ShortDesc}");
@@ -85,15 +85,6 @@ namespace Engine.Commands
                 }
             }
             return false;
-        }
-
-        private static void ParseCast(Player player, string spellstring)
-        {
-            var result = RuneParser.Parse(player, spellstring);
-            result.Switch(
-                spell => spell.Cast(player),
-                _ => player.Echo("But nothing happens!")
-            );
         }
     }
 }
