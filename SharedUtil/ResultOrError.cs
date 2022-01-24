@@ -1,4 +1,6 @@
-﻿namespace SharedUtil
+﻿using System;
+
+namespace SharedUtil
 {
     public class ResultOrError<ResultType>
     {
