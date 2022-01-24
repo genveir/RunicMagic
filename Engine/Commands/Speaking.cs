@@ -20,5 +20,19 @@ namespace Engine.Commands
             
             return !parsed.IsError;
         }
+
+        public static void ExecuteMagic(Player player)
+        {
+            if (!player.IsSpeaking && player.SpellInProgress != null)
+            {
+                player.SpellInProgress = null;
+                throw new InvalidOperationException($"{player} was not speaking but had a spell in progress");
+            }
+
+            if (player.IsSpeaking)
+            {
+                player.ExecuteSpellStep();
+            }
+        }
     }
 }

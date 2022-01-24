@@ -15,6 +15,9 @@ namespace World.Creatures
         public int HitPointsMax { get; set; } = 100;
         public int HitPointsRegen { get; set; } = 5;
 
+        public bool IsSpeaking { get; set; } = false;
+        public Spell? SpellInProgress { get; set; }
+
         public IPlayerWorldEventsHandler EventHandler { get; private set; } = null!; // haha booeee
 
         public Player(long id, string name, Room room) 
@@ -52,7 +55,6 @@ namespace World.Creatures
                 OnValidMove?.Invoke(Location, direction);
 
                 Location.SubscribePlayerToEvents(EventHandler);
-                
             }
             else
             {
@@ -62,8 +64,29 @@ namespace World.Creatures
 
         public void Speak(Spell? spell)
         {
-            if (spell != null) spell.GetSpoken(this);
-            else Echo("But nothing happens!");
+            IsSpeaking = true;
+            SpellInProgress = spell;
+
+            Location.PerformSpeak(this);
+        }
+
+        public void ExecuteSpellStep()
+        {
+            // spell failed to parse
+            if (SpellInProgress == null)
+            {
+                Echo("But nothing happens!");
+                IsSpeaking = false;
+            }
+            else
+            {
+                // TODO: rune per call
+                SpellInProgress.GetSpoken(this);
+
+                // spell is done, no spell is in progress
+                SpellInProgress = null; 
+                IsSpeaking = false;
+            }
         }
 
         public void Look(ITargetable? target)
@@ -151,5 +174,7 @@ namespace World.Creatures
         }
 
         #endregion
+
+        public override string ToString() => $"Player {Id}: {Description?.ShortDesc}";
     }
 }

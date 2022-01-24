@@ -51,15 +51,17 @@ namespace Engine
 
         private void DoTick()
         {
-            foreach(var playerService in PlayerServices)
+            foreach (var playerService in PlayerServices)
             {
                 if (playerService.Commands.Count > 0)
                 {
                     var command = playerService.Commands.Dequeue();
                     var player = playerService.Player;
-                    
+
                     if (!_commandParser.Parse(player, command)) player.InvalidCommand(command);
                 }
+
+                Speaking.ExecuteMagic(playerService.Player);
             }
 
             foreach(var playerService in PlayerServices)

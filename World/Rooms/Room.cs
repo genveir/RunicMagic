@@ -47,8 +47,9 @@ namespace World.Rooms
             this.CreatureExited?.Invoke(this, creature, direction);
         }
 
-        public void PerformSay(Creature creature, string sentence) => this.CreatureSpoke?.Invoke(creature, sentence);
+        public void PerformSay(Creature creature, string sentence) => this.CreatureSaid?.Invoke(creature, sentence);
         public void PerformPoint(Creature creature, ITargetable target) => this.CreaturePointed?.Invoke(creature, target);
+        public void PerformSpeak(Player player) => this.CreatureBeganSpeaking?.Invoke(player);
         public void Echo(string message) => this.MessageBroadcast?.Invoke(message);
 
         #region events
@@ -58,8 +59,9 @@ namespace World.Rooms
             this.CreatureEntered += player.CreatureEnteredRoom;
             this.CreatureExited += player.CreatureExitedRoom;
             
-            this.CreatureSpoke += player.CreatureSpoke;
+            this.CreatureSaid += player.CreatureSaid;
             this.CreaturePointed += player.CreaturePointed;
+            this.CreatureBeganSpeaking += player.CreatureBeganSpeaking;
 
             this.MessageBroadcast += player.ReceivedBroadcastMessage;
         }
@@ -69,8 +71,9 @@ namespace World.Rooms
             this.CreatureEntered -= player.CreatureEnteredRoom;
             this.CreatureExited -= player.CreatureExitedRoom;
             
-            this.CreatureSpoke -= player.CreatureSpoke;
+            this.CreatureSaid -= player.CreatureSaid;
             this.CreaturePointed -= player.CreaturePointed;
+            this.CreatureBeganSpeaking -= player.CreatureBeganSpeaking;
 
             this.MessageBroadcast -= player.ReceivedBroadcastMessage;
         }
@@ -83,7 +86,10 @@ namespace World.Rooms
         public event CreatureTargetableEventHandler? CreaturePointed;
 
         public delegate void CreatureMessageEventHandler(Creature creature, string message);
-        public event CreatureMessageEventHandler? CreatureSpoke;
+        public event CreatureMessageEventHandler? CreatureSaid;
+
+        public delegate void CreatureEventHandler(Creature creature);
+        public event CreatureEventHandler? CreatureBeganSpeaking;
 
         public delegate void BroadcastMessageHandler(string message);
         public event BroadcastMessageHandler? MessageBroadcast;

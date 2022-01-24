@@ -13,8 +13,9 @@ namespace World.Plugins
         void CreatureEnteredRoom(Room room, Creature creature, Direction enteredFrom);
         void CreatureExitedRoom(Room room, Creature creature, Direction leftTo);
 
-        void CreatureSpoke(Creature creature, string message);
+        void CreatureSaid(Creature creature, string message);
         void CreaturePointed(Creature creature, ITargetable target);
+        void CreatureBeganSpeaking(Creature creature);
 
         void ReceivedBroadcastMessage(string message);
         
