@@ -6,13 +6,21 @@ using System.Threading.Tasks;
 using World;
 using World.Creatures;
 using World.Magic;
+using World.Plugins;
 using World.Rooms;
 
 namespace Engine.Commands
 {
-    public static class CommandParser
+    public class CommandParser
     {
-        public static bool Parse(Player player, string command)
+        private readonly ISpellParser _spellParser;
+
+        public CommandParser(ISpellParser spellParser)
+        {
+            _spellParser = spellParser;
+        }
+
+        public bool Parse(Player player, string command)
         {
             return
                 TryParseMovement(player, command) ||
@@ -52,7 +60,7 @@ namespace Engine.Commands
             }
         }
 
-        private static bool TryParseMultiWordCommands(Player player, string command)
+        private bool TryParseMultiWordCommands(Player player, string command)
         {
             var split = command.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
 
@@ -67,7 +75,7 @@ namespace Engine.Commands
                     case "say":
                         player.Say(arguments); return true;
                     case "speak":
-                        Speaking.TryParse(player, arguments, out Spell? spell);
+                        Speaking.TryParse(_spellParser, player, arguments, out Spell? spell);
                         player.Speak(spell);
                         return true;
                     case "rename":

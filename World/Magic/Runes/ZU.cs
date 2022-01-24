@@ -3,6 +3,7 @@ using System.Linq;
 using OneOf;
 using SharedUtil;
 using World.Creatures;
+using World.Plugins;
 using World.Rooms;
 
 namespace World.Magic.Runes
@@ -11,9 +12,9 @@ namespace World.Magic.Runes
     {
         public ZU(Player caster, Room room) : base(caster, room) { }
 
-        public override ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(Player player, IEnumerable<Rune> runes)
+        public override ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> runes)
         {
-            var parseResult = SpellParser.ParseRunes(player, runes);
+            var parseResult = parser.ParseRunes(player, runes);
             if (parseResult.IsError) return parseResult.Error;
 
             var (arg, remainder) = parseResult.Result;

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using OneOf;
 using SharedUtil;
 using World.Creatures;
+using World.Plugins;
 using World.Rooms;
 
 namespace World.Magic
@@ -17,7 +18,7 @@ namespace World.Magic
             this.room = room;
         }
 
-        public abstract ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(Player player, IEnumerable<Rune> runes);
+        public abstract ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> runes);
         public abstract EvalResult Eval(RunePhrase sn);
 
         public virtual bool IsCastable => false;

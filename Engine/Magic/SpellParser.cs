@@ -6,12 +6,14 @@ using World.Creatures;
 using OneOf;
 using World.Magic.Runes;
 using SharedUtil;
+using World.Magic;
+using World.Plugins;
 
-namespace World.Magic
+namespace Engine.Magic
 {
-    public static class SpellParser
+    public class SpellParser : ISpellParser
     {
-        public static ResultOrError<Spell> Parse(Player player, string spellstring)
+        public ResultOrError<Spell> Parse(Player player, string spellstring)
         {
             RunePhrase root;
             IEnumerable<Rune> remainder;
@@ -49,13 +51,13 @@ namespace World.Magic
             return runes;
         }
 
-        public static ResultOrError<(RunePhrase, IEnumerable<Rune>)> ParseRunes(Player player, IEnumerable<Rune> runes)
+        public ResultOrError<(RunePhrase, IEnumerable<Rune>)> ParseRunes(Player player, IEnumerable<Rune> runes)
         {
             if (!runes.Any())
             {
                 return "expected runes but ran out";
             }
-            return runes.First().Parse(player, runes.Skip(1));
+            return runes.First().Parse(this, player, runes.Skip(1));
         }
     }
 }

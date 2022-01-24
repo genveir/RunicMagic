@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using World.Creatures;
 using World.Magic;
+using World.Plugins;
 
 namespace Engine.Commands
 {
     public class Speaking
     {
-        public static bool TryParse(Player player, string spellstring, out Spell? spell)
+        public static bool TryParse(ISpellParser parser, Player player, string spellstring, out Spell? spell)
         {
-            var parsed = SpellParser.Parse(player, spellstring);
+            var parsed = parser.Parse(player, spellstring);
 
             if (parsed.IsError) spell = null;
             else spell = parsed.Result;

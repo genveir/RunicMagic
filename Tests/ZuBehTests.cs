@@ -1,3 +1,4 @@
+using Engine.Magic;
 using NUnit.Framework;
 using World;
 using World.Creatures;
@@ -20,7 +21,7 @@ namespace Tests
             player.Point(inscription);
 
             var spellstring = "ZU BEH";
-            var parsed = SpellParser.Parse(player, spellstring);
+            var parsed = new SpellParser().Parse(player, spellstring);
 
             if (parsed.IsError) Assert.Fail(parsed.Error);
             else Assert.IsNotNull(parsed.Result.root.Eval());
@@ -37,7 +38,7 @@ namespace Tests
             player.Point(inscription);
 
             var spellstring = "ZU BEH";
-            var parsed = SpellParser.Parse(player, spellstring);
+            var parsed = new SpellParser().Parse(player, spellstring);
 
             if (parsed.IsError) Assert.Fail(parsed.Error);
             else Assert.IsNotNull(parsed.Result.root.Eval().Success);
@@ -52,7 +53,7 @@ namespace Tests
             player.Point(player);
 
             var spellstring = "ZU BEH";
-            var parsed = SpellParser.Parse(player, spellstring);
+            var parsed = new SpellParser().Parse(player, spellstring);
 
             if (parsed.IsError) Assert.Fail(parsed.Error);
             else Assert.IsNotNull(parsed.Result.root.Eval().Success);
