@@ -68,10 +68,7 @@ namespace Engine.Commands
                         player.Say(arguments); return true;
                     case "speak":
                         Speaking.TryParse(player, arguments, out Spell? spell);
-
-                        if (spell != null) spell.GetSpoken(player);
-                        else player.Echo("But nothing happens!");
-
+                        player.Speak(spell);
                         return true;
                     case "rename":
                         player.Rename(arguments);

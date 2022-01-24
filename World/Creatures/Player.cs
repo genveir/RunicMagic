@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using World.Magic;
 using World.Plugins;
 using World.Rooms;
 
@@ -57,6 +58,12 @@ namespace World.Creatures
             {
                 OnInvalidMove?.Invoke();
             }
+        }
+
+        public void Speak(Spell? spell)
+        {
+            if (spell != null) spell.GetSpoken(this);
+            else Echo("But nothing happens!");
         }
 
         public void Look(ITargetable? target)
