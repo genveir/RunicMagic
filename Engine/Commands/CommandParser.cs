@@ -66,8 +66,8 @@ namespace Engine.Commands
                 {
                     case "say":
                         player.Say(arguments); return true;
-                    case "cast":
-                        Casting.Parse(player, arguments); return true;
+                    case "speak":
+                        Speaking.Parse(player, arguments); return true;
                     case "rename":
                         player.Rename(arguments);
                         player.Echo($"You are now named {player.Description.ShortDesc}");

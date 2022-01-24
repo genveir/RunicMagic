@@ -11,7 +11,7 @@ namespace World.Magic
             this.root = root;
         }
 
-        public void Cast(Player player)
+        public void GetSpoken(Player player)
         {
             if (!this.root._rune.IsCastable)
             {

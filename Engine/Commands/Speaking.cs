@@ -8,13 +8,13 @@ using World.Magic;
 
 namespace Engine.Commands
 {
-    public class Casting
+    public class Speaking
     {
         public static void Parse(Player player, string spellstring)
         {
             var result = RuneParser.Parse(player, spellstring);
             result.Switch(
-                spell => spell.Cast(player),
+                spell => spell.GetSpoken(player),
                 _ => player.Echo("But nothing happens!")
             );
         }
