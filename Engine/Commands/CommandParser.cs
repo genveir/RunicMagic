@@ -67,7 +67,12 @@ namespace Engine.Commands
                     case "say":
                         player.Say(arguments); return true;
                     case "speak":
-                        Speaking.Parse(player, arguments); return true;
+                        Speaking.TryParse(player, arguments, out Spell? spell);
+
+                        if (spell != null) spell.GetSpoken(player);
+                        else player.Echo("But nothing happens!");
+
+                        return true;
                     case "rename":
                         player.Rename(arguments);
                         player.Echo($"You are now named {player.Description.ShortDesc}");

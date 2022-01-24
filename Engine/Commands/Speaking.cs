@@ -10,13 +10,19 @@ namespace Engine.Commands
 {
     public class Speaking
     {
-        public static void Parse(Player player, string spellstring)
+        public static bool TryParse(Player player, string spellstring, out Spell? spell)
         {
-            var result = RuneParser.Parse(player, spellstring);
-            result.Switch(
-                spell => spell.GetSpoken(player),
-                _ => player.Echo("But nothing happens!")
+            var parsed = RuneParser.Parse(player, spellstring);
+
+            Spell? toReturn = null;
+            bool success = true;
+            parsed.Switch(
+                spell => toReturn = spell,
+                _ => success = false
             );
+
+            spell = toReturn;
+            return success;
         }
     }
 }
