@@ -17,10 +17,10 @@ namespace World.Magic
             IEnumerable<Rune> remainder;
 
             var readResult = ReadRunes(player, spellstring);
-            if (readResult.IsError) return readResult.Error; // error string
+            if (readResult.IsError) return readResult.Error;
 
             var parseResult = ParseRunes(player, readResult.Result);
-            if (parseResult.IsError) return parseResult.Error; // error string
+            if (parseResult.IsError) return parseResult.Error;
 
             (root, remainder) = parseResult.Result;
 

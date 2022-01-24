@@ -9,7 +9,6 @@ namespace World.Magic.Runes
 {
     public class ZU : Rune
     {
-
         public ZU(Player caster, Room room) : base(caster, room) { }
 
         public override ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(Player player, IEnumerable<Rune> runes)
