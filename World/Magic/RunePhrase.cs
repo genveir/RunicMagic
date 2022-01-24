@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace World.Magic
 {
-    public class Spellnode
+    public class RunePhrase
     {
         internal Rune _rune;
-        internal Spellnode[]? _children;
+        internal RunePhrase[]? _children;
 
-        public Spellnode(Rune rune)
+        public RunePhrase(Rune rune)
         {
             this._rune = rune;
         }
-        public Spellnode(Rune rune, Spellnode[] children) : this(rune)
+        public RunePhrase(Rune rune, RunePhrase[] children) : this(rune)
         {
             this._children = children;
         }

@@ -10,7 +10,7 @@ namespace World.Magic.Runes
 
         public ZU(Player caster, Room room) : base(caster, room) { }
 
-        public override (Spellnode, IEnumerable<Rune>) Parse(Player player, IEnumerable<Rune> runes)
+        public override (RunePhrase, IEnumerable<Rune>) Parse(Player player, IEnumerable<Rune> runes)
         {
             var (arg, remainder) = RuneParser.ParseRunes(player, runes);
             if (!arg._rune.IsReference && !arg._rune.IsEffect)
@@ -18,10 +18,10 @@ namespace World.Magic.Runes
                 player.Echo("But nothing happens!");
                 throw new RuneParseException("target of ZU cannot resolve to an effect");
             }
-            return (new Spellnode(this, new[] { arg }), remainder);
+            return (new RunePhrase(this, new[] { arg }), remainder);
         }
 
-        public override EvalResult Eval(Spellnode sn)
+        public override EvalResult Eval(RunePhrase sn)
         {
             var arg = sn._children?.First();
 

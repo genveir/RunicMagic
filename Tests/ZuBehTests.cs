@@ -15,7 +15,7 @@ namespace Tests
             var room = new Room("room", "room");
             var player = new Player(0, "player", room);
 
-            var inscription = new Inscription(0, TargetingKeywords.From("ins"), "ins", "ins", "ins", new Spellnode(new DEBUG(player, room)));
+            var inscription = new Inscription(0, TargetingKeywords.From("ins"), "ins", "ins", "ins", new RunePhrase(new DEBUG(player, room)));
 
             player.Point(inscription);
 
@@ -33,7 +33,7 @@ namespace Tests
             var room = new Room("room", "room");
             var player = new Player(0, "player", room);
 
-            var inscription = new Inscription(0, TargetingKeywords.From("ins"), "ins", "ins", "ins", new Spellnode(new ZU(player, room)));
+            var inscription = new Inscription(0, TargetingKeywords.From("ins"), "ins", "ins", "ins", new RunePhrase(new ZU(player, room)));
 
             player.Point(inscription);
 

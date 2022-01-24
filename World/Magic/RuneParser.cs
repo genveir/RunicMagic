@@ -11,7 +11,7 @@ namespace World.Magic
     {
         public static OneOf<Spell, string> Parse(Player player, string spellstring)
         {
-            Spellnode root;
+            RunePhrase root;
             IEnumerable<Rune> remainder;
             try
             {
@@ -47,7 +47,7 @@ namespace World.Magic
             );
         }
 
-        public static (Spellnode, IEnumerable<Rune>) ParseRunes(Player player, IEnumerable<Rune> runes)
+        public static (RunePhrase, IEnumerable<Rune>) ParseRunes(Player player, IEnumerable<Rune> runes)
         {
             if (!runes.Any())
             {

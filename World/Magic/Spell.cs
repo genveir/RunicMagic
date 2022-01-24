@@ -4,9 +4,9 @@ namespace World.Magic
 {
     public class Spell
     {
-        public Spellnode root;
+        public RunePhrase root;
 
-        public Spell(Spellnode root)
+        public Spell(RunePhrase root)
         {
             this.root = root;
         }
