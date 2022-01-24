@@ -14,15 +14,10 @@ namespace Engine.Commands
         {
             var parsed = SpellParser.Parse(player, spellstring);
 
-            Spell? toReturn = null;
-            bool success = true;
-            parsed.Switch(
-                spell => toReturn = spell,
-                _ => success = false
-            );
-
-            spell = toReturn;
-            return success;
+            if (parsed.IsError) spell = null;
+            else spell = parsed.Result;
+            
+            return !parsed.IsError;
         }
     }
 }

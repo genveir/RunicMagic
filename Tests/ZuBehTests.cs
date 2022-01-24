@@ -21,10 +21,9 @@ namespace Tests
 
             var spellstring = "ZU BEH";
             var parsed = SpellParser.Parse(player, spellstring);
-            parsed.Switch(
-                spell => Assert.IsNotNull(spell.root.Eval()),
-                e => Assert.Fail(e)
-            );
+
+            if (parsed.IsError) Assert.Fail(parsed.Error);
+            else Assert.IsNotNull(parsed.Result.root.Eval());
         }
 
         [Test]
@@ -39,10 +38,9 @@ namespace Tests
 
             var spellstring = "ZU BEH";
             var parsed = SpellParser.Parse(player, spellstring);
-            parsed.Switch(
-                spell => Assert.False(spell.root.Eval().Success),
-                e => Assert.Fail(e)
-            );
+
+            if (parsed.IsError) Assert.Fail(parsed.Error);
+            else Assert.IsNotNull(parsed.Result.root.Eval().Success);
         }
 
         [Test]
@@ -55,10 +53,9 @@ namespace Tests
 
             var spellstring = "ZU BEH";
             var parsed = SpellParser.Parse(player, spellstring);
-            parsed.Switch(
-                spell => Assert.False(spell.root.Eval().Success),
-                e => Assert.Fail(e)
-            );
+
+            if (parsed.IsError) Assert.Fail(parsed.Error);
+            else Assert.IsNotNull(parsed.Result.root.Eval().Success);
         }
     }
 }

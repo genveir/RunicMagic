@@ -5,23 +5,24 @@ using System.Threading.Tasks;
 using World.Creatures;
 using OneOf;
 using World.Magic.Runes;
+using SharedUtil;
 
 namespace World.Magic
 {
     public static class SpellParser
     {
-        public static OneOf<Spell, string> Parse(Player player, string spellstring)
+        public static ResultOrError<Spell> Parse(Player player, string spellstring)
         {
             RunePhrase root;
             IEnumerable<Rune> remainder;
 
             var readResult = ReadRunes(player, spellstring);
-            if (readResult.IsT1) return readResult.AsT1; // error string
+            if (readResult.IsError) return readResult.Error; // error string
 
-            var parseResult = ParseRunes(player, readResult.AsT0);
-            if (parseResult.IsT1) return parseResult.AsT1; // error string
+            var parseResult = ParseRunes(player, readResult.Result);
+            if (parseResult.IsError) return parseResult.Error; // error string
 
-            (root, remainder) = parseResult.AsT0;
+            (root, remainder) = parseResult.Result;
 
             if (remainder?.Any() == true)
             {
@@ -30,7 +31,7 @@ namespace World.Magic
             return new Spell(root!);
         }
 
-        private static OneOf<IEnumerable<Rune>, string> ReadRunes(Player player, string spellstring)
+        private static ResultOrError<IEnumerable<Rune>> ReadRunes(Player player, string spellstring)
         {
             var runestrings = spellstring.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             var runes = new List<Rune>();
@@ -48,7 +49,7 @@ namespace World.Magic
             return runes;
         }
 
-        public static OneOf<(RunePhrase, IEnumerable<Rune>), string> ParseRunes(Player player, IEnumerable<Rune> runes)
+        public static ResultOrError<(RunePhrase, IEnumerable<Rune>)> ParseRunes(Player player, IEnumerable<Rune> runes)
         {
             if (!runes.Any())
             {
