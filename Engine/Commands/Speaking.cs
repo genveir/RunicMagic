@@ -12,7 +12,7 @@ namespace Engine.Commands
     {
         public static bool TryParse(Player player, string spellstring, out Spell? spell)
         {
-            var parsed = RuneParser.Parse(player, spellstring);
+            var parsed = SpellParser.Parse(player, spellstring);
 
             Spell? toReturn = null;
             bool success = true;

@@ -20,7 +20,7 @@ namespace Tests
             player.Point(inscription);
 
             var spellstring = "ZU BEH";
-            var parsed = RuneParser.Parse(player, spellstring);
+            var parsed = SpellParser.Parse(player, spellstring);
             parsed.Switch(
                 spell => Assert.IsNotNull(spell.root.Eval()),
                 e => Assert.Fail(e)
@@ -38,7 +38,7 @@ namespace Tests
             player.Point(inscription);
 
             var spellstring = "ZU BEH";
-            var parsed = RuneParser.Parse(player, spellstring);
+            var parsed = SpellParser.Parse(player, spellstring);
             parsed.Switch(
                 spell => Assert.False(spell.root.Eval().Success),
                 e => Assert.Fail(e)
@@ -54,7 +54,7 @@ namespace Tests
             player.Point(player);
 
             var spellstring = "ZU BEH";
-            var parsed = RuneParser.Parse(player, spellstring);
+            var parsed = SpellParser.Parse(player, spellstring);
             parsed.Switch(
                 spell => Assert.False(spell.root.Eval().Success),
                 e => Assert.Fail(e)

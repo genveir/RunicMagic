@@ -12,11 +12,11 @@ namespace World.Magic.Runes
 
         public override (RunePhrase, IEnumerable<Rune>) Parse(Player player, IEnumerable<Rune> runes)
         {
-            var (arg, remainder) = RuneParser.ParseRunes(player, runes);
+            var (arg, remainder) = SpellParser.ParseRunes(player, runes);
             if (!arg._rune.IsReference && !arg._rune.IsEffect)
             {
                 player.Echo("But nothing happens!");
-                throw new RuneParseException("target of ZU cannot resolve to an effect");
+                throw new SpellParsingException("target of ZU cannot resolve to an effect");
             }
             return (new RunePhrase(this, new[] { arg }), remainder);
         }

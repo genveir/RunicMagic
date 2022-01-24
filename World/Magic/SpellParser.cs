@@ -7,7 +7,7 @@ using OneOf;
 
 namespace World.Magic
 {
-    public static class RuneParser
+    public static class SpellParser
     {
         public static OneOf<Spell, string> Parse(Player player, string spellstring)
         {
@@ -19,7 +19,7 @@ namespace World.Magic
 
                 (root, remainder) = ParseRunes(player, runes);
             }
-            catch (RuneParseException e)
+            catch (SpellParsingException e)
             {
                 return e.Message;
             }
@@ -42,7 +42,7 @@ namespace World.Magic
                     "ZU" => new Runes.ZU(player, player.Location),
                     "BEH" => new Runes.BEH(player, player.Location),
                     "DEBUG" => new Runes.DEBUG(player, player.Location),
-                    _ => throw new RuneParseException($"unknown rune {s}")
+                    _ => throw new SpellParsingException($"unknown rune {s}")
                 }
             );
         }
@@ -51,7 +51,7 @@ namespace World.Magic
         {
             if (!runes.Any())
             {
-                throw new RuneParseException("expected runes but ran out");
+                throw new SpellParsingException("expected runes but ran out");
             }
             return runes.First().Parse(player, runes.Skip(1));
         }
