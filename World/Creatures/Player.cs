@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using World.Magic;
 using World.Plugins;
 using World.Rooms;
 
@@ -13,6 +14,9 @@ namespace World.Creatures
         public int HitPoints { get; set; } = 100;
         public int HitPointsMax { get; set; } = 100;
         public int HitPointsRegen { get; set; } = 5;
+
+        public bool IsSpeaking { get; set; } = false;
+        public Spell? SpellInProgress { get; set; }
 
         public IPlayerWorldEventsHandler EventHandler { get; private set; } = null!; // haha booeee
 
@@ -51,11 +55,37 @@ namespace World.Creatures
                 OnValidMove?.Invoke(Location, direction);
 
                 Location.SubscribePlayerToEvents(EventHandler);
-                
             }
             else
             {
                 OnInvalidMove?.Invoke();
+            }
+        }
+
+        public void Speak(Spell? spell)
+        {
+            IsSpeaking = true;
+            SpellInProgress = spell;
+
+            Location.PerformSpeak(this);
+        }
+
+        public void ExecuteSpellStep()
+        {
+            // spell failed to parse
+            if (SpellInProgress == null)
+            {
+                Echo("But nothing happens!");
+                IsSpeaking = false;
+            }
+            else
+            {
+                // TODO: rune per call
+                SpellInProgress.GetSpoken(this);
+
+                // spell is done, no spell is in progress
+                SpellInProgress = null; 
+                IsSpeaking = false;
             }
         }
 
@@ -144,5 +174,7 @@ namespace World.Creatures
         }
 
         #endregion
+
+        public override string ToString() => $"Player {Id}: {Description?.ShortDesc}";
     }
 }

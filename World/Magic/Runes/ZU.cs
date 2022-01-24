@@ -1,27 +1,31 @@
 using System.Collections.Generic;
 using System.Linq;
+using OneOf;
+using SharedUtil;
 using World.Creatures;
+using World.Plugins;
 using World.Rooms;
 
 namespace World.Magic.Runes
 {
     public class ZU : Rune
     {
-
         public ZU(Player caster, Room room) : base(caster, room) { }
 
-        public override (Spellnode, IEnumerable<Rune>) Parse(Player player, IEnumerable<Rune> runes)
+        public override ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> runes)
         {
-            var (arg, remainder) = RuneParser.ParseRunes(player, runes);
+            var parseResult = parser.ParseRunes(player, runes);
+            if (parseResult.IsError) return parseResult.Error;
+
+            var (arg, remainder) = parseResult.Result;
             if (!arg._rune.IsReference && !arg._rune.IsEffect)
             {
-                player.Echo("But nothing happens!");
-                throw new RuneParseException("target of ZU cannot resolve to an effect");
+                return "target of ZU cannot resolve to an effect";
             }
-            return (new Spellnode(this, new[] { arg }), remainder);
+            return (new RunePhrase(this, new[] { arg }), remainder);
         }
 
-        public override EvalResult Eval(Spellnode sn)
+        public override EvalResult Eval(RunePhrase sn)
         {
             var arg = sn._children?.First();
 

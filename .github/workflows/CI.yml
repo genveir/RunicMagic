@@ -1,6 +1,9 @@
 ---
 name: call-CI-server
-on: [push]
+on:
+  push:
+    branches:
+      - master
 jobs:
   call-CI-server:
     runs-on: ubuntu-latest

@@ -25,7 +25,7 @@ namespace View
             _playerService.SendOutput($"{creature.Description.ShortDesc} walked {direction.DepartureDescriptor}");
         }
 
-        public void CreatureSpoke(Creature creature, string message)
+        public void CreatureSaid(Creature creature, string message)
         {
             if (creature == _playerService.Player)
             {
@@ -45,6 +45,18 @@ namespace View
 
             if (target == _playerService.Player) result.Append("YOU");
             else result.Append(target.Description.ShortDesc);
+
+            _playerService.SendOutput(result.ToString());
+        }
+
+        public void CreatureBeganSpeaking(Creature creature)
+        {
+            StringBuilder result = new();
+
+            if (creature == _playerService.Player) result.Append("You begin");
+            else result.Append($"{creature.Description.ShortDesc} begins");
+
+            result.Append(" to speak a spell...");
 
             _playerService.SendOutput(result.ToString());
         }

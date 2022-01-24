@@ -10,14 +10,20 @@ namespace Engine
 {
     public class WorldRunner : BackgroundService
     {
+        public int tickSizeInMS = 100;
+        private readonly CommandParser _commandParser;
+
         public static List<IPlayerService> PlayerServices { get; } = new List<IPlayerService>();
+
+        public WorldRunner(CommandParser commandParser)
+        {
+            _commandParser = commandParser;
+        }
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
             await Loop(cancellationToken);
         }
-
-        public int tickSizeInMS = 100;
 
         private async Task Loop(CancellationToken cancellationToken)
         {
@@ -43,20 +49,25 @@ namespace Engine
             }
         }
 
-        private static void DoTick()
+        private void DoTick()
         {
-            foreach(var playerService in PlayerServices)
+            foreach (var playerService in PlayerServices)
             {
                 if (playerService.Commands.Count > 0)
                 {
                     var command = playerService.Commands.Dequeue();
                     var player = playerService.Player;
-                    
-                    if (!CommandParser.Parse(player, command)) player.InvalidCommand(command);
+
+                    if (!_commandParser.Parse(player, command)) player.InvalidCommand(command);
                 }
             }
 
-            foreach(var playerService in PlayerServices)
+            foreach (var playerService in PlayerServices)
+            {
+                Speaking.ExecuteMagic(playerService.Player);
+            }
+
+            foreach (var playerService in PlayerServices)
             {
                 playerService.Tick();
             }

@@ -1,3 +1,4 @@
+using Engine.Magic;
 using NUnit.Framework;
 using World;
 using World.Creatures;
@@ -15,16 +16,15 @@ namespace Tests
             var room = new Room("room", "room");
             var player = new Player(0, "player", room);
 
-            var inscription = new Inscription(0, TargetingKeywords.From("ins"), "ins", "ins", "ins", new Spellnode(new DEBUG(player, room)));
+            var inscription = new Inscription(0, TargetingKeywords.From("ins"), "ins", "ins", "ins", new RunePhrase(new DEBUG(player, room)));
 
             player.Point(inscription);
 
             var spellstring = "ZU BEH";
-            var parsed = RuneParser.Parse(player, spellstring);
-            parsed.Switch(
-                spell => Assert.IsNotNull(spell.root.Eval()),
-                e => Assert.Fail(e)
-            );
+            var parsed = new SpellParser().Parse(player, spellstring);
+
+            if (parsed.IsError) Assert.Fail(parsed.Error);
+            else Assert.IsNotNull(parsed.Result.root.Eval());
         }
 
         [Test]
@@ -33,16 +33,15 @@ namespace Tests
             var room = new Room("room", "room");
             var player = new Player(0, "player", room);
 
-            var inscription = new Inscription(0, TargetingKeywords.From("ins"), "ins", "ins", "ins", new Spellnode(new ZU(player, room)));
+            var inscription = new Inscription(0, TargetingKeywords.From("ins"), "ins", "ins", "ins", new RunePhrase(new ZU(player, room)));
 
             player.Point(inscription);
 
             var spellstring = "ZU BEH";
-            var parsed = RuneParser.Parse(player, spellstring);
-            parsed.Switch(
-                spell => Assert.False(spell.root.Eval().Success),
-                e => Assert.Fail(e)
-            );
+            var parsed = new SpellParser().Parse(player, spellstring);
+
+            if (parsed.IsError) Assert.Fail(parsed.Error);
+            else Assert.IsNotNull(parsed.Result.root.Eval().Success);
         }
 
         [Test]
@@ -54,11 +53,10 @@ namespace Tests
             player.Point(player);
 
             var spellstring = "ZU BEH";
-            var parsed = RuneParser.Parse(player, spellstring);
-            parsed.Switch(
-                spell => Assert.False(spell.root.Eval().Success),
-                e => Assert.Fail(e)
-            );
+            var parsed = new SpellParser().Parse(player, spellstring);
+
+            if (parsed.IsError) Assert.Fail(parsed.Error);
+            else Assert.IsNotNull(parsed.Result.root.Eval().Success);
         }
     }
 }

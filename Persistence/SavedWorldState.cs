@@ -32,7 +32,7 @@ patterns of light fade in and out in complicated patterns.".TrimStart(), secondR
             var casterCreator = new Player(0, "The Godly Creator", secondRoom);
             secondRoom.Inscriptions.Add(new Inscription(0, TargetingKeywords.From("inscription"), "an inscription",
                 "A magical inscription has been carved into the wall", $"The inscription reads\n\n\u001b[31; 1mDEBUG\u001b[0m",
-                RuneParser.ParseRunes(casterCreator, new[] { new DEBUG(casterCreator, secondRoom) }).Item1));
+                new RunePhrase(new DEBUG(casterCreator, secondRoom))));
             
             StartingRoom.LinkRoom(secondRoom, Direction.NORTH);
         }
