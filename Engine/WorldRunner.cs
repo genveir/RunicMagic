@@ -60,11 +60,14 @@ namespace Engine
 
                     if (!_commandParser.Parse(player, command)) player.InvalidCommand(command);
                 }
+            }
 
+            foreach (var playerService in PlayerServices)
+            {
                 Speaking.ExecuteMagic(playerService.Player);
             }
 
-            foreach(var playerService in PlayerServices)
+            foreach (var playerService in PlayerServices)
             {
                 playerService.Tick();
             }
