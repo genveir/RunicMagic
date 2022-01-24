@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using OneOf;
 using World.Creatures;
 using World.Rooms;
 
@@ -10,13 +11,15 @@ namespace World.Magic.Runes
 
         public ZU(Player caster, Room room) : base(caster, room) { }
 
-        public override (RunePhrase, IEnumerable<Rune>) Parse(Player player, IEnumerable<Rune> runes)
+        public override OneOf<(RunePhrase, IEnumerable<Rune>), string> Parse(Player player, IEnumerable<Rune> runes)
         {
-            var (arg, remainder) = SpellParser.ParseRunes(player, runes);
+            var parseResult = SpellParser.ParseRunes(player, runes);
+            if (parseResult.IsT1) return parseResult.AsT1; // error string
+
+            var (arg, remainder) = parseResult.AsT0;
             if (!arg._rune.IsReference && !arg._rune.IsEffect)
             {
-                player.Echo("But nothing happens!");
-                throw new SpellParsingException("target of ZU cannot resolve to an effect");
+                return "target of ZU cannot resolve to an effect";
             }
             return (new RunePhrase(this, new[] { arg }), remainder);
         }

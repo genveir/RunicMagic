@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using OneOf;
 using World.Creatures;
 using World.Rooms;
 
@@ -15,7 +16,7 @@ namespace World.Magic
             this.room = room;
         }
 
-        public abstract (RunePhrase, IEnumerable<Rune>) Parse(Player player, IEnumerable<Rune> runes);
+        public abstract OneOf<(RunePhrase, IEnumerable<Rune>), string> Parse(Player player, IEnumerable<Rune> runes);
         public abstract EvalResult Eval(RunePhrase sn);
 
         public virtual bool IsCastable => false;

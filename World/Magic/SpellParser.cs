@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using World.Creatures;
 using OneOf;
+using World.Magic.Runes;
 
 namespace World.Magic
 {
@@ -13,16 +14,14 @@ namespace World.Magic
         {
             RunePhrase root;
             IEnumerable<Rune> remainder;
-            try
-            {
-                var runes = ReadRunes(player, spellstring);
 
-                (root, remainder) = ParseRunes(player, runes);
-            }
-            catch (SpellParsingException e)
-            {
-                return e.Message;
-            }
+            var readResult = ReadRunes(player, spellstring);
+            if (readResult.IsT1) return readResult.AsT1; // error string
+
+            var parseResult = ParseRunes(player, readResult.AsT0);
+            if (parseResult.IsT1) return parseResult.AsT1; // error string
+
+            (root, remainder) = parseResult.AsT0;
 
             if (remainder?.Any() == true)
             {
@@ -31,27 +30,29 @@ namespace World.Magic
             return new Spell(root!);
         }
 
-
-
-        private static IEnumerable<Rune> ReadRunes(Player player, string spellstring)
+        private static OneOf<IEnumerable<Rune>, string> ReadRunes(Player player, string spellstring)
         {
             var runestrings = spellstring.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            return runestrings.Select<string, Rune>(s =>
-                s switch
+            var runes = new List<Rune>();
+
+            foreach (var runeString in runestrings)
+            {
+                switch (runeString)
                 {
-                    "ZU" => new Runes.ZU(player, player.Location),
-                    "BEH" => new Runes.BEH(player, player.Location),
-                    "DEBUG" => new Runes.DEBUG(player, player.Location),
-                    _ => throw new SpellParsingException($"unknown rune {s}")
+                    case "ZU": runes.Add(new ZU(player, player.Location)); break;
+                    case "BEH": runes.Add(new BEH(player, player.Location)); break;
+                    case "DEBUG": runes.Add(new DEBUG(player, player.Location)); break;
+                    default: return $"unknown rune {runeString}";
                 }
-            );
+            }
+            return runes;
         }
 
-        public static (RunePhrase, IEnumerable<Rune>) ParseRunes(Player player, IEnumerable<Rune> runes)
+        public static OneOf<(RunePhrase, IEnumerable<Rune>), string> ParseRunes(Player player, IEnumerable<Rune> runes)
         {
             if (!runes.Any())
             {
-                throw new SpellParsingException("expected runes but ran out");
+                return "expected runes but ran out";
             }
             return runes.First().Parse(player, runes.Skip(1));
         }
