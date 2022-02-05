@@ -11,7 +11,7 @@ namespace Tests
     public class ZuBehTests
     {
         [Test]
-        public void ZuBehWithValidTarget()
+        public void ZuBehWithValidReference()
         {
             var room = new Room("room", "room");
             var player = new Player(0, "player", room);
@@ -28,7 +28,7 @@ namespace Tests
         }
 
         [Test]
-        public void ZuBehWithValidButInvalidTarget()
+        public void ZuBehWithInvalidReferenceInscription()
         {
             var room = new Room("room", "room");
             var player = new Player(0, "player", room);
@@ -45,7 +45,7 @@ namespace Tests
         }
 
         [Test]
-        public void ZuBehWithInvalidTarget()
+        public void ZuBehWithInvalidReferenceType()
         {
             var room = new Room("room", "room");
             var player = new Player(0, "player", room);
@@ -57,6 +57,32 @@ namespace Tests
 
             if (parsed.IsError) Assert.Fail(parsed.Error);
             else Assert.IsNotNull(parsed.Result.root.Eval().Success);
+        }
+
+        [Test]
+        public void ZuBehWithoutReference()
+        {
+            var room = new Room("room", "room");
+            var player = new Player(0, "player", room);
+
+            var spellstring = "ZU BEH";
+            var parsed = new SpellParser().Parse(player, spellstring);
+
+            if (parsed.IsError) Assert.Fail(parsed.Error);
+            else Assert.IsNotNull(parsed.Result.root.Eval().Success);
+        }
+
+        [Test]
+        public void ZuDebug()
+        {
+            var room = new Room("room", "room");
+            var player = new Player(0, "player", room);
+
+            var spellstring = "ZU DEBUG";
+            var parsed = new SpellParser().Parse(player, spellstring);
+
+            if (parsed.IsError) Assert.Fail(parsed.Error);
+            else Assert.IsNotNull(parsed.Result.root.Eval());
         }
 
         [Test]
