@@ -12,9 +12,9 @@ namespace World.Magic.Runes
     {
         public BEH(Player caster, Room room) : base(caster, room) { }
 
-        public override ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> runes)
+        public override ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> remainder)
         {
-            return (new RunePhrase(this), runes.Skip(1));
+            return (new RunePhrase(this), remainder);
         }
         public override EvalResult Eval(RunePhrase sn)
         {

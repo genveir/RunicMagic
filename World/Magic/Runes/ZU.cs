@@ -12,17 +12,17 @@ namespace World.Magic.Runes
     {
         public ZU(Player caster, Room room) : base(caster, room) { }
 
-        public override ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> runes)
+        public override ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> remainder)
         {
-            var parseResult = parser.ParseRunes(player, runes);
+            var parseResult = parser.ParseRunes(player, remainder);
             if (parseResult.IsError) return parseResult.Error;
 
-            var (arg, remainder) = parseResult.Result;
+            var (arg, parseRemainder) = parseResult.Result;
             if (!arg._rune.IsReference && !arg._rune.IsEffect)
             {
                 return "target of ZU cannot resolve to an effect";
             }
-            return (new RunePhrase(this, new[] { arg }), remainder);
+            return (new RunePhrase(this, new[] { arg }), parseRemainder);
         }
 
         public override EvalResult Eval(RunePhrase sn)

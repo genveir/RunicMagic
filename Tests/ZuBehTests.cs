@@ -58,5 +58,19 @@ namespace Tests
             if (parsed.IsError) Assert.Fail(parsed.Error);
             else Assert.IsNotNull(parsed.Result.root.Eval().Success);
         }
+
+        [Test]
+        public void ZuDebugDebug()
+        {
+            var room = new Room("room", "room");
+            var player = new Player(0, "player", room);
+
+            player.Point(player);
+
+            var spellstring = "ZU DEBUG DEBUG";
+            var parsed = new SpellParser().Parse(player, spellstring);
+
+            Assert.IsTrue(parsed.IsError);
+        }
     }
 }
