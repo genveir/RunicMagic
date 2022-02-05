@@ -10,7 +10,7 @@ namespace World.Magic.Runes
 {
     public class ZU : Rune
     {
-        public ZU(Player caster, Room room) : base(caster, room, RuneType.Castable) { }
+        public ZU(Player caster, Room room) : base(caster, room, RuneType.Effect, RuneType.Castable) { }
 
         public override ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> remainder)
         {
@@ -18,7 +18,7 @@ namespace World.Magic.Runes
             if (parseResult.IsError) return parseResult.Error;
 
             var (arg, parseRemainder) = parseResult.Result;
-            var argtype = arg._rune.type;
+            var argtype = arg._rune.ResultType();
             if (argtype != RuneType.Reference && argtype != RuneType.Effect)
             {
                 return "target of ZU cannot resolve to an effect";
@@ -34,7 +34,7 @@ namespace World.Magic.Runes
             {
                 return EvalResult.Fail();
             }
-            var argtype = arg._rune.type;
+            var argtype = arg._rune.ResultType();
             if (argtype == RuneType.Effect)
             {
                 return arg.Eval();

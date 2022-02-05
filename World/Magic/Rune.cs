@@ -4,6 +4,7 @@ using SharedUtil;
 using World.Creatures;
 using World.Plugins;
 using World.Rooms;
+using System.Linq;
 
 namespace World.Magic
 {
@@ -11,9 +12,9 @@ namespace World.Magic
     {
         protected Player caster;
         protected Room room;
-        public RuneType type {get;}
+        public RuneType[] type {get;}
 
-        protected Rune(Player caster, Room room, RuneType type)
+        protected Rune(Player caster, Room room, params RuneType[] type)
         {
             this.caster = caster;
             this.room = room;
@@ -22,6 +23,11 @@ namespace World.Magic
 
         public abstract ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> remainder);
         public abstract EvalResult Eval(RunePhrase sn);
+
+        public RuneType ResultType()
+        {
+            return this.type.Last();
+        }
 
     }
 }
