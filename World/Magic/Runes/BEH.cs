@@ -10,7 +10,7 @@ namespace World.Magic.Runes
 {
     public class BEH : Rune
     {
-        public BEH(Player caster, Room room) : base(caster, room) { }
+        public BEH(Player caster, Room room) : base(caster, room, RuneType.Reference) { }
 
         public override ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> remainder)
         {
@@ -21,7 +21,5 @@ namespace World.Magic.Runes
             var player = this.caster;
             return EvalResult.Succeed(player.Target);
         }
-
-        public override bool IsReference => true;
     }
 }

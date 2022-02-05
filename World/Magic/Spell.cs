@@ -13,7 +13,7 @@ namespace World.Magic
 
         public void GetSpoken(Player player)
         {
-            if (!this.root._rune.IsCastable)
+            if (this.root._rune.type != RuneType.Castable)
             {
                 player.Echo("But nothing happens!");
                 return;

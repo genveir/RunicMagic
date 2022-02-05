@@ -11,18 +11,17 @@ namespace World.Magic
     {
         protected Player caster;
         protected Room room;
+        public RuneType type {get;}
 
-        protected Rune(Player caster, Room room)
+        protected Rune(Player caster, Room room, RuneType type)
         {
             this.caster = caster;
             this.room = room;
+            this.type = type;
         }
 
         public abstract ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> remainder);
         public abstract EvalResult Eval(RunePhrase sn);
 
-        public virtual bool IsCastable => false;
-        public virtual bool IsReference => false;
-        public virtual bool IsEffect => false;
     }
 }

@@ -10,7 +10,7 @@ namespace World.Magic.Runes
 {
     public class ZU : Rune
     {
-        public ZU(Player caster, Room room) : base(caster, room) { }
+        public ZU(Player caster, Room room) : base(caster, room, RuneType.Castable) { }
 
         public override ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> remainder)
         {
@@ -18,7 +18,8 @@ namespace World.Magic.Runes
             if (parseResult.IsError) return parseResult.Error;
 
             var (arg, parseRemainder) = parseResult.Result;
-            if (!arg._rune.IsReference && !arg._rune.IsEffect)
+            var argtype = arg._rune.type;
+            if (argtype != RuneType.Reference && argtype != RuneType.Effect)
             {
                 return "target of ZU cannot resolve to an effect";
             }
@@ -33,11 +34,12 @@ namespace World.Magic.Runes
             {
                 return EvalResult.Fail();
             }
-            if (arg._rune.IsEffect)
+            var argtype = arg._rune.type;
+            if (argtype == RuneType.Effect)
             {
                 return arg.Eval();
             }
-            if (arg._rune.IsReference)
+            if (argtype == RuneType.Reference)
             {
                 // TODO: for now we use BEH, which points to ITargetable.
                 // other runes could refer by different means, for example:
@@ -53,6 +55,5 @@ namespace World.Magic.Runes
             return EvalResult.Fail();
         }
 
-        public override bool IsCastable => true;
     }
 }
