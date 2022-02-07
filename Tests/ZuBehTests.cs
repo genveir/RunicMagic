@@ -12,7 +12,7 @@ namespace Tests
         [Test]
         public void ZuBehWithValidTarget()
         {
-            var room = new Room("room", "room");
+            var room = new Room(0, "room", "room");
             var player = new Player(0, "player", room);
 
             var inscription = new Inscription(0, TargetingKeywords.From("ins"), "ins", "ins", "ins", new Spellnode(new DEBUG(player, room)));
@@ -30,7 +30,7 @@ namespace Tests
         [Test]
         public void ZuBehWithValidButInvalidTarget()
         {
-            var room = new Room("room", "room");
+            var room = new Room(0, "room", "room");
             var player = new Player(0, "player", room);
 
             var inscription = new Inscription(0, TargetingKeywords.From("ins"), "ins", "ins", "ins", new Spellnode(new ZU(player, room)));
@@ -48,7 +48,7 @@ namespace Tests
         [Test]
         public void ZuBehWithInvalidTarget()
         {
-            var room = new Room("room", "room");
+            var room = new Room(0, "room", "room");
             var player = new Player(0, "player", room);
 
             player.Point(player);

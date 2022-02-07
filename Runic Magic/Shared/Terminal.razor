@@ -1,4 +1,4 @@
-﻿@inject PlayerService player
+﻿@inject LoginService loginService
 
 <Xterm @ref="_terminal"
        Options="_options"
@@ -6,6 +6,7 @@
        OnKey="@OnKey" />
 
 @code {
+    private PlayerService player = null!;
     private Xterm _terminal = null!; // boeee
 
     private TerminalOptions _options = new TerminalOptions
@@ -17,9 +18,11 @@
             Columns = 180
         };
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        if (player == null) throw new PlayerNotInjectedException("Terminal was created without player service");
+        if (loginService == null) throw new LoginServiceNotInjectedException("Terminal was created without login service");
+
+        player = await loginService.CreatePlayerService("Naam");
 
         player.DataAvailable += HandleDataUpdate;
         player.TickDone += WriteData;

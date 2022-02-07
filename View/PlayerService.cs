@@ -16,14 +16,13 @@ namespace View
 
         public string Prompt => DescriptorGenerators.GetPrompt(Player);
 
-        public PlayerService(PlayerFactory playerFactory)
+        internal PlayerService(Player player)
         {
+            Player = player;
+
             _playerEventHandler = new PlayerEventHandler(this);
-            Player = playerFactory.CreatePlayer();
 
-            Player.Initialize(_playerEventHandler);
-
-            WorldRunner.PlayerServices.Add(this);
+            player.Initialize(_playerEventHandler);
         }
 
         public Queue<string> Commands { get; } = new Queue<string>();

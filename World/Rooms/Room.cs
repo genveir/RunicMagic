@@ -23,8 +23,9 @@ namespace World.Rooms
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public Room(string name, string description)
+        public Room(long id, string name, string description)
         {
+            Id = id;
             Name = name.Trim();
             Description = description.Trim();
         }

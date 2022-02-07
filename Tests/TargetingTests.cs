@@ -12,7 +12,7 @@ namespace Tests
         [Test]
         public void CanSeeMyTargetIsAnInscription()
         {
-            var room = new Room("room", "room");
+            var room = new Room(0, "room", "room");
             var player = new Player(0, "player", room);
 
             var inscription = new Inscription(0, new[] { TargetingKeyword.From("ins") }, "ins", "ins", "ins", new Spellnode(new ZU(player, room)));
@@ -28,7 +28,7 @@ namespace Tests
         [Test]
         public void CanSeeMyTargetIsNotAnInscription()
         {
-            var room = new Room("room", "room");
+            var room = new Room(0, "room", "room");
             var player = new Player(0, "player", room);
 
             player.Point(player);

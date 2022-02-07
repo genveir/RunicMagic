@@ -44,8 +44,7 @@ namespace Runic_Magic
             EngineServiceRegistry.RegisterServices(services);
             PersistenceServiceRegistry.RegisterServices(services);
 
-            services.AddScoped<CircuitHandler, CircuitHandlerService>();
-            services.AddScoped<PlayerService>();
+            services.AddScoped<LoginService>();
         }
     }
 }

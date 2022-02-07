@@ -9,6 +9,6 @@ namespace Engine.Plugins
 {
     public interface IPersistedWorld
     {
-        Room StartingRoom { get; }
+        Task<Room> GetStartingRoom();
     }
 }

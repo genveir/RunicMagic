@@ -17,9 +17,11 @@ namespace Engine
             _persistedWorld = persistedWorld;
         }
 
-        public Player CreatePlayer()
+        public async Task<Player> CreatePlayer(string name)
         {
-            return new Player(0, "Naam", _persistedWorld.StartingRoom);
+            var startingRoom = await _persistedWorld.GetStartingRoom();
+
+            return new Player(0, name, startingRoom);
         }
     }
 }
