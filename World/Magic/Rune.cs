@@ -1,6 +1,10 @@
 using System.Collections.Generic;
+using OneOf;
+using SharedUtil;
 using World.Creatures;
+using World.Plugins;
 using World.Rooms;
+using System.Linq;
 
 namespace World.Magic
 {
@@ -8,18 +12,22 @@ namespace World.Magic
     {
         protected Player caster;
         protected Room room;
+        public RuneType[] type {get;}
 
-        protected Rune(Player caster, Room room)
+        protected Rune(Player caster, Room room, params RuneType[] type)
         {
             this.caster = caster;
             this.room = room;
+            this.type = type;
         }
 
-        public abstract (Spellnode, IEnumerable<Rune>) Parse(Player player, IEnumerable<Rune> runes);
-        public abstract EvalResult Eval(Spellnode sn);
+        public abstract ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> remainder);
+        public abstract EvalResult Eval(RunePhrase sn);
 
-        public virtual bool IsCastable => false;
-        public virtual bool IsReference => false;
-        public virtual bool IsEffect => false;
+        public RuneType ResultType()
+        {
+            return this.type.Last();
+        }
+
     }
 }

@@ -33,7 +33,7 @@ namespace Persistence
 A giant glowing rock is standing in the middle of the room. Swirly
 patterns of light fade in and out in complicated patterns.".TrimStart(), secondRoom));
 
-            var casterCreator = new Player(0, "The Godly Creator", secondRoom);
+            var casterCreator = new Player(0, "Castramus", secondRoom);
             secondRoom.Inscriptions.Add(new Inscription(0, TargetingKeywords.From("inscription"), "an inscription",
                 "A magical inscription has been carved into the wall", $"The inscription reads\n\n\u001b[31;1mDEBUG\u001b[0m",
                 RuneParser.ParseRunes(casterCreator, new[] { new DEBUG(casterCreator, secondRoom) }).Item1));

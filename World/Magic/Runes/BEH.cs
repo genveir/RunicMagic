@@ -1,24 +1,25 @@
 using System.Collections.Generic;
 using System.Linq;
+using OneOf;
+using SharedUtil;
 using World.Creatures;
+using World.Plugins;
 using World.Rooms;
 
 namespace World.Magic.Runes
 {
     public class BEH : Rune
     {
-        public BEH(Player caster, Room room) : base(caster, room) { }
+        public BEH(Player caster, Room room) : base(caster, room, RuneType.Reference) { }
 
-        public override (Spellnode, IEnumerable<Rune>) Parse(Player player, IEnumerable<Rune> runes)
+        public override ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> remainder)
         {
-            return (new Spellnode(this), runes.Skip(1));
+            return (new RunePhrase(this), remainder);
         }
-        public override EvalResult Eval(Spellnode sn)
+        public override EvalResult Eval(RunePhrase sn)
         {
             var player = this.caster;
             return EvalResult.Succeed(player.Target);
         }
-
-        public override bool IsReference => true;
     }
 }

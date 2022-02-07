@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "Persistence\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "View\View.csproj", "{8088C1EA-6D47-4209-93FD-8566FE0DB06B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{D9F7E517-0952-49A8-BCDB-BB553F97A4DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{D9F7E517-0952-49A8-BCDB-BB553F97A4DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedUtil", "SharedUtil\SharedUtil.csproj", "{BE10849C-529B-41AA-92BB-E2E2CC3D3CA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{D9F7E517-0952-49A8-BCDB-BB553F97A4DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9F7E517-0952-49A8-BCDB-BB553F97A4DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9F7E517-0952-49A8-BCDB-BB553F97A4DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE10849C-529B-41AA-92BB-E2E2CC3D3CA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE10849C-529B-41AA-92BB-E2E2CC3D3CA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE10849C-529B-41AA-92BB-E2E2CC3D3CA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE10849C-529B-41AA-92BB-E2E2CC3D3CA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

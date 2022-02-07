@@ -1,27 +1,32 @@
 using System.Collections.Generic;
 using System.Linq;
+using OneOf;
+using SharedUtil;
 using World.Creatures;
+using World.Plugins;
 using World.Rooms;
 
 namespace World.Magic.Runes
 {
     public class ZU : Rune
     {
+        public ZU(Player caster, Room room) : base(caster, room, RuneType.Effect, RuneType.Castable) { }
 
-        public ZU(Player caster, Room room) : base(caster, room) { }
-
-        public override (Spellnode, IEnumerable<Rune>) Parse(Player player, IEnumerable<Rune> runes)
+        public override ResultOrError<(RunePhrase, IEnumerable<Rune>)> Parse(ISpellParser parser, Player player, IEnumerable<Rune> remainder)
         {
-            var (arg, remainder) = RuneParser.ParseRunes(player, runes);
-            if (!arg._rune.IsReference && !arg._rune.IsEffect)
+            var parseResult = parser.ParseRunes(player, remainder);
+            if (parseResult.IsError) return parseResult.Error;
+
+            var (arg, parseRemainder) = parseResult.Result;
+            var argtype = arg._rune.ResultType();
+            if (argtype != RuneType.Reference && argtype != RuneType.Effect)
             {
-                player.Echo("But nothing happens!");
-                throw new RuneParseException("target of ZU cannot resolve to an effect");
+                return "target of ZU cannot resolve to an effect";
             }
-            return (new Spellnode(this, new[] { arg }), remainder);
+            return (new RunePhrase(this, new[] { arg }), parseRemainder);
         }
 
-        public override EvalResult Eval(Spellnode sn)
+        public override EvalResult Eval(RunePhrase sn)
         {
             var arg = sn._children?.First();
 
@@ -29,11 +34,12 @@ namespace World.Magic.Runes
             {
                 return EvalResult.Fail();
             }
-            if (arg._rune.IsEffect)
+            var argtype = arg._rune.ResultType();
+            if (argtype == RuneType.Effect)
             {
                 return arg.Eval();
             }
-            if (arg._rune.IsReference)
+            if (argtype == RuneType.Reference)
             {
                 // TODO: for now we use BEH, which points to ITargetable.
                 // other runes could refer by different means, for example:
@@ -49,6 +55,5 @@ namespace World.Magic.Runes
             return EvalResult.Fail();
         }
 
-        public override bool IsCastable => true;
     }
 }

@@ -10,4 +10,8 @@
     <PackageReference Include="ValueOf" Version="2.0.21" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SharedUtil\SharedUtil.csproj" />
+  </ItemGroup>
+
 </Project>

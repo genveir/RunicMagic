@@ -18,9 +18,9 @@ namespace World.Magic
         public TargetingKeyword[] TargetingKeywords { get; }
         public OneOf<Creature, RoomObject, Inscription> ReferenceWhenTargeted => this;
 
-        public Spellnode InscribedSpell;
+        public RunePhrase InscribedSpell;
 
-        public Inscription(long id, TargetingKeyword[] targetingKeywords, string shortDesc, string longDesc, string lookDesc, Spellnode inscribedSpell)
+        public Inscription(long id, TargetingKeyword[] targetingKeywords, string shortDesc, string longDesc, string lookDesc, RunePhrase inscribedSpell)
         {
             Id = id;
             TargetingKeywords = targetingKeywords;

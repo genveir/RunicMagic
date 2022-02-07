@@ -4,16 +4,16 @@ namespace World.Magic
 {
     public class Spell
     {
-        public Spellnode root;
+        public RunePhrase root;
 
-        public Spell(Spellnode root)
+        public Spell(RunePhrase root)
         {
             this.root = root;
         }
 
-        public void Cast(Player player)
+        public void GetSpoken(Player player)
         {
-            if (!this.root._rune.IsCastable)
+            if (this.root._rune.ResultType() != RuneType.Castable)
             {
                 player.Echo("But nothing happens!");
                 return;
