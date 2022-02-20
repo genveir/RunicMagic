@@ -33,7 +33,7 @@ namespace World.Magic
             }
             // assumption: only have cost when have an action
             var resources = result.PossibleSources(player);
-            var completelyConsumed = this.consume(result.Cost, resources);
+            var completelyConsumed = this.Consume(result.Cost, resources);
             if (!completelyConsumed)
             {
                 player.Echo("Your spell fizzles!");
@@ -42,13 +42,13 @@ namespace World.Magic
             result.Action();
         }
 
-        public bool consume(long cost, IPowerSource[] resources)
+        public bool Consume(long cost, IPowerSource[] resources)
         {
             foreach (IPowerSource ps in resources)
             {
-                var actualConsumption = ps.consumeTotal(cost);
+                var actualConsumption = ps.ConsumeTotal(cost);
                 cost -= actualConsumption;
-                if (cost == 0)
+                if (cost <= 0)
                 {
                     break;
                 }

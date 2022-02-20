@@ -20,7 +20,8 @@ namespace World.Magic.Runes
         {
             var player = this.caster;
 
-            return EvalResult.SucceedWithAction(() => player.Location.Echo($"{player.Description.ShortDesc} Debug!"));
+            return EvalResult.SucceedWithAction(() => player.Location.Echo($"{player.Description.ShortDesc} Debug!"))
+                .WithCost(40);
         }
     }
 }

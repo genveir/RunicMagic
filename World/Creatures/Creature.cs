@@ -67,7 +67,7 @@ namespace World.Creatures
             }
         }
 
-        public virtual long consumeTotal(long cost)
+        public virtual long ConsumeTotal(long cost)
         {
             return 0;
         }

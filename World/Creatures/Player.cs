@@ -101,7 +101,7 @@ namespace World.Creatures
             base.Point(target);
         }
 
-        public override long consumeTotal(long cost)
+        public override long ConsumeTotal(long cost)
         {
             var hp = Math.Min(cost, this.HitPoints);
             this.HitPoints -= hp;
