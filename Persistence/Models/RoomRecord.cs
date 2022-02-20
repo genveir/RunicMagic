@@ -25,11 +25,14 @@ namespace Persistence.Models
 
         public ICollection<RoomLinkRecord> Links { get; set; }
 
+        public ICollection<ObjectRecord> Objects { get; set; }
+
 
 #nullable disable
         public RoomRecord()
         {
             Links = new List<RoomLinkRecord>();
+            Objects = new List<ObjectRecord>();
         }
 
         public RoomRecord(long areaId, string name, string roomDesc) : this()

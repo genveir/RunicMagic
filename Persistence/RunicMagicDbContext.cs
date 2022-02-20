@@ -14,6 +14,8 @@ namespace Persistence
     {
         public DbSet<RoomRecord> Rooms { get; set; }
         public DbSet<RoomLinkRecord> RoomLinks { get; set; }
+        public DbSet<ObjectRecord> Objects { get; set; }
+        public DbSet<DescriptionRecord> Descriptions { get; set; }
 
         public RunicMagicDbContext(DbContextOptions<RunicMagicDbContext> options) : base(options)
         {
@@ -30,6 +32,10 @@ namespace Persistence
 
             modelBuilder.Entity<RoomLinkRecord>()
                 .HasOne(r => r.Target);
+
+            modelBuilder.Entity<ObjectRecord>()
+                .HasOne(r => r.Room)
+                .WithMany(r => r.Objects);
         }
     }
 }
