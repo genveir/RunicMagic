@@ -24,15 +24,36 @@ namespace World.Magic
             if (!result.Success)
             {
                 player.Echo("Your spell fizzles!");
+                return;
             }
-            else if (result.Action != null)
-            {
-                result.Action();
-            }
-            else
+            if (result.Action == null)
             {
                 player.Echo("Your spell returned: {result.Value}");
+                return;
             }
+            // assumption: only have cost when have an action
+            var resources = result.PossibleSources(player);
+            var completelyConsumed = this.Consume(result.Cost, resources);
+            if (!completelyConsumed)
+            {
+                player.Echo("Your spell fizzles!");
+                return;
+            }
+            result.Action();
+        }
+
+        public bool Consume(long cost, IPowerSource[] resources)
+        {
+            foreach (IPowerSource ps in resources)
+            {
+                var actualConsumption = ps.ConsumeTotal(cost);
+                cost -= actualConsumption;
+                if (cost <= 0)
+                {
+                    break;
+                }
+            }
+            return (cost==0);
         }
     }
 }
