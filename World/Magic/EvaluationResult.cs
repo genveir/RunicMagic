@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using World.Creatures;
 
 namespace World.Magic
 {
@@ -12,6 +13,8 @@ namespace World.Magic
         public object? Value { get; }
 
         public Action? Action { get; }
+
+        public long Cost { get; set; }
 
         private EvalResult(bool success, object? value)
         {
@@ -33,6 +36,17 @@ namespace World.Magic
         public static EvalResult SucceedWithAction(Action action)
         {
             return new EvalResult(true, action);
+        }
+
+        public EvalResult WithCost(long cost)
+        {
+            this.Cost = cost;
+            return this;
+        }
+
+        public IPowerSource[] PossibleSources(Player player)
+        {
+            return new IPowerSource[]{player};
         }
     }
 }

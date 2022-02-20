@@ -11,9 +11,9 @@ namespace World.Creatures
 {
     public class Player : Creature
     {
-        public int HitPoints { get; set; } = 100;
-        public int HitPointsMax { get; set; } = 100;
-        public int HitPointsRegen { get; set; } = 5;
+        public long HitPoints { get; set; } = 100;
+        public long HitPointsMax { get; set; } = 100;
+        public long HitPointsRegen { get; set; } = 5;
 
         public bool IsSpeaking { get; set; } = false;
         public Spell? SpellInProgress { get; set; }
@@ -99,6 +99,13 @@ namespace World.Creatures
         {
             if (target == null) Echo("You point at nothing!");
             base.Point(target);
+        }
+
+        public override long consumeTotal(long cost)
+        {
+            var hp = Math.Min(cost, this.HitPoints);
+            this.HitPoints -= hp;
+            return hp;
         }
 
         // commands that just fire an event

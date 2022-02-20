@@ -11,7 +11,7 @@ using World.Rooms;
 
 namespace World.Creatures
 {
-    public class Creature : ITargetable
+    public class Creature : ITargetable, IPowerSource
     {
         public long Id { get; }
         public TargetingKeyword[] TargetingKeywords { get; protected set; }
@@ -65,6 +65,11 @@ namespace World.Creatures
 
                 to.Enter(this, direction.Opposite());
             }
+        }
+
+        public virtual long consumeTotal(long cost)
+        {
+            return 0;
         }
     }
 }

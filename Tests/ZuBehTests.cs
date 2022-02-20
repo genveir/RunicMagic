@@ -62,7 +62,7 @@ namespace Tests
         [Test]
         public void ZuBehWithoutReference()
         {
-            var room = new Room("room", "room");
+            var room = new Room(0, "room", "room");
             var player = new Player(0, "player", room);
 
             var spellstring = "ZU BEH";
@@ -75,7 +75,7 @@ namespace Tests
         [Test]
         public void ZuDebug()
         {
-            var room = new Room("room", "room");
+            var room = new Room(0, "room", "room");
             var player = new Player(0, "player", room);
 
             var spellstring = "ZU DEBUG";
@@ -88,7 +88,7 @@ namespace Tests
         [Test]
         public void ZuDebugDebug()
         {
-            var room = new Room("room", "room");
+            var room = new Room(0, "room", "room");
             var player = new Player(0, "player", room);
 
             player.Point(player);
