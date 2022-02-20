@@ -108,6 +108,11 @@ namespace World.Creatures
             return hp;
         }
 
+        public void RegenerateHitpoints()
+        {
+            this.HitPoints = Math.Min(this.HitPointsMax, this.HitPoints + this.HitPointsRegen);
+        }
+
         // commands that just fire an event
         public void Look() => OnLook?.Invoke(Location);
         public void Quit() => OnQuit?.Invoke();

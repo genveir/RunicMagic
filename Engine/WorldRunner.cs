@@ -64,6 +64,11 @@ namespace Engine
 
             foreach (var playerService in PlayerServices)
             {
+                playerService.Player.RegenerateHitpoints();
+            }
+
+            foreach (var playerService in PlayerServices)
+            {
                 Speaking.ExecuteMagic(playerService.Player);
             }
 
