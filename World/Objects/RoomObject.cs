@@ -17,7 +17,7 @@ namespace World.Objects
         public Description Description { get; set; }
 
         public TargetingKeyword[] TargetingKeywords { get; set; }
-        public OneOf<Creature, RoomObject, Inscription> ReferenceWhenTargeted => this;
+        public OneOf<Creature, RoomObject> ReferenceWhenTargeted => this;
 
         public Room Location { get; set; }
 

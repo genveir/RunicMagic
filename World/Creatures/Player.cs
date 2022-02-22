@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using World.Magic;
+using World.Magic.Effects;
 using World.Plugins;
 using World.Rooms;
 
@@ -19,6 +20,7 @@ namespace World.Creatures
         public Spell? SpellInProgress { get; set; }
 
         public IPlayerWorldEventsHandler EventHandler { get; private set; } = null!; // haha booeee
+        public IMagicHandler MagicHandler { get; private set; } = null!;
 
         public Player(long id, string name, Room room) 
             : base(id, new[] { TargetingKeyword.From(name) }, name, $"{name} is here.", $"{name} looks very pretty.", room)
@@ -26,9 +28,10 @@ namespace World.Creatures
             
         }
 
-        public void Initialize(IPlayerWorldEventsHandler eventHandler)
+        public void Initialize(IPlayerWorldEventsHandler eventHandler, IMagicHandler magicHandler)
         {
             EventHandler = eventHandler;
+            MagicHandler = magicHandler;
 
             SubscribeToEvents();
 
@@ -70,7 +73,7 @@ namespace World.Creatures
             Location.PerformSpeak(this);
         }
 
-        public void ExecuteSpellStep()
+        public async Task ExecuteSpellStep()
         {
             // spell failed to parse
             if (SpellInProgress == null)
@@ -81,7 +84,16 @@ namespace World.Creatures
             else
             {
                 // TODO: rune per call
-                SpellInProgress.GetSpoken(this);
+                var effects = await MagicHandler.DoStep(SpellInProgress);
+
+                // TODO: handle errors better
+                if (effects.IsError)
+                {
+                    Echo("Spell went wrong!");
+                }
+                var result = effects.Result ?? Enumerable.Empty<ISpellEffect>();
+
+                foreach (var effect in result) effect.Execute(this);
 
                 // spell is done, no spell is in progress
                 SpellInProgress = null; 

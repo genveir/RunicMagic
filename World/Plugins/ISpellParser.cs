@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 using SharedUtil;
-using World.Creatures;
 using World.Magic;
 
 namespace World.Plugins
 {
     public interface ISpellParser
     {
-        ResultOrError<Spell> Parse(Player player, string spellstring);
-
-        ResultOrError<(RunePhrase, IEnumerable<Rune>)> ParseRunes(Player player, IEnumerable<Rune> runes);
+        Task<ResultOrError<Spell>> Parse(string spell);
     }
 }

@@ -35,7 +35,7 @@ namespace Engine
 
                     var next = DateTime.Now.Add(delay);
 
-                    DoTick();
+                    await DoTick();
 
                     delay = next - DateTime.Now;
                     if (delay < TimeSpan.Zero) delay = TimeSpan.Zero;
@@ -49,7 +49,7 @@ namespace Engine
             }
         }
 
-        private void DoTick()
+        private async Task DoTick()
         {
             foreach (var playerService in PlayerServices)
             {
@@ -58,7 +58,9 @@ namespace Engine
                     var command = playerService.Commands.Dequeue();
                     var player = playerService.Player;
 
-                    if (!_commandParser.Parse(player, command)) player.InvalidCommand(command);
+                    var canParse = await _commandParser.Parse(player, command);
+
+                    if (!canParse) player.InvalidCommand(command);
                 }
             }
 
@@ -69,7 +71,7 @@ namespace Engine
 
             foreach (var playerService in PlayerServices)
             {
-                Speaking.ExecuteMagic(playerService.Player);
+                await Speaking.ExecuteMagic(playerService.Player);
             }
 
             foreach (var playerService in PlayerServices)

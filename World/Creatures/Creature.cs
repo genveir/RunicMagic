@@ -11,11 +11,11 @@ using World.Rooms;
 
 namespace World.Creatures
 {
-    public class Creature : ITargetable, IPowerSource
+    public class Creature : ITargetable
     {
         public long Id { get; }
         public TargetingKeyword[] TargetingKeywords { get; protected set; }
-        public OneOf<Creature, RoomObject, Inscription> ReferenceWhenTargeted => this;
+        public OneOf<Creature, RoomObject> ReferenceWhenTargeted => this;
 
         public Room Location { get; set; }
         public Description Description { get; set; }

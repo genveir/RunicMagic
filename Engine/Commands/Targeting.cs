@@ -23,7 +23,6 @@ namespace Engine.Commands
             var possibleTargets = new List<ITargetable>();
             possibleTargets.AddRange(player.Location.Creatures);
             possibleTargets.AddRange(player.Location.Objects);
-            possibleTargets.AddRange(player.Location.Inscriptions);
 
             foreach (var target in possibleTargets)
             {
