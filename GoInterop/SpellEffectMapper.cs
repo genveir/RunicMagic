@@ -16,7 +16,7 @@ namespace GoInterop
             return dto.Type switch
             {
                 "Echo" => new Echo(dto.PayLoad),
-                "DamageCaster" => new DamageCaster(dto.PayLoad),
+                "DamageCaster" => new DamageCaster(long.Parse(dto.PayLoad)),
                 _ => new Echo($"unable to parse this effect type: {dto.Type}"),
             };
         }

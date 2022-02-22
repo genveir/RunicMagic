@@ -9,9 +9,9 @@ namespace World.Magic.Effects
 {
     public class DamageCaster : ISpellEffect
     {
-        private readonly int _amount;
+        private readonly long _amount;
 
-        public DamageCaster(int amount)
+        public DamageCaster(long amount)
         {
             _amount = amount;
         }

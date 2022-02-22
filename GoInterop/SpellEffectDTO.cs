@@ -11,7 +11,7 @@ namespace GoInterop
 #nullable disable
         public string Type { get; set; }
 
-        public dynamic PayLoad { get; set; }
+        public string PayLoad { get; set; }
 #nullable enable
     }
 }
