@@ -9,6 +9,6 @@ namespace World.Magic.Effects
 {
     public interface ISpellEffect
     {
-        void Execute(Player player);
+        void Execute(Creature caster);
     }
 }

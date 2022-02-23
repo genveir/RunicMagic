@@ -16,9 +16,9 @@ namespace World.Magic.Effects
             _text = text;
         }
 
-        public void Execute(Player player)
+        public void Execute(Creature caster)
         {
-            player.Location.Echo(_text);
+            caster.Location.Echo(_text);
         }
     }
 }

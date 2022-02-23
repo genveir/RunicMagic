@@ -16,9 +16,9 @@ namespace World.Magic.Effects
             _amount = amount;
         }
 
-        public void Execute(Player player)
+        public void Execute(Creature caster)
         {
-            player.ConsumeTotal(_amount);
+            caster.ConsumeTotal(_amount);
         }
     }
 }
