@@ -16,8 +16,6 @@ namespace World.Rooms
 
         public List<RoomObject> Objects { get; } = new List<RoomObject>();
 
-        public List<Inscription> Inscriptions { get; } = new List<Inscription>();
-
         public Room?[] LinkedRooms { get; } = new Room?[6];
 
         public string Name { get; set; }

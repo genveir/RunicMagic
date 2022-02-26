@@ -1,4 +1,5 @@
 using Engine;
+using GoInterop;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Server.Circuits;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +44,7 @@ namespace Runic_Magic
 
             EngineServiceRegistry.RegisterServices(services);
             PersistenceServiceRegistry.RegisterServices(services);
+            GoInteropServiceRegistry.RegisterServices(services);
 
             services.AddScoped<LoginService>();
         }

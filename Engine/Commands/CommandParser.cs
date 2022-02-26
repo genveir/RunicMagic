@@ -20,12 +20,12 @@ namespace Engine.Commands
             _spellParser = spellParser;
         }
 
-        public bool Parse(Player player, string command)
+        public async Task<bool> Parse(Player player, string command)
         {
             return
                 TryParseMovement(player, command) ||
                 TryParseSingleWordCommands(player, command) ||
-                TryParseMultiWordCommands(player, command);
+                await TryParseMultiWordCommands(player, command);
         }
 
         private static bool TryParseMovement(Player player, string command)
@@ -60,7 +60,7 @@ namespace Engine.Commands
             }
         }
 
-        private bool TryParseMultiWordCommands(Player player, string command)
+        private async Task<bool> TryParseMultiWordCommands(Player player, string command)
         {
             var split = command.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
 
@@ -75,7 +75,7 @@ namespace Engine.Commands
                     case "say":
                         player.Say(arguments); return true;
                     case "speak":
-                        Speaking.TryParse(_spellParser, player, arguments, out Spell? spell);
+                        (_, var spell) = await Speaking.TryParse(_spellParser, player, arguments);
                         player.Speak(spell);
                         return true;
                     case "rename":

@@ -15,7 +15,7 @@ namespace World
     {
         TargetingKeyword[] TargetingKeywords { get; }
 
-        OneOf<Creature, RoomObject, Inscription> ReferenceWhenTargeted { get; }
+        OneOf<Creature, RoomObject> ReferenceWhenTargeted { get; }
     }
 
     public static class TargetingKeywords

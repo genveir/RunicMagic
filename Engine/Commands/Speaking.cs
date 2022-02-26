@@ -11,17 +11,18 @@ namespace Engine.Commands
 {
     public class Speaking
     {
-        public static bool TryParse(ISpellParser parser, Player player, string spellstring, out Spell? spell)
+        public static async Task<(bool, Spell?)> TryParse(ISpellParser parser, Player player, string spellstring)
         {
-            var parsed = parser.Parse(player, spellstring);
+            var parsed = await parser.Parse(spellstring);
 
+            Spell? spell;
             if (parsed.IsError) spell = null;
             else spell = parsed.Result;
             
-            return !parsed.IsError;
+            return (!parsed.IsError, spell);
         }
 
-        public static void ExecuteMagic(Player player)
+        public static async Task ExecuteMagic(Player player)
         {
             if (!player.IsSpeaking && player.SpellInProgress != null)
             {
@@ -31,7 +32,7 @@ namespace Engine.Commands
 
             if (player.IsSpeaking)
             {
-                player.ExecuteSpellStep();
+                await player.ExecuteSpellStep();
             }
         }
     }

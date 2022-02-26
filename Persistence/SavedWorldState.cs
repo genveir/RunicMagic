@@ -8,8 +8,6 @@ using Persistence.Models;
 using World;
 using World.Creatures;
 using World.Magic;
-using World.Magic.Runes;
-using World.Objects;
 using World.Rooms;
 
 namespace Persistence
@@ -30,11 +28,6 @@ namespace Persistence
             var mappedRooms = LoadArea(0);
 
             var secondRoom = mappedRooms.Single(r => r.Name == "The second room");
-
-            var casterCreator = new Player(0, "Castramus", secondRoom);
-            secondRoom.Inscriptions.Add(new Inscription(0, TargetingKeywords.From("inscription"), "an inscription",
-                "A magical inscription has been carved into the wall", $"The inscription reads\n\n\u001b[31;1mDEBUG\u001b[0m",
-                new RunePhrase(new DEBUG(casterCreator, secondRoom))));
 
             return mappedRooms.Single(r => r.Name == "The starting room");
         }
